@@ -1,0 +1,9 @@
+Writers_Choice.egg-info/PKG-INFO
+Writers_Choice.egg-info/SOURCES.txt
+Writers_Choice.egg-info/dependency_links.txt
+Writers_Choice.egg-info/entry_points.txt
+Writers_Choice.egg-info/not-zip-safe
+Writers_Choice.egg-info/requires.txt
+Writers_Choice.egg-info/top_level.txt
+scripts/__init__.py
+scripts/initializedb.py
