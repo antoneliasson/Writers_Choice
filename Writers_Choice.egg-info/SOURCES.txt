@@ -3,6 +3,7 @@ MANIFEST.in
 README.txt
 development.ini
 production.ini
+requirements.txt
 setup.cfg
 setup.py
 Writers_Choice.egg-info/PKG-INFO
