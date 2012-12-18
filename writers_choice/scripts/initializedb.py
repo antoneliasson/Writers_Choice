@@ -11,7 +11,7 @@ from pyramid.paster import (
 
 from ..models import (
     DBSession,
-    MyModel,
+    Article,
     Base,
     )
 
@@ -33,5 +33,8 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = MyModel(name='one', value=1)
-        DBSession.add(model)
+        from datetime import date
+        article = Article(title='Testsida', body='''Ett stycke.
+
+Nästa stycke.''', published=date(2012, 12, 17))
+        DBSession.add(article)

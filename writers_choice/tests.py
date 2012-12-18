@@ -13,21 +13,30 @@ class TestMyView(unittest.TestCase):
         engine = create_engine('sqlite://')
         from .models import (
             Base,
-            MyModel,
+            Article,
             )
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
         with transaction.manager:
-            model = MyModel(name='one', value=55)
-            DBSession.add(model)
+            from datetime import date
+            article = Article(title='Testsida', body='''Ett stycke.
+
+Ett *stycke* till.''', published=date(2012, 12, 17))
+            DBSession.add(article)
 
     def tearDown(self):
         DBSession.remove()
         testing.tearDown()
 
-    def test_it(self):
-        from .views import my_view
-        request = testing.DummyRequest()
-        info = my_view(request)
-        self.assertEqual(info['one'].name, 'one')
-        self.assertEqual(info['project'], 'Writer\'s Choice')
+    # def test_it(self):
+    #     from .views import my_view
+    #     request = testing.DummyRequest()
+    #     info = my_view(request)
+    #     self.assertEqual(info['one'].name, 'one')
+    #     self.assertEqual(info['project'], 'Writer\'s Choice')
+
+    def test_article(self):
+        from .models import Article
+        article = DBSession.query(Article).filter(Article.id == 1).first()
+
+        self.assertEqual(article.title, 'Testsida')
