@@ -34,7 +34,6 @@ def main(argv=sys.argv):
     Base.metadata.create_all(engine)
     with transaction.manager:
         from datetime import date
-        article = Article(title='Testsida', body='''Ett stycke.
-
-Ett *stycke* till.''', published=date(2012, 1, 1))
+        article = Article(title='Testsida', body='Ett stycke.\n\nEtt *stycke* till.',
+                          published=date(2012, 1, 1))
         DBSession.add(article)

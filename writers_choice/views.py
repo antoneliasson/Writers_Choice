@@ -5,19 +5,28 @@ from sqlalchemy.exc import DBAPIError
 
 from .models import (
     DBSession,
-    MyModel,
+    Article,
     )
 
+from markdown import markdown
 
-@view_config(route_name='home', renderer='templates/mytemplate.pt')
-def my_view(request):
+@view_config(route_name='view_article', renderer='templates/view.pt')
+def view_article(request):
     try:
-        one = DBSession.query(MyModel).filter(MyModel.name == 'one').first()
+        id = request.matchdict['id']
+        article = DBSession.query(Article).filter_by(id=id).first()
+
+        title = article.title
+        body = markdown(article.body)
+        published = article.published.strftime('%Y-%m-%d')
+
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
-    return {'one': one, 'project': 'Writer\'s Choice'}
+    return {'title' : title, 'body' : body, 'published' : published}
 
 conn_err_msg = """\
+(Tabellen finns inte)
+
 Pyramid is having a problem using your SQL database.  The problem
 might be caused by one of the following things:
 

@@ -15,6 +15,7 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'markdown',
+    'WebTest',
     ]
 
 setup(name='Writers_Choice',

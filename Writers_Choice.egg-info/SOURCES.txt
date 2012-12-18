@@ -34,3 +34,4 @@ writers_choice/static/pyramid-small.png
 writers_choice/static/pyramid.png
 writers_choice/static/transparent.gif
 writers_choice/templates/mytemplate.pt
+writers_choice/templates/view.pt
