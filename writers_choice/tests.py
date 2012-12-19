@@ -79,5 +79,5 @@ class FunctionalTests(unittest.TestCase):
     def test_visit_article1(self):
         res = self.testapp.get('/1', status=200)
         self.assertIn(b'<h1>Testsida</h1>', res.body)
-        self.assertIn(b'<div id="published">2012-01-01</div>', res.body)
+        self.assertIn(b'<p>2012-01-01</p>', res.body)
         self.assertIn(b'<p>Ett <em>stycke</em> till.</p>', res.body)
