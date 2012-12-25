@@ -1,5 +1,0 @@
-      [paste.app_factory]
-      main = writers_choice:main
-      [console_scripts]
-      initialize_Writers_Choice_db = writers_choice.scripts.initializedb:main
-      
