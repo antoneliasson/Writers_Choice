@@ -64,6 +64,22 @@ class ViewArticleTests(unittest.TestCase):
                          '<p>Med kod:</p>\n<pre><code>cat fil1 &gt; fil2\n</code></pre>\n<p>och lite mer text.</p>')
         self.assertEqual(info['published'], '2012-01-02')
 
+class ViewAllTests(unittest.TestCase):
+    def setUp(self):
+        self.session = _initTestingDB()
+
+    def tearDown(self):
+        self.session.remove()
+
+    def test_view_all(self):
+        from .views import view_all
+        request = testing.DummyRequest()
+        info = view_all(request)
+        self.assertEqual(info['articles'][0]['title'], 'Testsida')
+        self.assertEqual(info['articles'][0]['published'], '2012-01-01')
+        self.assertEqual(info['articles'][1]['title'], 'Testsida två')
+        self.assertEqual(info['articles'][1]['published'], '2012-01-02')
+
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
         from writers_choice import main
@@ -81,3 +97,8 @@ class FunctionalTests(unittest.TestCase):
         self.assertIn(b'<h1>Testsida</h1>', res.body)
         self.assertIn(b'<p>2012-01-01</p>', res.body)
         self.assertIn(b'<p>Ett <em>stycke</em> till.</p>', res.body)
+
+    def test_visit_home(self):
+        res = self.testapp.get('/', status=200)
+        self.assertIn(b'<h1>Testsida</h1>', res.body)
+        self.assertIn('<h1>Testsida två</h1>', res.body.decode('utf-8'))

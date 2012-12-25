@@ -5,10 +5,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-  <h1 tal:content="title" />
-  <div class="published">
-    <p tal:content="published" />
+  <div tal:repeat="article articles">
+    <h1 tal:content="article.title" />
+    <div class="published">
+      <p tal:content="article.published" />
+    </div>
+    <div tal:content="structure:article.body" class="body" />
   </div>
-  <div tal:content="structure:body" class="body" />
 </body>
 </html>

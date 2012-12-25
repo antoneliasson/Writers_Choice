@@ -37,3 +37,5 @@ def main(argv=sys.argv):
         article = Article(title='Testsida', body='Ett stycke.\n\nEtt *stycke* till.',
                           published=date(2012, 1, 1))
         DBSession.add(article)
+        article = Article(title='Testsida två', body='Med kod:\n\n    cat fil1 > fil2\n\noch lite mer text.', published=date(2012, 1, 2))
+        DBSession.add(article)

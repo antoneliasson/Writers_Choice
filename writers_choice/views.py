@@ -22,8 +22,25 @@ def view_article(request):
 
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
-    return {'title' : title, 'body' : body, 'published' : published}
+    return  {'title' : title, 'body' : body, 'published' : published}
 
+@view_config(route_name='view_all', renderer='templates/view_all.pt')
+def view_all(request):
+    try:
+        articles = DBSession.query(Article)
+    except DBAPIError:
+        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+
+    compilation = list()
+    for article in articles:
+        current = dict()
+        current['title'] = article.title
+        current['body'] = markdown(article.body)
+        current['published'] = article.published.strftime('%Y-%m-%d')
+        compilation.append(current)
+
+    return {'articles' : compilation}
+    
 conn_err_msg = """\
 (Tabellen finns inte)
 
