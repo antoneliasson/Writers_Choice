@@ -8,21 +8,25 @@ from .models import (
     Article,
     )
 
-from markdown import markdown
+def format_article(article):
+    from markdown import markdown
+
+    title = article.title
+    body = markdown(article.body)
+    published = article.published.strftime('%Y-%m-%d')
+
+    return {'title' : title, 'body' : body, 'published' : published}
 
 @view_config(route_name='view_article', renderer='templates/view_article.pt')
 def view_article(request):
     try:
         id = request.matchdict['id']
         article = DBSession.query(Article).filter_by(id=id).first()
-
-        title = article.title
-        body = markdown(article.body)
-        published = article.published.strftime('%Y-%m-%d')
-
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
-    return  {'title' : title, 'body' : body, 'published' : published}
+
+    formatted = format_article(article)
+    return formatted
 
 @view_config(route_name='view_all', renderer='templates/view_all.pt')
 def view_all(request):
@@ -33,11 +37,8 @@ def view_all(request):
 
     compilation = list()
     for article in articles:
-        current = dict()
-        current['title'] = article.title
-        current['body'] = markdown(article.body)
-        current['published'] = article.published.strftime('%Y-%m-%d')
-        compilation.append(current)
+        formatted = format_article(article)
+        compilation.append(formatted)
 
     return {'articles' : compilation}
     
