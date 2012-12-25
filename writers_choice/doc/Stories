@@ -4,8 +4,9 @@ Planering
  Iteration  | Stories
 ------------|---------
  1          | 1, 2
- 2          | 3
- 3          | 
+ 2-4        | 3-5
+
+Intervallen anger en story per iteration (story:erna implementeras en i taget i tur och ordning).
 
 Story 1
 =======
@@ -62,3 +63,31 @@ Ny mall `add`. Denna visar en HTML-form med två textrutor. Mallen tar en länk 
 Task 4.3
 --------
 Rutten /add kopplas till vyn `add`.
+
+Task 4.4
+--------
+På startsidan visas en statisk länk till vyn `add`.
+
+Story 5
+=======
+Användaren kan redigera befintliga sidor genom att besöka webbadressen `http://<url>/edit/<id>`. På denna sida finns textrutor för rubrik och brödtext precis som i story 4. Här är de ifyllda med de befintliga värdena.
+
+Task 5.1
+--------
+Ny vy `edit`. Denna fungerar precis som `add` men plockar först ut den befintliga artikeln ur databasen (baserat på dess id) och returnerar den tillsammans med en länk till sig själv för att spara artikeln. POST till sig själv hanteras som i Story 4.
+
+Task 5.2
+--------
+Ny mall `edit`. Denna fungerar som mallen `add` men textrutorna fylls i vid laddning.
+
+Task 5.3
+--------
+Rutten /edit/{id} kopplas till vyn `edit`.
+
+Task 5.4
+--------
+Vyn `view_article` redigeras för att även returnera en länk till `edit`-vyn för aktuell artikel.
+
+Task 5.5
+--------
+Mallen `view_article` redigeras för att visa en länk till `edit`-vyn för aktuell artikel.
