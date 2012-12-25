@@ -22,7 +22,7 @@ def view_article(request):
 
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
-    return {'article' : {'title' : title, 'body' : body, 'published' : published}}
+    return  {'title' : title, 'body' : body, 'published' : published}
 
 @view_config(route_name='view_all', renderer='templates/view_all.pt')
 def view_all(request):

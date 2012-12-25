@@ -49,20 +49,20 @@ class ViewArticleTests(unittest.TestCase):
         request = testing.DummyRequest()
         request.matchdict['id'] = 1
         info = view_article(request)
-        self.assertEqual(info['article']['title'], 'Testsida')
-        self.assertEqual(info['article']['body'],
+        self.assertEqual(info['title'], 'Testsida')
+        self.assertEqual(info['body'],
                          '<p>Ett stycke.</p>\n<p>Ett <em>stycke</em> till.</p>')
-        self.assertEqual(info['article']['published'], '2012-01-01')
+        self.assertEqual(info['published'], '2012-01-01')
 
     def test_view_article2(self):
         from .views import view_article
         request = testing.DummyRequest()
         request.matchdict['id'] = 2
         info = view_article(request)
-        self.assertEqual(info['article']['title'], 'Testsida två')
-        self.assertEqual(info['article']['body'],
+        self.assertEqual(info['title'], 'Testsida två')
+        self.assertEqual(info['body'],
                          '<p>Med kod:</p>\n<pre><code>cat fil1 &gt; fil2\n</code></pre>\n<p>och lite mer text.</p>')
-        self.assertEqual(info['article']['published'], '2012-01-02')
+        self.assertEqual(info['published'], '2012-01-02')
 
 class ViewAllTests(unittest.TestCase):
     def setUp(self):
