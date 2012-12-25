@@ -10,7 +10,7 @@ from .models import (
 
 from markdown import markdown
 
-@view_config(route_name='view_article', renderer='templates/view.pt')
+@view_config(route_name='view_article', renderer='templates/view_article.pt')
 def view_article(request):
     try:
         id = request.matchdict['id']
