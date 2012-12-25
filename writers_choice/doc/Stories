@@ -46,3 +46,19 @@ Kopiera mallen `view` till `view_all`. Sätt hela artikeln (h1, div id=published
 Task 3.3
 --------
 Rutten / kopplas till vyn `view_all`.
+
+Story 4
+=======
+Användaren kan lägga till nya artiklar genom att besöka webbadressen `http://<url>/add`. På denna sida finns textrutor för inmatning av den nya artikelns rubrik och brödtext.
+
+Task 4.1
+--------
+Ny vy `add`. Denna POSTar en ny artikel till sig själv. Om vyn anropas som ett resultat av en POST sparas den nya artikeln i databasen. Därefter skickas användaren till `view_article` för den aktuella artikeln. I annat fall returneras en länk till sig själv att använda för att spara artikeln.
+
+Task 4.2
+--------
+Ny mall `add`. Denna visar en HTML-form med två textrutor. Mallen tar en länk att använda till submitknappen.
+
+Task 4.3
+--------
+Rutten /add kopplas till vyn `add`.
