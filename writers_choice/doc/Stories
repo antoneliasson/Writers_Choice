@@ -1,0 +1,48 @@
+Planering
+=========
+
+ Iteration  | Stories
+------------|---------
+ 1          | 1, 2
+ 2          | 3
+ 3          | 
+
+Story 1
+=======
+Projektet använder MVC-ramverket Pyramid och utgår från mallen alchemy. Detta innebär att SQL Alchemy används som lagringsmekanism och URL Dispatch används för att koppla URL:er till vyer.
+
+Story 2
+=======
+Programmet hanterar artiklar. Varje artikel består av ett id-nummer, publikationsdatum, rubrik och brödtext. Brödtexten skrivs i Markdown. Användare kan visa en artikel genom att besöka webbadressen `http://<url>/<id>`.
+
+Task 2.1
+--------
+Ny modell `Article` bestående av fälten `id` (heltal, primär nyckel), `title` (sträng), `body` (mediumtext), `published` (tidsstämpel).
+
+Task 2.2
+--------
+Ny vy `view_article` som tar en artikels id-nummer som argument. Vyn returnerar en dictionary med artikelns rubrik, HTML-kompilerad brödtext och datum publicerad (formaterat som ÅÅÅÅ-MM-DD) som renderas med den nya mallen `view`.
+
+Task 2.3
+--------
+Ny mall `view` som utgår från standardmallen `mytemplate`. Den ska visa en artikels brödtext under dess publikationstid under dess rubrik.
+
+Task 2.4
+--------
+Rutten /{id} kopplas till vyn `view_article`.
+
+Story 3
+=======
+Användaren kan visa alla artiklar efter varandra sorterade efter publiceringsdatum (nyast överst) genom att besöka startsidan (`http://<url>/`). Startsidan kommer att ha flera h1-rubriker.
+
+Task 3.1
+--------
+Ny vy `view_all`. Den funkar på samma sätt som `view_article` men returnerar en lista av dictionaries bestående av title, published och body för varje artikel.
+
+Task 3.1
+--------
+Kopiera mallen `view` till `view_all`. Sätt hela artikeln (h1, div id=published, div id=body) i den nya mallen inom en div som repeteras för varje artikel i listan. Ändra id till class.
+
+Task 3.3
+--------
+Rutten / kopplas till vyn `view_all`.
