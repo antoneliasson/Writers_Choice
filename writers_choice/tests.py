@@ -4,6 +4,18 @@ from datetime import date
 
 from pyramid import testing
 
+## Models
+class ArticleTests(unittest.TestCase):
+    def test_article(self):
+        from .models import Article
+        article = Article('Testsida',
+                          body='Ett stycke.\n\nEtt *stycke* till.\n',
+                          published=date(2012, 1, 1))
+        self.assertEqual(article.title, 'Testsida')
+        self.assertEqual(article.body, 'Ett stycke.\n\nEtt *stycke* till.\n')
+        self.assertEqual(article.published, date(2012, 1, 1))
+
+## Views
 def _initTestingDB():
     from sqlalchemy import create_engine
     engine = create_engine('sqlite://')
@@ -25,25 +37,16 @@ def _initTestingDB():
         DBSession.add(article)
     return DBSession
 
-class ArticleTests(unittest.TestCase):
-    def test_article(self):
-        from .models import Article
-        article = Article('Testsida',
-                          body='Ett stycke.\n\nEtt *stycke* till.\n',
-                          published=date(2012, 1, 1))
-        self.assertEqual(article.title, 'Testsida')
-        self.assertEqual(article.body, 'Ett stycke.\n\nEtt *stycke* till.\n')
-        self.assertEqual(article.published, date(2012, 1, 1))
-
-class ViewArticleTests(unittest.TestCase):
+class AbstractViewTests(unittest.TestCase):
     def setUp(self):
-#        self.config = testing.setUp()
         self.session = _initTestingDB()
+        # testing.tearDown()
 
     def tearDown(self):
         self.session.remove()
-#        testing.tearDown()
+        # testing.tearDown()
 
+class ViewArticleTests(AbstractViewTests):
     def test_view_article1(self):
         from .views import view_article
         request = testing.DummyRequest()
@@ -64,13 +67,7 @@ class ViewArticleTests(unittest.TestCase):
                          '<p>Med kod:</p>\n<pre><code>cat fil1 &gt; fil2\n</code></pre>\n<p>och lite mer text.</p>')
         self.assertEqual(info['published'], '2012-01-02')
 
-class ViewAllTests(unittest.TestCase):
-    def setUp(self):
-        self.session = _initTestingDB()
-
-    def tearDown(self):
-        self.session.remove()
-
+class ViewAllTests(AbstractViewTests):
     def test_view_all(self):
         from .views import view_all
         request = testing.DummyRequest()
@@ -80,6 +77,7 @@ class ViewAllTests(unittest.TestCase):
         self.assertEqual(info['articles'][1]['title'], 'Testsida två')
         self.assertEqual(info['articles'][1]['published'], '2012-01-02')
 
+## Functional tests
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
         from writers_choice import main
