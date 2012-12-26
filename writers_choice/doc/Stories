@@ -54,19 +54,19 @@ Användaren kan lägga till nya artiklar genom att besöka webbadressen `http://
 
 Task 4.1
 --------
-Ny vy `add`. Denna POSTar en ny artikel till sig själv. Om vyn anropas som ett resultat av en POST sparas den nya artikeln i databasen. Därefter skickas användaren till `view_article` för den aktuella artikeln. I annat fall returneras en länk till sig själv att använda för att spara artikeln.
+Ny vy `add_article`. Denna POSTar en ny artikel till sig själv. Om vyn anropas som ett resultat av en POST sparas den nya artikeln i databasen. Därefter skickas användaren till `view_article` för den aktuella artikeln. I annat fall returneras en länk till sig själv att använda för att spara artikeln.
 
 Task 4.2
 --------
-Ny mall `add`. Denna visar en HTML-form med två textrutor. Mallen tar en länk att använda till submitknappen.
+Ny mall `add_article`. Denna visar en HTML-form med två textrutor. Mallen tar en länk att använda till submitknappen.
 
 Task 4.3
 --------
-Rutten /add kopplas till vyn `add`.
+Rutten /add kopplas till vyn `add_article`.
 
 Task 4.4
 --------
-På startsidan visas en statisk länk till vyn `add`.
+På startsidan visas en statisk länk till vyn `add_article`.
 
 Story 5
 =======
@@ -74,11 +74,11 @@ Användaren kan redigera befintliga sidor genom att besöka webbadressen `http:/
 
 Task 5.1
 --------
-Ny vy `edit`. Denna fungerar precis som `add` men plockar först ut den befintliga artikeln ur databasen (baserat på dess id) och returnerar den tillsammans med en länk till sig själv för att spara artikeln. POST till sig själv hanteras som i Story 4.
+Ny vy `edit`. Denna fungerar precis som `add_article` men plockar först ut den befintliga artikeln ur databasen (baserat på dess id) och returnerar den tillsammans med en länk till sig själv för att spara artikeln. POST till sig själv hanteras som i Story 4.
 
 Task 5.2
 --------
-Ny mall `edit`. Denna fungerar som mallen `add` men textrutorna fylls i vid laddning.
+Ny mall `edit`. Denna fungerar som mallen `add_article` men textrutorna fylls i vid laddning.
 
 Task 5.3
 --------
