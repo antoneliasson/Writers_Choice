@@ -41,7 +41,23 @@ def view_all(request):
         compilation.append(formatted)
 
     return {'articles' : compilation}
-    
+
+@view_config(route_name='add_article', renderer='templates/add_article.pt')
+def add_article(request):
+    if 'form.submitted' in request.params:
+        from datetime import datetime
+        from pyramid.httpexceptions import HTTPFound
+
+        title = request.params['title']
+        body = request.params['body']
+        published = datetime.now()
+        article = Article(title, body, published)
+        DBSession.add(article)
+        # let the DB fill in the id
+        DBSession.flush()
+
+        return HTTPFound(location = request.route_url('view_article', id=article.id))
+        
 conn_err_msg = """\
 (Tabellen finns inte)
 

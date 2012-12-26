@@ -54,11 +54,11 @@ Användaren kan lägga till nya artiklar genom att besöka webbadressen `http://
 
 Task 4.1
 --------
-Ny vy `add_article`. Denna POSTar en ny artikel till sig själv. Om vyn anropas som ett resultat av en POST sparas den nya artikeln i databasen. Därefter skickas användaren till `view_article` för den aktuella artikeln. I annat fall returneras en länk till sig själv att använda för att spara artikeln.
+Ny vy `add_article`. Denna POSTar en ny artikel till sig själv. Om vyn anropas som ett resultat av en POST sparas den nya artikeln i databasen. Därefter skickas användaren till `view_article` för den aktuella artikeln.
 
 Task 4.2
 --------
-Ny mall `add_article`. Denna visar en HTML-form med två textrutor. Mallen tar en länk att använda till submitknappen.
+Ny mall `add_article`. Denna visar en HTML-form med två textrutor. Submitknappen skickar till vyn `add_article`.
 
 Task 4.3
 --------

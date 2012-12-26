@@ -40,11 +40,11 @@ def _initTestingDB():
 class AbstractViewTests(unittest.TestCase):
     def setUp(self):
         self.session = _initTestingDB()
-        # testing.tearDown()
+        self.config = testing.setUp()
 
     def tearDown(self):
         self.session.remove()
-        # testing.tearDown()
+        testing.tearDown()
 
 class ViewArticleTests(AbstractViewTests):
     def test_view_article1(self):
@@ -77,6 +77,34 @@ class ViewAllTests(AbstractViewTests):
         self.assertEqual(info['articles'][1]['title'], 'Testsida två')
         self.assertEqual(info['articles'][1]['published'], '2012-01-02')
 
+class AddArticleTests(AbstractViewTests):
+    # def test_not_submitted(self):
+    #     from .views import add_article
+    #     request = testing.DummyRequest()
+    #     info = add_article(request)
+    #     self.assertEqual(info['save_url'], 'http://example.com/add')
+
+    def test_submitted(self):
+        from .views import add_article
+        from .models import Article
+        # self.config.add_route('add_article', '/add')
+        self.config.add_route('view_article', '/{id}')
+
+        request = testing.DummyRequest(
+            {'form.submitted' : True,
+             'title' : 'Ny sida',
+             'body' : 'Brödtext.'}
+        )
+        info = add_article(request)
+
+        article = self.session.query(Article).filter_by(title='Ny sida').first()
+        self.assertEqual(article.title, 'Ny sida')
+        self.assertEqual(article.body, 'Brödtext.')
+
+        from pyramid.httpexceptions import HTTPFound
+        self.assertIs(type(info), HTTPFound)
+        self.assertEqual(info.location, 'http://example.com/%d' % article.id)
+
 ## Functional tests
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
@@ -100,3 +128,14 @@ class FunctionalTests(unittest.TestCase):
         res = self.testapp.get('/', status=200)
         self.assertIn(b'<h1>Testsida</h1>', res.body)
         self.assertIn('<h1>Testsida två</h1>', res.body.decode('utf-8'))
+
+    def test_add_article(self):
+        res = self.testapp.get('/add', status=200)
+        self.assertIn(b'<h1>Add article</h1>', res.body)
+        self.assertIn(b'<input type="text" name="title"', res.body)
+        self.assertIn(b'<textarea name="body"', res.body)
+        self.assertIn(b'<input type="submit" action="http://example.com/add"', res.body)
+
+        res = self.testapp.post('/add', {'title' : 'Ny sida', 'body' : 'Brödtext.'}, status=302)
+        res = res.follow()
+        self.assertIn(b'<h1>Ny sida</h1>', body)
