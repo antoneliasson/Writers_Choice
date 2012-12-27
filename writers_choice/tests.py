@@ -128,6 +128,7 @@ class FunctionalTests(unittest.TestCase):
         res = self.testapp.get('/', status=200)
         self.assertIn(b'<h1>Testsida</h1>', res.body)
         self.assertIn('<h1>Testsida två</h1>', res.body.decode('utf-8'))
+        self.assertIn(b'<a href="http://localhost/add', res.body)
 
     def test_add_article(self):
         res = self.testapp.get('/add', status=200)
