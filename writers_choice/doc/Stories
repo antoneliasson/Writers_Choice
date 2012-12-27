@@ -91,3 +91,15 @@ Vyn `view_article` redigeras för att även returnera en länk till `edit`-vyn f
 Task 5.5
 --------
 Mallen `view_article` redigeras för att visa en länk till `edit`-vyn för aktuell artikel.
+
+Story 6
+=======
+Artiklarna ska visas sorterade efter publiceringsdatum, nyast först, på startsidan. Detta missades i implementationen av Story 2.
+
+Story 7
+=======
+På artikelvisningssidorna visas titeln som en h1-rubrik. Rubriker som förekommer i brödtexten börjar på h2 (för #) och fortsätter uppåt (mot högre ordningsnummer).
+
+Story 8
+=======
+På startsidan visas artiklarnas titlar som h2-rubriker. Rubriker som förekommer i brödtexten börjar på h3 (för #) och fortsätter uppåt (mot högre ordningsnummer).
