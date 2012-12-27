@@ -57,6 +57,7 @@ def add_article(request):
         DBSession.flush()
 
         return HTTPFound(location = request.route_url('view_article', id=article.id))
+    return {}
         
 conn_err_msg = """\
 (Tabellen finns inte)
