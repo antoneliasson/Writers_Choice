@@ -47,7 +47,7 @@ class AbstractViewTests(unittest.TestCase):
         testing.tearDown()
 
 class ViewArticleTests(AbstractViewTests):
-    def test_view_article1(self):
+    def test_view_article_1(self):
         from .views import view_article
         request = testing.DummyRequest()
         request.matchdict['id'] = 1
@@ -57,7 +57,7 @@ class ViewArticleTests(AbstractViewTests):
                          '<p>Ett stycke.</p>\n<p>Ett <em>stycke</em> till.</p>')
         self.assertEqual(info['published'], '2012-01-01')
 
-    def test_view_article2(self):
+    def test_view_article_2(self):
         from .views import view_article
         request = testing.DummyRequest()
         request.matchdict['id'] = 2
@@ -68,7 +68,7 @@ class ViewArticleTests(AbstractViewTests):
         self.assertEqual(info['published'], '2012-01-02')
 
 class ViewAllTests(AbstractViewTests):
-    def test_view_all(self):
+    def test_view_all_two_articles(self):
         from .views import view_all
         request = testing.DummyRequest()
         info = view_all(request)
@@ -118,7 +118,7 @@ class FunctionalTests(unittest.TestCase):
     def tearDown(self):
         self.session.remove()
 
-    def test_visit_article1(self):
+    def test_visit_article_1(self):
         res = self.testapp.get('/1', status=200)
         self.assertIn(b'<h1>Testsida</h1>', res.body)
         self.assertIn(b'<p>2012-01-01</p>', res.body)
