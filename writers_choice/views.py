@@ -44,7 +44,7 @@ def view_all(request):
 
 @view_config(route_name='add_article', renderer='templates/add_article.pt')
 def add_article(request):
-    if 'form.submitted' in request.params:
+    if 'title' in request.params:
         from datetime import datetime
         from pyramid.httpexceptions import HTTPFound
 
