@@ -82,7 +82,7 @@ class AddArticleTests(AbstractViewTests):
     #     from .views import add_article
     #     request = testing.DummyRequest()
     #     info = add_article(request)
-    #     self.assertEqual(info['save_url'], 'http://example.com/add')
+    #     self.assertEqual(info['submit_url'], 'http://example.com/add')
 
     def test_submitted(self):
         from .views import add_article
@@ -115,7 +115,7 @@ class EditArticleTests(AbstractViewTests):
 
         self.assertEqual(response.title, 'Testsida två')
         self.assertEqual(response.body, 'Med kod:\n\n    cat fil1 > fil2\n\noch lite mer text.')
-        self.assertEqual(response.save_url, 'http://example.com/edit/2')
+        self.assertEqual(response.submit_url, 'http://example.com/edit/2')
 
     def test_submit(self):
         from .views import edit_article
@@ -141,8 +141,8 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(article.published, old_published)
 
         from pyramid.httpexceptions import HTTPFound
-        self.assertIs(type(info), HTTPFound)
-        self.assertEqual(info.location, 'http://example.com/%d' % old_id)
+        self.assertIs(type(response), HTTPFound)
+        self.assertEqual(response.location, 'http://example.com/%d' % old_id)
 
 ## Functional tests
 class FunctionalTests(unittest.TestCase):
