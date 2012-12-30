@@ -74,23 +74,23 @@ Användaren kan redigera befintliga sidor genom att besöka webbadressen `http:/
 
 Task 5.1
 --------
-Ny vy `edit`. Denna fungerar precis som `add_article` men plockar först ut den befintliga artikeln ur databasen (baserat på dess id) och returnerar den tillsammans med en länk till sig själv för att spara artikeln. POST till sig själv hanteras som i Story 4.
+Ny vy `edit_article`. Denna fungerar precis som `add_article` men plockar först ut den befintliga artikeln ur databasen (baserat på dess id) och returnerar den tillsammans med en länk till sig själv för att spara artikeln. POST till sig själv hanteras som i Story 4.
 
 Task 5.2
 --------
-Ny mall `edit`. Denna fungerar som mallen `add_article` men textrutorna fylls i vid laddning.
+Ny mall `edit_article`. Denna fungerar som mallen `add_article` men textrutorna fylls i vid laddning.
 
 Task 5.3
 --------
-Rutten /edit/{id} kopplas till vyn `edit`.
+Rutten /edit/{id} kopplas till vyn `edit_article`.
 
 Task 5.4
 --------
-Vyn `view_article` redigeras för att även returnera en länk till `edit`-vyn för aktuell artikel.
+Vyn `view_article` redigeras för att även returnera en länk till `edit_article`-vyn för aktuell artikel.
 
 Task 5.5
 --------
-Mallen `view_article` redigeras för att visa en länk till `edit`-vyn för aktuell artikel.
+Mallen `view_article` redigeras för att visa en länk till `edit_article`-vyn för aktuell artikel.
 
 Story 6
 =======
