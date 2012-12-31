@@ -106,6 +106,11 @@ class AddArticleTests(AbstractViewTests):
         self.assertEqual(info.location, 'http://example.com/%d' % article.id)
 
 class EditArticleTests(AbstractViewTests):
+    def setUp(self):
+        super().setUp()
+        self.config.add_route('view_article', '/{id}')
+        self.config.add_route('edit_article', '/edit/{id}')
+        
     def test_get(self):
         from .views import edit_article
 
@@ -113,9 +118,9 @@ class EditArticleTests(AbstractViewTests):
         request.matchdict['id'] = 2
         response = edit_article(request)
 
-        self.assertEqual(response.title, 'Testsida två')
-        self.assertEqual(response.body, 'Med kod:\n\n    cat fil1 > fil2\n\noch lite mer text.')
-        self.assertEqual(response.submit_url, 'http://example.com/edit/2')
+        self.assertEqual(response['title'], 'Testsida två')
+        self.assertEqual(response['body'], 'Med kod:\n\n    cat fil1 > fil2\n\noch lite mer text.')
+        self.assertEqual(response['submit_url'], 'http://example.com/edit/2')
 
     def test_submit(self):
         from .views import edit_article
