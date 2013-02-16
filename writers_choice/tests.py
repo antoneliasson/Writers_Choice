@@ -178,7 +178,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_add_article(self):
         res = self.testapp.get('/add', status=200)
-        self.assertIn(b'<h1>Add article</h1>', res.body)
+        self.assertIn(b'<h1 class="title"><input type="text" name="title" value="" /></h1>', res.body)
         self.assertIn(b'<form action="http://localhost/add" method="post"', res.body)
         self.assertIn(b'<input type="text" name="title"', res.body)
         self.assertIn(b'<textarea name="body"', res.body)

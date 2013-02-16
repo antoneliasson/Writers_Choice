@@ -43,7 +43,7 @@ def view_all(request):
 
     return {'articles' : compilation}
 
-@view_config(route_name='add_article', renderer='templates/add_article.pt')
+@view_config(route_name='add_article', renderer='templates/edit_article.pt')
 def add_article(request):
     if 'title' in request.params:
         from datetime import datetime
@@ -58,8 +58,9 @@ def add_article(request):
         DBSession.flush()
 
         return HTTPFound(location = request.route_url('view_article', id=article.id))
+
     submit_url = request.route_url('add_article')
-    return {'submit_url' : submit_url}
+    return {'title' : '', 'body' : '', 'submit_url' : submit_url}
 
 @view_config(route_name='edit_article', renderer='templates/edit_article.pt')
 def edit_article(request):
