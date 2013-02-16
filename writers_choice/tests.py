@@ -168,6 +168,7 @@ class FunctionalTests(unittest.TestCase):
         self.assertIn(b'<h1>Testsida</h1>', res.body)
         self.assertIn(b'<p>2012-01-01</p>', res.body)
         self.assertIn(b'<p>Ett <em>stycke</em> till.</p>', res.body)
+        self.assertIn(b'<a href="http://localhost/edit/1', res.body)
 
     def test_visit_home(self):
         res = self.testapp.get('/', status=200)

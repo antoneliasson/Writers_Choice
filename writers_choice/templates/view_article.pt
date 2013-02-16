@@ -9,6 +9,9 @@
   <div class="published">
     <p tal:content="published" />
   </div>
+  <div>
+    <p><a tal:attributes="href edit_url">Edit this article</a></p>
+  </div>
   <div tal:content="structure:body" class="body" />
 </body>
 </html>
