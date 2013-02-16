@@ -41,6 +41,8 @@ class AbstractViewTests(unittest.TestCase):
     def setUp(self):
         self.session = _initTestingDB()
         self.config = testing.setUp()
+        self.config.add_route('view_article', '/{id}')
+        self.config.add_route('edit_article', '/edit/{id}')
 
     def tearDown(self):
         self.session.remove()
@@ -56,6 +58,7 @@ class ViewArticleTests(AbstractViewTests):
         self.assertEqual(info['body'],
                          '<p>Ett stycke.</p>\n<p>Ett <em>stycke</em> till.</p>')
         self.assertEqual(info['published'], '2012-01-01')
+        self.assertEqual(info['edit_url'], 'http://example.com/edit/1')
 
     def test_view_article_2(self):
         from .views import view_article
@@ -66,6 +69,7 @@ class ViewArticleTests(AbstractViewTests):
         self.assertEqual(info['body'],
                          '<p>Med kod:</p>\n<pre><code>cat fil1 &gt; fil2\n</code></pre>\n<p>och lite mer text.</p>')
         self.assertEqual(info['published'], '2012-01-02')
+        self.assertEqual(info['edit_url'], 'http://example.com/edit/2')
 
 class ViewAllTests(AbstractViewTests):
     def test_view_all_two_articles(self):
@@ -88,7 +92,6 @@ class AddArticleTests(AbstractViewTests):
         from .views import add_article
         from .models import Article
         # self.config.add_route('add_article', '/add')
-        self.config.add_route('view_article', '/{id}')
 
         request = testing.DummyRequest(
             {'form.submitted' : True,
@@ -108,8 +111,6 @@ class AddArticleTests(AbstractViewTests):
 class EditArticleTests(AbstractViewTests):
     def setUp(self):
         super().setUp()
-        self.config.add_route('view_article', '/{id}')
-        self.config.add_route('edit_article', '/edit/{id}')
         
     def test_get(self):
         from .views import edit_article
