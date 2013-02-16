@@ -58,7 +58,8 @@ def add_article(request):
         DBSession.flush()
 
         return HTTPFound(location = request.route_url('view_article', id=article.id))
-    return {}
+    submit_url = request.route_url('add_article')
+    return {'submit_url' : submit_url}
 
 @view_config(route_name='edit_article', renderer='templates/edit_article.pt')
 def edit_article(request):

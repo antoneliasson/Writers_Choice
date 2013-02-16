@@ -6,7 +6,7 @@
 </head>
 <body>
   <h1>Add article</h1>
-  <form tal:attributes="action request.route_url('add_article')" action="" method="post">
+  <form tal:attributes="action submit_url" action="" method="post">
     <p>Title: <input type="text" name="title" /></p>
     <p>Body: <textarea name="body"></textarea></p>
     <input type="submit" />

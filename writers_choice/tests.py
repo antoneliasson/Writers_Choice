@@ -43,6 +43,7 @@ class AbstractViewTests(unittest.TestCase):
         self.config = testing.setUp()
         self.config.add_route('view_article', '/{id}')
         self.config.add_route('edit_article', '/edit/{id}')
+        self.config.add_route('add_article', '/add')
 
     def tearDown(self):
         self.session.remove()
@@ -82,16 +83,15 @@ class ViewAllTests(AbstractViewTests):
         self.assertEqual(info['articles'][1]['published'], '2012-01-02')
 
 class AddArticleTests(AbstractViewTests):
-    # def test_not_submitted(self):
-    #     from .views import add_article
-    #     request = testing.DummyRequest()
-    #     info = add_article(request)
-    #     self.assertEqual(info['submit_url'], 'http://example.com/add')
+    def test_not_submitted(self):
+        from .views import add_article
+        request = testing.DummyRequest()
+        info = add_article(request)
+        self.assertEqual(info['submit_url'], 'http://example.com/add')
 
     def test_submitted(self):
         from .views import add_article
         from .models import Article
-        # self.config.add_route('add_article', '/add')
 
         request = testing.DummyRequest(
             {'form.submitted' : True,
