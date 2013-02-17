@@ -4,10 +4,24 @@ from datetime import date
 
 from pyramid import testing
 
+from sqlalchemy import create_engine
+
+from .models import (
+    Base,
+    Article,
+    DBSession,
+)
+
+from .models import Article
+
+from .views.view_article import view_article
+from .views.view_all import view_all
+from .views.add_article import add_article
+from .views.edit_article import edit_article
+
 ## Models
 class ArticleTests(unittest.TestCase):
     def test_article(self):
-        from .models import Article
         article = Article('Testsida',
                           body='Ett stycke.\n\nEtt *stycke* till.\n',
                           published=date(2012, 1, 1))
@@ -17,13 +31,7 @@ class ArticleTests(unittest.TestCase):
 
 ## Views
 def _initTestingDB():
-    from sqlalchemy import create_engine
     engine = create_engine('sqlite://')
-    from .models import (
-        Base,
-        Article,
-        DBSession,
-    )
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
@@ -51,7 +59,6 @@ class AbstractViewTests(unittest.TestCase):
 
 class ViewArticleTests(AbstractViewTests):
     def test_view_article_1(self):
-        from .views import view_article
         request = testing.DummyRequest()
         request.matchdict['id'] = 1
         info = view_article(request)
@@ -62,7 +69,6 @@ class ViewArticleTests(AbstractViewTests):
         self.assertEqual(info['edit_url'], 'http://example.com/edit/1')
 
     def test_view_article_2(self):
-        from .views import view_article
         request = testing.DummyRequest()
         request.matchdict['id'] = 2
         info = view_article(request)
@@ -74,7 +80,6 @@ class ViewArticleTests(AbstractViewTests):
 
 class ViewAllTests(AbstractViewTests):
     def test_view_all_two_articles(self):
-        from .views import view_all
         request = testing.DummyRequest()
         info = view_all(request)
         self.assertEqual(info['articles'][0]['title'], 'Testsida')
@@ -84,15 +89,11 @@ class ViewAllTests(AbstractViewTests):
 
 class AddArticleTests(AbstractViewTests):
     def test_not_submitted(self):
-        from .views import add_article
         request = testing.DummyRequest()
         info = add_article(request)
         self.assertEqual(info['submit_url'], 'http://example.com/add')
 
     def test_submitted(self):
-        from .views import add_article
-        from .models import Article
-
         request = testing.DummyRequest(
             {'form.submitted' : True,
              'title' : 'Ny sida',
@@ -113,8 +114,6 @@ class EditArticleTests(AbstractViewTests):
         super().setUp()
         
     def test_get(self):
-        from .views import edit_article
-
         request = testing.DummyRequest()
         request.matchdict['id'] = 2
         response = edit_article(request)
@@ -124,9 +123,6 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(response['submit_url'], 'http://example.com/edit/2')
 
     def test_submit(self):
-        from .views import edit_article
-        from .models import Article
-
         old_id = 2
         article = self.session.query(Article).filter_by(id=old_id).one()
         old_title = article.title

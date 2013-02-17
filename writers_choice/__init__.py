@@ -19,5 +19,5 @@ def main(global_config, **settings):
     config.add_route('edit_article', '/edit/{id}')
     config.add_route('view_article', '/{id}')
     config.add_route('view_all', '/')
-    config.scan()
+    config.scan('.views')
     return config.make_wsgi_app()
