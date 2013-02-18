@@ -95,8 +95,7 @@ class AddArticleTests(AbstractViewTests):
 
     def test_submitted(self):
         request = testing.DummyRequest(
-            {'form.submitted' : True,
-             'title' : 'Ny sida',
+            {'title' : 'Ny sida',
              'body' : 'Brödtext.'}
         )
         info = add_article(request)
