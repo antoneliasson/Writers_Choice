@@ -16,6 +16,7 @@ requires = [
     'waitress',
     'markdown',
     'WebTest',
+    'nose',
     ]
 
 setup(name='Writers_Choice',

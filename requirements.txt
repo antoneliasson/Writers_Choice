@@ -7,3 +7,4 @@ zope.sqlalchemy
 waitress
 markdown
 WebTest
+nose
