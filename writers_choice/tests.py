@@ -40,7 +40,8 @@ def _initTestingDB():
                           published=date(2012, 1, 1))
         DBSession.add(article)
         article = Article(title='Testsida två',
-                          body='Med kod:\n\n    cat fil1 > fil2\n\noch lite mer text.',
+                          body='Med kod:\n\n    cat fil1 > fil2\n\n'
+                              'och lite mer text.',
                           published=date(2012, 1, 2))
         DBSession.add(article)
     return DBSession
@@ -74,7 +75,8 @@ class ViewArticleTests(AbstractViewTests):
         info = view_article(request)
         self.assertEqual(info['title'], 'Testsida två')
         self.assertEqual(info['body'],
-                         '<p>Med kod:</p>\n<pre><code>cat fil1 &gt; fil2\n</code></pre>\n<p>och lite mer text.</p>')
+                         '<p>Med kod:</p>\n<pre><code>cat fil1 &gt; fil2\n'
+                         '</code></pre>\n<p>och lite mer text.</p>')
         self.assertEqual(info['published'], '2012-01-02')
         self.assertEqual(info['edit_url'], 'http://example.com/edit/2')
 
@@ -118,7 +120,8 @@ class EditArticleTests(AbstractViewTests):
         response = edit_article(request)
 
         self.assertEqual(response['title'], 'Testsida två')
-        self.assertEqual(response['body'], 'Med kod:\n\n    cat fil1 > fil2\n\noch lite mer text.')
+        self.assertEqual(response['body'], 'Med kod:\n\n    cat fil1 > fil2\n\n'
+                         'och lite mer text.')
         self.assertEqual(response['submit_url'], 'http://example.com/edit/2')
 
     def test_submit(self):
@@ -160,39 +163,36 @@ class FunctionalTests(unittest.TestCase):
 
     def test_visit_article_1(self):
         res = self.testapp.get('/1', status=200)
-        self.assertIn(b'<h1>Testsida</h1>', res.body)
-        self.assertIn(b'<p>2012-01-01</p>', res.body)
-        self.assertIn(b'<p>Ett <em>stycke</em> till.</p>', res.body)
-        self.assertIn(b'<a href="http://localhost/edit/1', res.body)
-
+        res.mustcontain('<h1>Testsida</h1>', '<p>2012-01-01</p>',
+                        '<p>Ett <em>stycke</em> till.</p>',
+                        '<a href="http://localhost/edit/1')
     def test_visit_home(self):
         res = self.testapp.get('/', status=200)
-        self.assertIn(b'<h1>Testsida</h1>', res.body)
-        self.assertIn('<h1>Testsida två</h1>', res.body.decode('utf-8'))
-        self.assertIn(b'<a href="http://localhost/add', res.body)
-
+        res.mustcontain('<h1>Testsida</h1>', '<h1>Testsida två</h1>',
+                        '<a href="http://localhost/add')
     def test_add_article(self):
         res = self.testapp.get('/add', status=200)
-        self.assertIn(b'<h1 class="title"><input type="text" name="title" value="" /></h1>', res.body)
-        self.assertIn(b'<form action="http://localhost/add" method="post"', res.body)
-        self.assertIn(b'<input type="text" name="title"', res.body)
-        self.assertIn(b'<textarea name="body"', res.body)
-        self.assertIn(b'<input type="submit"', res.body)
-
-        res = self.testapp.post('/add', {'title' : 'Ny sida', 'body' : 'Brödtext.'}, status=302)
+        res.mustcontain('<h1 class="title">'
+                            '<input type="text" name="title" value="" /></h1>',
+                        '<form action="http://localhost/add" method="post"',
+                        '<input type="text" name="title"', '<textarea name="body"',
+                        '<input type="submit"')
+        res = self.testapp.post('/add', {'title' : 'Ny sida', 'body' : 'Brödtext.'},
+                                status=302)
         res = res.follow()
-        self.assertIn(b'<h1>Ny sida</h1>', res.body)
+        res.mustcontain('<h1>Ny sida</h1>')
 
     def test_edit_article(self):
         res = self.testapp.get('/edit/1', status=200)
-        self.assertIn(b'<form action="http://localhost/edit/1" method="post"', res.body)
-        self.assertIn(b'<h1 class="title">'
-                      b'<input type="text" name="title" value="Testsida"', res.body)
-        self.assertIn(b'<textarea name="body">Ett stycke.\n\nEtt *stycke* till.\n'
-                      b'</textarea>', res.body)
-        self.assertIn(b'<input type="submit"', res.body)
+        res.mustcontain('<form action="http://localhost/edit/1" method="post"',
+                        '<h1 class="title">',
+                        '<input type="text" name="title" value="Testsida"',
+                        '<textarea name="body">Ett stycke.\n\n'
+                            'Ett *stycke* till.\n</textarea>',
+                        '<input type="submit"')
 
-        res = self.testapp.post('/edit/1', {'title' : 'Testande sida', 'body' : 'text.\n'},
+        res = self.testapp.post('/edit/1',
+                                {'title' : 'Testande sida', 'body' : 'text.\n'},
                                 status=302)
         res = res.follow()
-        self.assertIn(b'<h1>Testande sida</h1>', res.body)
+        res.mustcontain('<h1>Testande sida</h1>')
