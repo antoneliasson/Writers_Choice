@@ -23,5 +23,5 @@ class ViewArticleTests(AbstractViewTests):
         self.assertEqual(info['body'],
                          '<p>Med kod:</p>\n<pre><code>cat fil1 &gt; fil2\n'
                          '</code></pre>\n<p>och lite mer text.</p>')
-        self.assertEqual(info['published'], '2012-01-02')
+        self.assertEqual(info['published'], '2012-01-03')
         self.assertEqual(info['edit_url'], 'http://example.com/edit/2')

@@ -23,6 +23,10 @@ def _initTestingDB():
         article = Article(title='Testsida två',
                           body='Med kod:\n\n    cat fil1 > fil2\n\n'
                               'och lite mer text.',
+                          published=datetime.date(2012, 1, 3))
+        DBSession.add(article)
+        article = Article(title='Testsida mittemellan',
+                          body='Här finns ingenting.',
                           published=datetime.date(2012, 1, 2))
         DBSession.add(article)
     return DBSession
