@@ -4,3 +4,4 @@ __pycache__
 *.egg
 Writers_Choice.egg-info
 \#*#
+/.coverage
