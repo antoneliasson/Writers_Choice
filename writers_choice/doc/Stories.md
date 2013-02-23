@@ -103,3 +103,7 @@ På artikelvisningssidorna visas titeln som en h1-rubrik. Rubriker som förekomm
 Story 8
 =======
 På startsidan visas artiklarnas titlar som h2-rubriker. Rubriker som förekommer i brödtexten börjar på h3 (för #) och fortsätter uppåt (mot högre ordningsnummer).
+
+Story 9
+=======
+På startsidan ska artiklarnas rubriker länka till artikelvisningssiddan för aktuell artikel.
