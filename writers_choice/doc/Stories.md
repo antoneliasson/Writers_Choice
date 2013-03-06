@@ -1,12 +1,7 @@
 Planering
 =========
 
- Iteration  | Stories
-------------|---------
- 1          | 1, 2
- 2-4        | 3-5
-
-Intervallen anger en story per iteration (story:erna implementeras en i taget i tur och ordning).
+Klara stories: 1-6
 
 Story 1
 =======
