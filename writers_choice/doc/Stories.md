@@ -1,7 +1,7 @@
 Planering
 =========
 
-Klara stories: 1-6
+Klara stories: 1-6, 9-10
 
 Story 1
 =======
@@ -102,3 +102,7 @@ På startsidan visas artiklarnas titlar som h2-rubriker. Rubriker som förekomme
 Story 9
 =======
 På startsidan ska artiklarnas rubriker länka till artikelvisningssiddan för aktuell artikel.
+
+Story 10
+========
+Överst på startsidan ska webbplatsens titel visas. För närvarande är den hårdkodad till Writer's Choice. Titeln ska länka till startsidan.

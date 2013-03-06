@@ -5,6 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+  <h1><a tal:attributes="href request.route_url('view_all')">Writer&apos;s Choice</a></h1>
   <a tal:attributes="href request.route_url('add_article')" href="">Add new article</a>
   <div tal:repeat="article articles">
     <h1><a tal:attributes="href request.route_url('view_article', id=article.id)" tal:content="article.title" href="" /></h1>
