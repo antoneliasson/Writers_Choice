@@ -1,5 +1,3 @@
-from markdown import markdown
-
 def format_article_metadata(article):
     id = article.id
     title = article.title
