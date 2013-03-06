@@ -1,12 +1,11 @@
 from markdown import markdown
 
-def format_article(article):
+def format_article_metadata(article):
     id = article.id
     title = article.title
-    body = markdown(article.body)
     published = article.published.strftime('%Y-%m-%d')
 
-    return {'id' : id, 'title' : title, 'body' : body, 'published' : published}
+    return {'id' : id, 'title' : title, 'published' : published}
 
 conn_err_msg = """\
 (Tabellen finns inte)

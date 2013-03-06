@@ -1,3 +1,5 @@
+from markdown import markdown
+
 from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
@@ -7,7 +9,7 @@ from ..models import (
     Article,
     )
 
-from . import format_article
+from . import format_article_metadata
 
 @view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt')
 def view_all(request):
@@ -18,7 +20,8 @@ def view_all(request):
 
     compilation = list()
     for article in articles:
-        formatted = format_article(article)
+        formatted = format_article_metadata(article)
+        formatted['body'] = markdown(article.body)
         compilation.append(formatted)
 
     return {'articles' : compilation}

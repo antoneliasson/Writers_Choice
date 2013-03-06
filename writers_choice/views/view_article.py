@@ -1,3 +1,5 @@
+from markdown import markdown
+
 from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
@@ -7,7 +9,7 @@ from ..models import (
     Article,
     )
 
-from . import format_article
+from . import format_article_metadata
 
 @view_config(route_name='view_article', renderer='writers_choice:templates/view_article.pt')
 def view_article(request):
@@ -17,6 +19,7 @@ def view_article(request):
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
 
-    formatted = format_article(article)
+    formatted = format_article_metadata(article)
+    formatted['body'] = markdown(article.body)
     formatted['edit_url'] = request.route_url('edit_article', id=id)
     return formatted
