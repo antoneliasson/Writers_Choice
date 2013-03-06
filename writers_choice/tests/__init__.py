@@ -26,7 +26,7 @@ def _initTestingDB():
                           published=datetime.date(2012, 1, 3))
         DBSession.add(article)
         article = Article(title='Testsida mittemellan',
-                          body='Här finns ingenting.',
+                          body='Här finns ingenting, förutom:\n\nRubrik 1\n========\n\n## Rubrik 2\n',
                           published=datetime.date(2012, 1, 2))
         DBSession.add(article)
     return DBSession

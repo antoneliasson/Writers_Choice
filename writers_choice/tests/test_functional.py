@@ -25,8 +25,9 @@ class FunctionalTests(unittest.TestCase):
     def test_visit_home(self):
         res = self.testapp.get('/', status=200)
         res.mustcontain('<h1><a href="http://localhost/">Writer&apos;s Choice</a></h1>',
-                        '<h1><a href="http://localhost/1">Testsida</a></h1>',
-                        '<h1><a href="http://localhost/2">Testsida två</a></h1>',
+                        '<h2><a href="http://localhost/1">Testsida</a></h2>',
+                        '<h2><a href="http://localhost/2">Testsida två</a></h2>',
+                        '<h3>Rubrik 1</h3>',
                         '<a href="http://localhost/add')
     def test_add_article(self):
         res = self.testapp.get('/add', status=200)
