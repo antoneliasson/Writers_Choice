@@ -20,6 +20,6 @@ def view_article(request):
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
 
     formatted = format_article_metadata(article)
-    formatted['body'] = markdown(article.body)
+    formatted['body'] = markdown(article.body, extensions=['headerid(level=2, forceid=False)'])
     formatted['edit_url'] = request.route_url('edit_article', id=id)
     return formatted

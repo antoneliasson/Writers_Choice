@@ -25,3 +25,9 @@ class ViewArticleTests(AbstractViewTests):
                          '</code></pre>\n<p>och lite mer text.</p>')
         self.assertEqual(info['published'], '2012-01-03')
         self.assertEqual(info['edit_url'], 'http://example.com/edit/2')
+
+    def test_header_levels(self):
+        request = pyramid.testing.DummyRequest()
+        request.matchdict['id'] = 3
+        resp = view_article(request)
+        self.assertEqual(resp['body'], '<p>Här finns ingenting, förutom:</p>\n<h2>Rubrik 1</h2>\n<h3>Rubrik 2</h3>')
