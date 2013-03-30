@@ -106,3 +106,7 @@ På startsidan ska artiklarnas rubriker länka till artikelvisningssiddan för a
 Story 10
 ========
 Överst på startsidan ska webbplatsens titel visas. För närvarande är den hårdkodad till Writer's Choice. Titeln ska länka till startsidan.
+
+Story 11
+========
+Tabeller skrivna enligt Pythons officiella (nåja) Markdownimplementation ska omvandlas till HTML-tabeller.
