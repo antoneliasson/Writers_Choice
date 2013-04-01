@@ -21,7 +21,7 @@ def view_all(request):
     compilation = list()
     for article in articles:
         formatted = format_article_metadata(article)
-        formatted['body'] = markdown(article.body, extensions=['headerid(level=3, forceid=False)'])
+        formatted['body'] = markdown(article.body, extensions=['extra', 'headerid(level=3, forceid=False)'])
         compilation.append(formatted)
 
     return {'articles' : compilation}
