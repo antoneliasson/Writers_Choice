@@ -109,3 +109,7 @@ Story 10
 Story 11
 ========
 Tabeller skrivna enligt Pythons officiella (nåja) Markdownimplementation ska omvandlas till HTML-tabeller.
+
+Story 12
+========
+Artiklar har endast heltal som IDn. Rutten till vyn `view_article` ska reflektera detta.
