@@ -121,3 +121,7 @@ Story 13
 Story 14
 ========
 Även URLen som genereras av `add_article` och `edit_article` ska ha formatet som beskrivs i Story 13.
+
+Story 15
+========
+Vyn `view_article` ska först kolla om slugen är den förväntade, annars omdirigerar den till sig själv via rutten `view_article_slug` med rätt slug.
