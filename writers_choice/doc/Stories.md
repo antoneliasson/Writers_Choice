@@ -129,3 +129,7 @@ Vyn `view_article` ska först kolla om slugen är den förväntade, annars omdir
 Story 16
 ========
 Byt teckensnitt på alla sidor till några enkla och snygga sans-serif.
+
+Story 17
+========
+Rubrikfältet i edit- och add-lägena ska vara runt 80 tecken bred. Brödtextboxen ska vara runt 80x24 tecken stor.
