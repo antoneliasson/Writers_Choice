@@ -125,3 +125,7 @@ Story 14
 Story 15
 ========
 Vyn `view_article` ska först kolla om slugen är den förväntade, annars omdirigerar den till sig själv via rutten `view_article_slug` med rätt slug.
+
+Story 16
+========
+Byt teckensnitt på alla sidor till några enkla och snygga sans-serif.
