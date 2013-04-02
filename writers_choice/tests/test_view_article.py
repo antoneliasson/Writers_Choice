@@ -1,4 +1,5 @@
 import pyramid.testing
+from pyramid.httpexceptions import HTTPFound
 
 from ..views.view_article import view_article
 
@@ -8,6 +9,7 @@ class ViewArticleTests(AbstractViewTests):
     def test_view_article_1(self):
         request = pyramid.testing.DummyRequest()
         request.matchdict['id'] = 1
+        request.matchdict['slug'] = 'testsida'
         info = view_article(request)
         self.assertEqual(info['title'], 'Testsida')
         self.assertEqual(info['body'],
@@ -18,6 +20,7 @@ class ViewArticleTests(AbstractViewTests):
     def test_view_article_2(self):
         request = pyramid.testing.DummyRequest()
         request.matchdict['id'] = 2
+        request.matchdict['slug'] = 'testsida-tva'
         info = view_article(request)
         self.assertEqual(info['title'], 'Testsida två')
         self.assertEqual(info['body'],
@@ -29,5 +32,29 @@ class ViewArticleTests(AbstractViewTests):
     def test_header_levels(self):
         request = pyramid.testing.DummyRequest()
         request.matchdict['id'] = 3
+        request.matchdict['slug'] = 'testsida-mittemellan'
         resp = view_article(request)
         self.assertEqual(resp['body'], '<p>Här finns ingenting, förutom:</p>\n<h2>Rubrik 1</h2>\n<h3>Rubrik 2</h3>')
+
+    def test_no_slug(self):
+        request = pyramid.testing.DummyRequest()
+        request.matchdict['id'] = 2
+        response = view_article(request)
+        self.assertIs(type(response), HTTPFound)
+        self.assertEqual(response.location, 'http://example.com/2/testsida-tva')
+
+    def test_empty_slug(self):
+        request = pyramid.testing.DummyRequest()
+        request.matchdict['id'] = 2
+        request.matchdict['slug'] = ()
+        response = view_article(request)
+        self.assertIs(type(response), HTTPFound)
+        self.assertEqual(response.location, 'http://example.com/2/testsida-tva')
+
+    def test_wrong_slug(self):
+        request = pyramid.testing.DummyRequest()
+        request.matchdict['id'] = 2
+        request.matchdict['slug'] = ('fel-sida',)
+        response = view_article(request)
+        self.assertIs(type(response), HTTPFound)
+        self.assertEqual(response.location, 'http://example.com/2/testsida-tva')

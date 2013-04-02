@@ -1,4 +1,5 @@
 from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
 
 from sqlalchemy.exc import DBAPIError
 
@@ -15,7 +16,6 @@ def edit_article(request):
     article = DBSession.query(Article).filter_by(id=id).one()
 
     if 'title' in request.params:
-        from pyramid.httpexceptions import HTTPFound
         title = request.params['title']
         body = request.params['body']
         article.title = title

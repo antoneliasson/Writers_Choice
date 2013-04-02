@@ -18,7 +18,7 @@ class FunctionalTests(unittest.TestCase):
         self.session.remove()
 
     def test_visit_article_1(self):
-        res = self.testapp.get('/1', status=200)
+        res = self.testapp.get('/1/testsida', status=200)
         res.mustcontain('<h1>Testsida</h1>', '<p>2012-01-01</p>',
                         '<p>Ett <em>stycke</em> till.</p>',
                         '<a href="http://localhost/edit/1')
