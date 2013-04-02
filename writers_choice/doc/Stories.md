@@ -128,7 +128,7 @@ Vyn `view_article` ska först kolla om slugen är den förväntade, annars omdir
 
 Story 16
 ========
-Byt teckensnitt på alla sidor till några enkla och snygga sans-serif.
+Byt teckensnitt på alla sidor till några enkla och snygga sans-serif. Brödtexten ska vara justerad (justified).
 
 Story 17
 ========
