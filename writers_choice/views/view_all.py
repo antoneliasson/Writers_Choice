@@ -1,4 +1,5 @@
-from markdown import markdown
+import markdown.extensions.headerid
+import markdown
 
 from pyramid.view import view_config
 
@@ -11,6 +12,9 @@ from ..models import (
 
 from . import format_article_metadata
 
+def slugify(url):
+    return markdown.extensions.headerid.slugify(url, '-')
+
 @view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt')
 def view_all(request):
     try:
@@ -21,7 +25,8 @@ def view_all(request):
     compilation = list()
     for article in articles:
         formatted = format_article_metadata(article)
-        formatted['body'] = markdown(article.body, extensions=['extra', 'headerid(level=3, forceid=False)'])
+        formatted['body'] = markdown.markdown(article.body, extensions=['extra', 'headerid(level=3, forceid=False)'])
+        formatted['url'] = request.route_url('view_article_slug', id=article.id, slug=slugify(article.title))
         compilation.append(formatted)
 
     return {'articles' : compilation}

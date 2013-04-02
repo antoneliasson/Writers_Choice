@@ -113,3 +113,7 @@ Tabeller skrivna enligt Pythons officiella (nåja) Markdownimplementation ska om
 Story 12
 ========
 Artiklar har endast heltal som IDn. Rutten till vyn `view_article` ska reflektera detta.
+
+Story 13
+========
+Ångra story 12. Länkarna till artikelvisningssidorna ska vara på formatet `http://<url>/<id>/<slug>` där "slugen" genereras från artikelns rubrik. ID-fältet tar allt fram till /.  Slugen tar resten av URLen. Den är inte nödvändigtvis unik och används inte av `view_article` vid uppslagning av rätt artikel.
