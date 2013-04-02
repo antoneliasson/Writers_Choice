@@ -1,4 +1,5 @@
 import pyramid.testing
+from pyramid.httpexceptions import HTTPFound
 
 from ..models import Article
 from ..views.edit_article import edit_article
@@ -39,6 +40,5 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(article.body, new_body)
         self.assertEqual(article.published, old_published)
 
-        from pyramid.httpexceptions import HTTPFound
         self.assertIs(type(response), HTTPFound)
-        self.assertEqual(response.location, 'http://example.com/%d' % old_id)
+        self.assertEqual(response.location, 'http://example.com/%d/testsida-tva' % old_id)

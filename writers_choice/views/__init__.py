@@ -1,9 +1,14 @@
+import markdown.extensions.headerid
+
 def format_article_metadata(article):
     id = article.id
     title = article.title
     published = article.published.strftime('%Y-%m-%d')
 
     return {'id' : id, 'title' : title, 'published' : published}
+
+def slugify(url):
+    return markdown.extensions.headerid.slugify(url, '-')
 
 conn_err_msg = """\
 (Tabellen finns inte)

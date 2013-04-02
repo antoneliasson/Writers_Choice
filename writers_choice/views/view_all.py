@@ -1,4 +1,3 @@
-import markdown.extensions.headerid
 import markdown
 
 from pyramid.view import view_config
@@ -10,10 +9,7 @@ from ..models import (
     Article,
     )
 
-from . import format_article_metadata
-
-def slugify(url):
-    return markdown.extensions.headerid.slugify(url, '-')
+from . import format_article_metadata, slugify
 
 @view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt')
 def view_all(request):

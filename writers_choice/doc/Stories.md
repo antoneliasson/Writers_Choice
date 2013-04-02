@@ -117,3 +117,7 @@ Artiklar har endast heltal som IDn. Rutten till vyn `view_article` ska reflekter
 Story 13
 ========
 Ångra story 12. Länkarna till artikelvisningssidorna ska vara på formatet `http://<url>/<id>/<slug>` där "slugen" genereras från artikelns rubrik. ID-fältet tar allt fram till /.  Slugen tar resten av URLen. Den är inte nödvändigtvis unik och används inte av `view_article` vid uppslagning av rätt artikel.
+
+Story 14
+========
+Även URLen som genereras av `add_article` och `edit_article` ska ha formatet som beskrivs i Story 13.
