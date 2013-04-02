@@ -3,6 +3,7 @@
 <head>
   <title>Writer's Choice</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link tal:attributes="href request.static_url('writers_choice:static/wc.css')" rel="stylesheet" type="text/css" href="" />
 </head>
 <body>
   <h1><a tal:attributes="href request.route_url('view_all')">Writer&apos;s Choice</a></h1>
