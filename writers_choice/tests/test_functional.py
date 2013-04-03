@@ -31,10 +31,9 @@ class FunctionalTests(unittest.TestCase):
                         '<a href="http://localhost/add')
     def test_add_article(self):
         res = self.testapp.get('/add', status=200)
-        res.mustcontain('<h1 class="title">'
-                            '<input type="text" name="title" value="" /></h1>',
+        res.mustcontain('<h1 class="title"><input type="text" name="title" value=""',
                         '<form action="http://localhost/add" method="post"',
-                        '<input type="text" name="title"', '<textarea name="body"',
+                        '<textarea name="body"',
                         '<input type="submit"')
         res = self.testapp.post('/add', {'title' : 'Ny sida', 'body' : 'Brödtext.'},
                                 status=302)
@@ -46,7 +45,7 @@ class FunctionalTests(unittest.TestCase):
         res.mustcontain('<form action="http://localhost/edit/1" method="post"',
                         '<h1 class="title">',
                         '<input type="text" name="title" value="Testsida"',
-                        '<textarea name="body">Ett stycke.\n\n'
+                        '>Ett stycke.\n\n'
                             'Ett *stycke* till.\n</textarea>',
                         '<input type="submit"')
 
