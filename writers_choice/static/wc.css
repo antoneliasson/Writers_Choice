@@ -12,3 +12,18 @@ p {
 .body p {
     text-align: justify;
 }
+
+#editor input[type=text], #editor textarea {
+    font-size:inherit;
+    text-align:inherit;
+    color:inherit;
+    width:100%;
+    border:1px dotted #ddd;
+}
+
+#editor input[type=text] {
+    font-family:inherit;
+}
+#editor textarea {
+    font-family: "Lucida Console", Monaco, monospace;
+}
