@@ -132,8 +132,4 @@ Byt teckensnitt på alla sidor till några enkla och snygga sans-serif. Brödtex
 
 Story 17
 ========
-Rubrikfältet i edit- och add-lägena ska vara runt 80 tecken bred. Brödtextboxen ska vara runt 80x24 tecken stor.
-
-Story 18
-========
-Brödtextboxen i mallen `edit_article` ska ha något fint monospace-teckensnitt.
+Rubrikfältet i edit- och add-lägena ska vara runt 80 tecken bred. Brödtextboxen ska vara runt 80x24 tecken stor. Det här är standardstorlekarna. Jag kommer nog fiffla en del med storlek och placering i CSS senare.
