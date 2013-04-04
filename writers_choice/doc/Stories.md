@@ -133,3 +133,11 @@ Byt teckensnitt på alla sidor till några enkla och snygga sans-serif. Brödtex
 Story 17
 ========
 Rubrikfältet i edit- och add-lägena ska vara runt 80 tecken bred. Brödtextboxen ska vara runt 80x24 tecken stor. Det här är standardstorlekarna. Jag kommer nog fiffla en del med storlek och placering i CSS senare.
+
+Story 18
+========
+(borttagen)
+
+Story 19
+========
+Add- och edit-lägena ska ha ytterligare en submit-knapp som avbryter redigeringen. Den skickar till samma sida men har ett annat namn. Vyerna omdirigerar en till sig själv via GET utan att spara datan som POSTades med formen.
