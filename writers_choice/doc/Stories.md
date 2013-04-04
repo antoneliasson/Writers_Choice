@@ -1,6 +1,6 @@
 Planering
 =========
-Klara stories: 1-19, 21
+Klara stories: 1-21
 
 Story 1
 =======

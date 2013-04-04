@@ -23,6 +23,11 @@ class FunctionalTests(unittest.TestCase):
                         '<h1>Testsida</h1>', '<p>2012-01-01</p>',
                         '<p>Ett <em>stycke</em> till.</p>',
                         '<a href="http://localhost/edit/1')
+
+    def test_visit_nonexisting_article(self):
+        resp = self.testapp.get('/9999', status=404)
+        resp.mustcontain('No such page')
+
     def test_visit_home(self):
         res = self.testapp.get('/', status=200)
         res.mustcontain('<h1><a href="http://localhost/">Writer&apos;s Choice</a></h1>',

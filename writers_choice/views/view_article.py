@@ -1,7 +1,7 @@
 from markdown import markdown
 
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
 from sqlalchemy.exc import DBAPIError
 
@@ -20,6 +20,9 @@ def view_article(request):
         article = DBSession.query(Article).filter_by(id=id).first()
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
+
+    if article is None:
+        return HTTPNotFound('No such page')
 
     if not 'slug' in request.matchdict or request.matchdict['slug'] != slugify(article.title):
         return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
