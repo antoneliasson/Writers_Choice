@@ -1,5 +1,5 @@
 import pyramid.testing
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
 from ..models import Article
 from ..views.edit_article import edit_article
@@ -68,3 +68,8 @@ class EditArticleTests(AbstractViewTests):
         self.assertIs(type(response), HTTPFound)
         self.assertEqual(response.location, 'http://example.com/%d/testsida-tva' % old_id)
 
+    def test_nonexisting(self):
+        request = pyramid.testing.DummyRequest()
+        request.matchdict['id'] = 9999
+        response = edit_article(request)
+        self.assertIs(type(response), HTTPNotFound)

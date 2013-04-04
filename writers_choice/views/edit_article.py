@@ -1,7 +1,8 @@
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
 from sqlalchemy.exc import DBAPIError
+from sqlalchemy.orm.exc import NoResultFound
 
 from ..models import (
     DBSession,
@@ -13,7 +14,10 @@ from . import slugify
 @view_config(route_name='edit_article', renderer='writers_choice:templates/edit_article.pt')
 def edit_article(request):
     id = request.matchdict['id']
-    article = DBSession.query(Article).filter_by(id=id).one()
+    try:
+        article = DBSession.query(Article).filter_by(id=id).one()
+    except NoResultFound:
+        return HTTPNotFound('Article not found')
 
     if 'save-article' in request.params:
         title = request.params['title']
