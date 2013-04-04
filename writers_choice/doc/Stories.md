@@ -1,6 +1,6 @@
 Planering
 =========
-Klara stories: 1-22
+Klara stories: 1-22, 28
 
 Story 1
 =======
@@ -173,3 +173,7 @@ All HTML ska escapas från rubrikerna vid visning. Detta görs redan av mallen m
 Story 27
 ========
 Alla sidor ska centreras och begränsas i bredd till ca. 100 tecken eller ca. 1000 px, beroende på vad som ser bäst ut.
+
+Story 28
+========
+Ändra tillbaka så att rutterna `view_article` och `view_article_slug` bara fångar heltal. Det blir så dumt med t.ex. '/edit/1/qwerty' annars.
