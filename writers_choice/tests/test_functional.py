@@ -24,6 +24,10 @@ class FunctionalTests(unittest.TestCase):
                         '<p>Ett <em>stycke</em> till.</p>',
                         '<a href="http://localhost/edit/1')
 
+    def test_visit_evil_article(self):
+        res = self.testapp.get('/4/ihtml-titlei', status=200)
+        res.mustcontain('>&lt;i&gt;HTML-title&lt;/i&gt;</h1>')
+
     def test_visit_nonexisting_article(self):
         resp = self.testapp.get('/9999', status=404)
         resp.mustcontain('No such page')
@@ -34,7 +38,8 @@ class FunctionalTests(unittest.TestCase):
                         '<h2><a href="http://localhost/1/testsida">Testsida</a></h2>',
                         '<h2><a href="http://localhost/2/testsida-tva">Testsida två</a></h2>',
                         '<h3>Rubrik 1</h3>',
-                        '<a href="http://localhost/add')
+                        '<a href="http://localhost/add',
+                        '>&lt;i&gt;HTML-title&lt;/i&gt;</a></h2>')
     def test_add_article(self):
         res = self.testapp.get('/add', status=200)
         res.mustcontain('<h1 class="title"><input type="text" name="title" value=""',

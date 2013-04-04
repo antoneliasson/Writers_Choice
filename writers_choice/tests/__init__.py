@@ -29,6 +29,10 @@ def _initTestingDB():
                           body='Här finns ingenting, förutom:\n\nRubrik 1\n========\n\n## Rubrik 2\n',
                           published=datetime.date(2012, 1, 2))
         DBSession.add(article)
+        article = Article(title='<i>HTML-title</i>',
+                          body='<strong>Nice HTML</strong> and\n\n<script>document.write("<p>Evil HTML</p>");</script>',
+                          published=datetime.date(2011, 1, 2))
+        DBSession.add(article)
     return DBSession
 
 class AbstractViewTests(unittest.TestCase):

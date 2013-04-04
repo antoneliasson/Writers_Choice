@@ -8,7 +8,7 @@ class ViewAllTests(AbstractViewTests):
     def test_view_all_two_articles(self):
         request = pyramid.testing.DummyRequest()
         resp = view_all(request)
-        self.assertEqual(len(resp['articles']), 3)
+        self.assertEqual(len(resp['articles']), 4)
 
         article_2 = resp['articles'][0]
         self.assertEqual(article_2['id'], 2)
