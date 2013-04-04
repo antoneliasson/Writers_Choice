@@ -15,13 +15,15 @@ def edit_article(request):
     id = request.matchdict['id']
     article = DBSession.query(Article).filter_by(id=id).one()
 
-    if 'title' in request.params:
+    if 'save-article' in request.params:
         title = request.params['title']
         body = request.params['body']
         article.title = title
         article.body = body
         DBSession.add(article)
 
+        return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
+    elif 'cancel-editing' in request.params:
         return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
 
     submit_url = request.route_url('edit_article', id=id)

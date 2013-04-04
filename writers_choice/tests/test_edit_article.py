@@ -29,7 +29,8 @@ class EditArticleTests(AbstractViewTests):
 
         request = pyramid.testing.DummyRequest(
             {'title' : old_title,
-             'body' : new_body}
+             'body' : new_body,
+             'save-article' : ''}
         )
         request.matchdict['id'] = 2
         response = edit_article(request)
@@ -42,3 +43,28 @@ class EditArticleTests(AbstractViewTests):
 
         self.assertIs(type(response), HTTPFound)
         self.assertEqual(response.location, 'http://example.com/%d/testsida-tva' % old_id)
+
+    def test_cancel(self):
+        old_id = 2
+        article = self.session.query(Article).filter_by(id=old_id).one()
+        old_title = article.title
+        old_body = article.body
+        old_published = article.published
+        new_body = 'Numera utan `kod`.'
+
+        request = pyramid.testing.DummyRequest(
+            {'title' : old_title,
+             'body' : new_body,
+             'cancel-editing' : ''}
+        )
+        request.matchdict['id'] = 2
+        response = edit_article(request)
+        
+        article = self.session.query(Article).filter_by(id=2).one()
+        self.assertEqual(article.title, old_title)
+        self.assertEqual(article.body, old_body)
+        self.assertEqual(article.published, old_published)
+
+        self.assertIs(type(response), HTTPFound)
+        self.assertEqual(response.location, 'http://example.com/%d/testsida-tva' % old_id)
+

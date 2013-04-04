@@ -50,7 +50,9 @@ class FunctionalTests(unittest.TestCase):
                         '<input type="submit"')
 
         res = self.testapp.post('/edit/1',
-                                {'title' : 'Testande sida', 'body' : 'text.\n'},
+                                {'title' : 'Testande sida',
+                                 'body' : 'text.\n',
+                                 'save-article' : ''},
                                 status=302)
         res = res.follow()
         res.mustcontain('<h1>Testande sida</h1>')
