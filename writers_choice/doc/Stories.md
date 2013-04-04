@@ -149,3 +149,19 @@ Försöker man visa en sida som inte finns (som fångas av `view_article`) ska e
 Story 21
 ========
 På artikelvisningssidorna ska det finnas en länk för att gå till startsidan.
+
+Story 22
+========
+Försöker man redigera en sida som inte finns (genom att t.ex. besöka '/edit/9999') ska en enkel 404-sida visas.
+
+Story 23
+========
+När en ny eller befintlig artikel sparas ska rubriken först strippas från blanktecken från vänster och höger sida.
+
+Story 24
+========
+Om användaren försöker spara en *ny* artikel med blank rubrik ska hen skickas tillbaka till add-läget med ett felmeddelande (och samma brödtext) utan att artikeln sparas.
+
+Story 25
+========
+Som Story 24 men för *befintliga* artiklar.
