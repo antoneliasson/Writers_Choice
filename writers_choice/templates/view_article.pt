@@ -6,6 +6,7 @@
   <link tal:attributes="href request.static_url('writers_choice:static/wc.css')" rel="stylesheet" type="text/css" href="" />
 </head>
 <body>
+  <p><a tal:attributes="href request.route_url('view_all')" href="">Go home</a></p>
   <h1 tal:content="title" />
   <div class="published">
     <p tal:content="published" />

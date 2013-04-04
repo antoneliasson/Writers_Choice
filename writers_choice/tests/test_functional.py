@@ -19,7 +19,8 @@ class FunctionalTests(unittest.TestCase):
 
     def test_visit_article_1(self):
         res = self.testapp.get('/1/testsida', status=200)
-        res.mustcontain('<h1>Testsida</h1>', '<p>2012-01-01</p>',
+        res.mustcontain('<a href="http://localhost/">Go home</a>',
+                        '<h1>Testsida</h1>', '<p>2012-01-01</p>',
                         '<p>Ett <em>stycke</em> till.</p>',
                         '<a href="http://localhost/edit/1')
     def test_visit_home(self):
