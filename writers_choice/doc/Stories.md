@@ -1,6 +1,6 @@
 Planering
 =========
-Klara stories: 1-11
+Klara stories: 1-19
 
 Story 1
 =======
@@ -145,3 +145,7 @@ Add- och edit-lägena ska ha ytterligare en submit-knapp som avbryter redigering
 Story 20
 ========
 Försöker man visa en sida som inte finns (som fångas av `view_article`) ska en enkel 404-sida visas.
+
+Story 21
+========
+På artikelvisningssidorna ska det finnas en länk för att gå till startsidan.
