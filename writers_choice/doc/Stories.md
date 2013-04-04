@@ -141,3 +141,7 @@ Story 18
 Story 19
 ========
 Add- och edit-lägena ska ha ytterligare en submit-knapp som avbryter redigeringen. Den skickar till samma sida men har ett annat namn. Vyerna omdirigerar en till sig själv via GET utan att spara datan som POSTades med formen.
+
+Story 20
+========
+Försöker man visa en sida som inte finns (som fångas av `view_article`) ska en enkel 404-sida visas.
