@@ -19,16 +19,21 @@ def edit_article(request):
     except NoResultFound:
         return HTTPNotFound('Article not found')
 
+    message = ''
+    body = article.body
     if 'save-article' in request.params:
         title = request.params['title'].strip()
         body = request.params['body']
-        article.title = title
-        article.body = body
-        DBSession.add(article)
+        if title == '':
+            message = 'Article not saved. Title cannot be empty.'
+        else:
+            article.title = title
+            article.body = body
+            DBSession.add(article)
 
-        return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
+            return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
     elif 'cancel-editing' in request.params:
         return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
 
     submit_url = request.route_url('edit_article', id=id)
-    return {'title' : article.title, 'body' : article.body, 'submit_url' : submit_url, 'message' : ''}
+    return {'title' : article.title, 'body' : body, 'submit_url' : submit_url, 'message' : message}

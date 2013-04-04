@@ -94,3 +94,25 @@ class EditArticleTests(AbstractViewTests):
 
         self.assertIs(type(response), HTTPFound)
         self.assertEqual(response.location, 'http://example.com/%d/rubrik' % old_id)
+
+    def test_empty_title_not_acceptable(self):
+        old_id = 2
+        article = self.session.query(Article).filter_by(id=old_id).one()
+        old_title = article.title
+        old_published = article.published
+        old_body = article.body
+
+        request = pyramid.testing.DummyRequest(
+            {'title' : '',
+             'body' : 'something different\n',
+             'save-article' : ''}
+        )
+        request.matchdict['id'] = 2
+        response = edit_article(request)
+
+        article = self.session.query(Article).filter_by(id=2).one()
+        self.assertEqual(article.title, 'Testsida två')
+
+        self.assertEqual(response['title'], old_title)
+        self.assertEqual(response['body'], 'something different\n')
+        self.assertFalse(response['message'] == '')

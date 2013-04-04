@@ -18,7 +18,7 @@ def add_article(request):
         title = request.params['title'].strip()
         body = request.params['body']
         if title == '':
-            message = 'Title cannot be empty!'
+            message = 'Article not saved. Title cannot be empty.'
         else:
             published = datetime.now()
             article = Article(title, body, published)

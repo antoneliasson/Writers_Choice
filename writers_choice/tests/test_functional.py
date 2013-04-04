@@ -71,3 +71,12 @@ class FunctionalTests(unittest.TestCase):
                                 status=200)
         res.mustcontain('>Brödtext.</textarea>',
                         '<p class="message">')
+
+    def test_edit_article_empty_title(self):
+        res = self.testapp.post('/edit/1',
+                                {'title' : '',
+                                 'body' : 'text.\n',
+                                 'save-article' : ''},
+                                status=200)
+        res.mustcontain('>text.\n</textarea>',
+                        '<p class="message">')

@@ -1,6 +1,6 @@
 Planering
 =========
-Klara stories: 1-24, 28
+Klara stories: 1-25, 28
 
 Story 1
 =======
@@ -164,7 +164,7 @@ Om användaren försöker spara en *ny* artikel med blank rubrik ska hen skickas
 
 Story 25
 ========
-Som Story 24 men för *befintliga* artiklar.
+Som Story 24 men för *befintliga* artiklar. Man får då behålla den gamla titeln och den nya brödtexten.
 
 Story 26
 ========
