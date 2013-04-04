@@ -169,3 +169,7 @@ Som Story 24 men för *befintliga* artiklar.
 Story 26
 ========
 All HTML ska escapas från rubrikerna vid visning. Detta görs redan av mallen men det finns inga test för det. HTML i brödtexten tillåts tills vidare eftersom det bara kommer att vara auktoritära typer som får skriva artiklar ändå. Det gör att man kan kringå fifflet med rubriknivåerna genom t.ex. <script>document.write("<h1>Rubrik</h1>");</script>.
+
+Story 27
+========
+Alla sidor ska centreras och begränsas i bredd till ca. 100 tecken eller ca. 1000 px, beroende på vad som ser bäst ut.
