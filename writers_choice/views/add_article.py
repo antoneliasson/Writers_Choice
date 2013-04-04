@@ -13,7 +13,7 @@ from . import slugify
 @view_config(route_name='add_article', renderer='writers_choice:templates/edit_article.pt')
 def add_article(request):
     if 'save-article' in request.params:
-        title = request.params['title']
+        title = request.params['title'].strip()
         body = request.params['body']
         published = datetime.now()
         article = Article(title, body, published)

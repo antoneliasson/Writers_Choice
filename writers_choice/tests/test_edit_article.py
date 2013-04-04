@@ -73,3 +73,24 @@ class EditArticleTests(AbstractViewTests):
         request.matchdict['id'] = 9999
         response = edit_article(request)
         self.assertIs(type(response), HTTPNotFound)
+
+    def test_strip_title_whitespace(self):
+        old_id = 2
+        article = self.session.query(Article).filter_by(id=old_id).one()
+        old_title = article.title
+        old_published = article.published
+        old_body = article.body
+
+        request = pyramid.testing.DummyRequest(
+            {'title' : '  Rubrik\t ',
+             'body' : old_body,
+             'save-article' : ''}
+        )
+        request.matchdict['id'] = 2
+        response = edit_article(request)
+
+        article = self.session.query(Article).filter_by(id=2).one()
+        self.assertEqual(article.title, 'Rubrik')
+
+        self.assertIs(type(response), HTTPFound)
+        self.assertEqual(response.location, 'http://example.com/%d/rubrik' % old_id)

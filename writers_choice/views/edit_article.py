@@ -20,7 +20,7 @@ def edit_article(request):
         return HTTPNotFound('Article not found')
 
     if 'save-article' in request.params:
-        title = request.params['title']
+        title = request.params['title'].strip()
         body = request.params['body']
         article.title = title
         article.body = body

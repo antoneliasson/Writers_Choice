@@ -40,3 +40,14 @@ class AddArticleTests(AbstractViewTests):
 
         self.assertIs(type(resp), HTTPFound)
         self.assertEqual(resp.location, 'http://example.com/')
+
+    def test_strip_title_whitespace(self):
+        request = pyramid.testing.DummyRequest(
+            {'title' : '  Rubrik\t ',
+             'body' : 'Brödtext.',
+             'save-article' : ''}
+        )
+        resp = add_article(request)
+
+        article_count = self.session.query(Article).filter_by(title='Rubrik').count()
+        self.assertEqual(article_count, 1)
