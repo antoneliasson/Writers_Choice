@@ -35,7 +35,8 @@ class FunctionalTests(unittest.TestCase):
                         '<form action="http://localhost/add" method="post"',
                         '<textarea name="body"',
                         '<input type="submit"')
-        res = self.testapp.post('/add', {'title' : 'Ny sida', 'body' : 'Brödtext.'},
+        res = self.testapp.post('/add', {'title' : 'Ny sida', 'body' : 'Brödtext.',
+                                         'save-article' : ''},
                                 status=302)
         res = res.follow()
         res.mustcontain('<h1>Ny sida</h1>')

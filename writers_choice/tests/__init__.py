@@ -35,6 +35,7 @@ class AbstractViewTests(unittest.TestCase):
     def setUp(self):
         self.session = _initTestingDB()
         self.config = pyramid.testing.setUp()
+        self.config.add_route('view_all', '/')
         self.config.add_route('view_article', '/{id}')
         self.config.add_route('view_article_slug', '/{id}/*slug')
         self.config.add_route('edit_article', '/edit/{id}')
