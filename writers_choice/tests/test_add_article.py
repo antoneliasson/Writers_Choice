@@ -51,3 +51,18 @@ class AddArticleTests(AbstractViewTests):
 
         article_count = self.session.query(Article).filter_by(title='Rubrik').count()
         self.assertEqual(article_count, 1)
+
+    def test_empty_title_not_acceptable(self):
+        request = pyramid.testing.DummyRequest(
+            {'title' : '',
+             'body' : 'Brödtext.',
+             'save-article' : None}
+        )
+        resp = add_article(request)
+
+        article_count = self.session.query(Article).filter_by(title='').count()
+        self.assertEqual(article_count, 0)
+
+        self.assertEqual(resp['title'], '')
+        self.assertEqual(resp['body'], 'Brödtext.')
+        self.assertFalse(resp['message'] == '')

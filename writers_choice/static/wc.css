@@ -8,6 +8,12 @@ p {
     font-family: Optima, "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 }
 
+/* (error) messages */
+p.message {
+    font-weight: bold;
+    color: red;
+}
+
 /* body text */
 .body p {
     text-align: justify;

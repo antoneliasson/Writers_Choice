@@ -31,4 +31,4 @@ def edit_article(request):
         return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
 
     submit_url = request.route_url('edit_article', id=id)
-    return {'title' : article.title, 'body' : article.body, 'submit_url' : submit_url}
+    return {'title' : article.title, 'body' : article.body, 'submit_url' : submit_url, 'message' : ''}

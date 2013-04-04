@@ -12,18 +12,23 @@ from . import slugify
 
 @view_config(route_name='add_article', renderer='writers_choice:templates/edit_article.pt')
 def add_article(request):
+    body = ''
+    message = ''
     if 'save-article' in request.params:
         title = request.params['title'].strip()
         body = request.params['body']
-        published = datetime.now()
-        article = Article(title, body, published)
-        DBSession.add(article)
-        # let the DB fill in the id
-        DBSession.flush()
+        if title == '':
+            message = 'Title cannot be empty!'
+        else:
+            published = datetime.now()
+            article = Article(title, body, published)
+            DBSession.add(article)
+            # let the DB fill in the id
+            DBSession.flush()
 
-        return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
+            return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
     elif 'cancel-editing' in request.params:
         return HTTPFound(location=request.route_url('view_all'))
 
     submit_url = request.route_url('add_article')
-    return {'title' : '', 'body' : '', 'submit_url' : submit_url}
+    return {'title' : '', 'body' : body, 'submit_url' : submit_url, 'message' : message}
