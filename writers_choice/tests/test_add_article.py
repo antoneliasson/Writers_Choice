@@ -10,7 +10,11 @@ class AddArticleTests(AbstractViewTests):
     def test_not_submitted(self):
         request = pyramid.testing.DummyRequest()
         resp = add_article(request)
+        self.assertEqual(resp['title'], '')
+        self.assertEqual(resp['body'], '')
         self.assertEqual(resp['submit_url'], 'http://example.com/add')
+        self.assertEqual(resp['message'], '')
+        self.assertEqual(resp['page_title'], 'New article — Site name')
 
     def test_submitted(self):
         request = pyramid.testing.DummyRequest(

@@ -19,6 +19,8 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(response['body'], 'Med kod:\n\n    cat fil1 > fil2\n\n'
                          'och lite mer text.')
         self.assertEqual(response['submit_url'], 'http://example.com/edit/2')
+        self.assertEqual(response['message'], '')
+        self.assertEqual(response['page_title'], 'Editing Testsida två — Site name')
 
     def test_submit(self):
         old_id = 2
