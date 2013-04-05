@@ -185,3 +185,8 @@ På `view_all` och `view_article` ska det finnas en logga med webbplatsens namn 
 Story 30
 ========
 Bannern ska även visas i add- och edit-vyerna.
+
+Story 31
+========
+Save- och Cancel-knapparna i edit- och add-lägena ska visas under brödtextfältet även om dess storlek förminskas.
+
