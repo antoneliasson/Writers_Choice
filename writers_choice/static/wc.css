@@ -55,3 +55,7 @@ p.message {
 #editor textarea {
     font-family: "Lucida Console", Monaco, monospace;
 }
+
+#editorbuttons {
+    margin-top: 5px;
+}
