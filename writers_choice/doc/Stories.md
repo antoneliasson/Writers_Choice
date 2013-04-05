@@ -181,3 +181,7 @@ Story 28
 Story 29
 ========
 På `view_all` och `view_article` ska det finnas en logga med webbplatsens namn högst upp. Den är också en länk till startsidan och ersätter go home-länken. Webbplatsens namn används även som title.
+
+Story 30
+========
+Bannern ska även visas i add- och edit-vyerna.
