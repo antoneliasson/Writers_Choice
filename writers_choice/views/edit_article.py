@@ -35,5 +35,6 @@ def edit_article(request):
     elif 'cancel-editing' in request.params:
         return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
 
+    page_title = 'Editing {} — {}'.format(article.title, request.registry.settings['site_name'])
     submit_url = request.route_url('edit_article', id=id)
-    return {'title' : article.title, 'body' : body, 'submit_url' : submit_url, 'message' : message}
+    return {'title' : article.title, 'body' : body, 'submit_url' : submit_url, 'message' : message, 'page_title' : page_title}

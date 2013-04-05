@@ -30,5 +30,6 @@ def add_article(request):
     elif 'cancel-editing' in request.params:
         return HTTPFound(location=request.route_url('view_all'))
 
+    page_title = 'New article — {}'.format(request.registry.settings['site_name'])
     submit_url = request.route_url('add_article')
-    return {'title' : '', 'body' : body, 'submit_url' : submit_url, 'message' : message}
+    return {'title' : '', 'body' : body, 'submit_url' : submit_url, 'message' : message, 'page_title' : page_title}
