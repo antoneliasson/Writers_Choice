@@ -59,3 +59,7 @@ p.message {
 #editorbuttons {
     margin-top: 5px;
 }
+
+#editorbuttons input[name=save-article] {
+    font-weight: bold;
+}
