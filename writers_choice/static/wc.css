@@ -9,6 +9,17 @@ body {
     padding: 5px 10px;
 }
 
+#banner {
+    color: black;
+    display: block;
+    font-family: Univers, Akzidenz-Grotesk, Helvetica, sans-serif;
+    font-size: 4em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-bottom-style: solid;
+}
+
 /* headers */
 h1, h2, h3, h4, h5, h6 {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;

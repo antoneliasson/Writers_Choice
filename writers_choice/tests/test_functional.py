@@ -8,7 +8,7 @@ from . import _initTestingDB
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
         from writers_choice import main
-        settings = { 'sqlalchemy.url': 'sqlite://'}
+        settings = { 'sqlalchemy.url': 'sqlite://', 'site_name' : 'Site name'}
         app = main({}, **settings)
         from webtest import TestApp
         self.testapp = TestApp(app)
@@ -19,7 +19,8 @@ class FunctionalTests(unittest.TestCase):
 
     def test_visit_article_1(self):
         res = self.testapp.get('/1/testsida', status=200)
-        res.mustcontain('<a href="http://localhost/">Go home</a>',
+        res.mustcontain('<title>Testsida — Site name</title>',
+                        '<a href="http://localhost/" id="banner">Site name</a>',
                         '<h1>Testsida</h1>', '<p>2012-01-01</p>',
                         '<p>Ett <em>stycke</em> till.</p>',
                         '<a href="http://localhost/edit/1')
@@ -34,7 +35,9 @@ class FunctionalTests(unittest.TestCase):
 
     def test_visit_home(self):
         res = self.testapp.get('/', status=200)
-        res.mustcontain('<h1><a href="http://localhost/">Writer&apos;s Choice</a></h1>',
+        res.mustcontain('<title>Site name</title>',
+                        '<a href="http://localhost/" id="banner">Site name</a>',
+                        '<h1>Blog</h1>',
                         '<h2><a href="http://localhost/1/testsida">Testsida</a></h2>',
                         '<h2><a href="http://localhost/2/testsida-tva">Testsida två</a></h2>',
                         '<h3>Rubrik 1</h3>',

@@ -1,6 +1,6 @@
 Planering
 =========
-Klara stories: 1-28
+Klara stories: 1-29
 
 Story 1
 =======
@@ -177,3 +177,7 @@ Alla sidor ska centreras och begränsas i bredd till ca. 100 tecken eller ca. 10
 Story 28
 ========
 Ändra tillbaka så att rutterna `view_article` och `view_article_slug` bara fångar heltal. Det blir så dumt med t.ex. '/edit/1/qwerty' annars.
+
+Story 29
+========
+På `view_all` och `view_article` ska det finnas en logga med webbplatsens namn högst upp. Den är också en länk till startsidan och ersätter go home-länken. Webbplatsens namn används även som title.

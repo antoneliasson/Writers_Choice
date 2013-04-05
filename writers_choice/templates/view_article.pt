@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Writer's Choice</title>
+  <title tal:content="title + ' &mdash; ' + request.registry.settings['site_name']" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link tal:attributes="href request.static_url('writers_choice:static/wc.css')" rel="stylesheet" type="text/css" href="" />
 </head>
 <body>
   <div id="page">
-    <p><a tal:attributes="href request.route_url('view_all')" href="">Go home</a></p>
+    <div id="header"><a tal:attributes="href request.route_url('view_all')" tal:content="request.registry.settings['site_name']" href="" id="banner" /></div>
     <h1 tal:content="title" />
     <div class="published">
       <p tal:content="published" />
