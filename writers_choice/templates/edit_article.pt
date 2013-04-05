@@ -6,13 +6,15 @@
     <link tal:attributes="href request.static_url('writers_choice:static/wc.css')" rel="stylesheet" type="text/css" href="" />
   </head>
   <body>
-    <form tal:attributes="action submit_url" action="" method="post" id="editor">
-      <h1 class="title"><input tal:attributes="value title" type="text" name="title" value="" size="80" placeholder="Title" /></h1>
-      <textarea tal:content="body" name="body" cols="80" rows="24" placeholder="Body text"></textarea>
-      <!--! Include message only if there is one -->
-      <p tal:condition="message" tal:content="message" class="message"></p>
-      <input type="submit" name="save-article" value="Save" />
-      <input type="submit" name="cancel-editing" value="Cancel" />
-    </form>
+    <div id="page">
+      <form tal:attributes="action submit_url" action="" method="post" id="editor">
+	<h1 class="title"><input tal:attributes="value title" type="text" name="title" value="" size="80" placeholder="Title" /></h1>
+	<textarea tal:content="body" name="body" cols="80" rows="24" placeholder="Body text"></textarea>
+	<!--! Include message only if there is one -->
+	<p tal:condition="message" tal:content="message" class="message"></p>
+	<input type="submit" name="save-article" value="Save" />
+	<input type="submit" name="cancel-editing" value="Cancel" />
+      </form>
+    </div>
   </body>
 </html>

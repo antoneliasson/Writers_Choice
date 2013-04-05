@@ -6,14 +6,16 @@
   <link tal:attributes="href request.static_url('writers_choice:static/wc.css')" rel="stylesheet" type="text/css" href="" />
 </head>
 <body>
-  <h1><a tal:attributes="href request.route_url('view_all')">Writer&apos;s Choice</a></h1>
-  <p><a tal:attributes="href request.route_url('add_article')" href="">Add new article</a></p>
-  <div tal:repeat="article articles">
-    <h2><a tal:attributes="href article.url" tal:content="article.title" href="" /></h2>
-    <div class="published">
-      <p tal:content="article.published" />
+  <div id="page">
+    <h1><a tal:attributes="href request.route_url('view_all')">Writer&apos;s Choice</a></h1>
+    <p><a tal:attributes="href request.route_url('add_article')" href="">Add new article</a></p>
+    <div tal:repeat="article articles">
+      <h2><a tal:attributes="href article.url" tal:content="article.title" href="" /></h2>
+      <div class="published">
+	<p tal:content="article.published" />
+      </div>
+      <div tal:content="structure:article.body" class="body" />
     </div>
-    <div tal:content="structure:article.body" class="body" />
   </div>
 </body>
 </html>
