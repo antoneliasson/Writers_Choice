@@ -10,7 +10,7 @@ from ..models import (
 
 from . import slugify
 
-@view_config(route_name='add_article', renderer='writers_choice:templates/edit_article.pt')
+@view_config(route_name='add_article', renderer='writers_choice:templates/edit_article.pt', permission='edit')
 def add_article(request):
     body = ''
     message = ''

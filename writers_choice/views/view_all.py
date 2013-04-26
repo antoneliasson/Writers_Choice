@@ -11,7 +11,7 @@ from ..models import (
 
 from . import format_article_metadata, slugify
 
-@view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt')
+@view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt', permission='view')
 def view_all(request):
     try:
         articles = DBSession.query(Article).order_by(Article.published.desc())

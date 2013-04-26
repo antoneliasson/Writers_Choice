@@ -12,8 +12,8 @@ from ..models import (
 
 from . import format_article_metadata, slugify
 
-@view_config(route_name='view_article_noslug', renderer='writers_choice:templates/view_article.pt')
-@view_config(route_name='view_article_slug', renderer='writers_choice:templates/view_article.pt')
+@view_config(route_name='view_article_noslug', renderer='writers_choice:templates/view_article.pt', permission='view')
+@view_config(route_name='view_article_slug', renderer='writers_choice:templates/view_article.pt', permission='view')
 def view_article(request):
     try:
         id = request.matchdict['id']

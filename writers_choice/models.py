@@ -1,3 +1,8 @@
+from pyramid.security import (
+    Allow,
+    Everyone,
+    )
+
 from sqlalchemy import (
     Column,
     Integer,
@@ -29,3 +34,9 @@ class Article(Base):
         self.title = title
         self.body = body
         self.published = published
+
+class RootFactory:
+    __acl__ = [ (Allow, Everyone, 'view'),
+                (Allow, 'editors', 'edit') ]
+    def __init__(self, request):
+        pass
