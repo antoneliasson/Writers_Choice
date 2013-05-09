@@ -2,16 +2,44 @@ import unittest
 import transaction
 from pyramid import testing
 
+import re
+import urllib.parse
+import requests
 
 from . import _initTestingDB
 
+AUDIENCE = 'http://example.com'
+
 class FunctionalTests(unittest.TestCase):
+    def getAssertion():
+        ''' Grabs a valid identity assertion from personatestuser.org for testing '''
+        url = 'http://personatestuser.org/email_with_assertion/{}'.format(
+            urllib.parse.quote(AUDIENCE, safe=''))
+        response = requests.get(url)
+        persona = response.json()
+
+        return (persona['email'], persona['pass'], persona['assertion'])
+
+    def authenticate():
+        ''' Authenticates using Persona. Not used currently. '''
+        res = self.testapp.get('/add', status=403)
+        # this plucks the csrf token from the Javascript form in the 403 response body
+        match = re.search('<input type=\'hidden\'[\s"\+]+name=\'csrf_token\'[\s"\+]+value=\'(?P<csrf>[a-z0-9]+)\'\s+/>', res.text)
+        csrf_token = match.group('csrf')
+        res = self.testapp.post('/login', {'assertion' : FunctionalTests.assertion, 'came_from' : 'http://localhost:6543/add', 'csrf_token' : csrf_token}, status=302)
+        print(self.testapp.cookies)
+        self.assertEqual(res.headers['Location'], 'http://localhost:6543/add')
+        self.fail()
+
     def setUp(self):
+        settings = {'sqlalchemy.url': 'sqlite://',
+                    'site_name' : 'Site name',
+                    'admin_email' : 'admin@example.com',
+                    'RemoteUserAuthenticationPolicy' : ''}
         from writers_choice import main
-        settings = { 'sqlalchemy.url': 'sqlite://', 'site_name' : 'Site name'}
         app = main({}, **settings)
         from webtest import TestApp
-        self.testapp = TestApp(app)
+        self.testapp = TestApp(app, extra_environ={'REMOTE_USER' : settings['admin_email']})
         self.session = _initTestingDB()
 
     def tearDown(self):

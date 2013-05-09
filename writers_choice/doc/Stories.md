@@ -1,6 +1,6 @@
 Planering
 =========
-Klara stories: 1-30
+Klara stories: 1-32
 
 Story 1
 =======
@@ -190,3 +190,6 @@ Story 31
 ========
 Save- och Cancel-knapparna i edit- och add-lägena ska visas under brödtextfältet även om dess storlek förminskas.
 
+Story 32
+========
+Endast en på förhand konfigurerad administratör ska kunna skapa och redigera artiklar. Administratören autentiseras med sin e-postadress med Mozilla Persona.
