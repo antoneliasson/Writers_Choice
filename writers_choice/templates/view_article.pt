@@ -8,12 +8,10 @@
 <body>
   <div id="page">
     <div id="header"><a tal:attributes="href request.route_url('view_all')" tal:content="request.registry.settings['site_name']" href="" id="banner" /></div>
+    <p tal:condition="user_can_edit"><a tal:attributes="href article.edit_url">Edit this article</a></p>
     <h1 tal:content="article.title" />
     <div class="published">
       <p tal:content="article.published" />
-    </div>
-    <div>
-      <p tal:condition="user_can_edit"><a tal:attributes="href article.edit_url">Edit this article</a></p>
     </div>
     <div tal:content="structure:article.body" class="body" />
   </div>
