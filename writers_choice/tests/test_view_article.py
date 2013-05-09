@@ -10,7 +10,8 @@ class ViewArticleTests(AbstractViewTests):
         request = pyramid.testing.DummyRequest()
         request.matchdict['id'] = 1
         request.matchdict['slug'] = 'testsida'
-        info = view_article(request)
+        response = view_article(request)
+        info = response['article']
         self.assertEqual(info['title'], 'Testsida')
         self.assertEqual(info['body'],
                          '<p>Ett stycke.</p>\n<p>Ett <em>stycke</em> till.</p>')
@@ -21,7 +22,8 @@ class ViewArticleTests(AbstractViewTests):
         request = pyramid.testing.DummyRequest()
         request.matchdict['id'] = 2
         request.matchdict['slug'] = 'testsida-tva'
-        info = view_article(request)
+        response = view_article(request)
+        info = response['article']
         self.assertEqual(info['title'], 'Testsida två')
         self.assertEqual(info['body'],
                          '<p>Med kod:</p>\n<pre><code>cat fil1 &gt; fil2\n'
@@ -33,8 +35,9 @@ class ViewArticleTests(AbstractViewTests):
         request = pyramid.testing.DummyRequest()
         request.matchdict['id'] = 3
         request.matchdict['slug'] = 'testsida-mittemellan'
-        resp = view_article(request)
-        self.assertEqual(resp['body'], '<p>Här finns ingenting, förutom:</p>\n<h2>Rubrik 1</h2>\n<h3>Rubrik 2</h3>')
+        response = view_article(request)
+        info = response['article']
+        self.assertEqual(info['body'], '<p>Här finns ingenting, förutom:</p>\n<h2>Rubrik 1</h2>\n<h3>Rubrik 2</h3>')
 
     def test_no_slug(self):
         request = pyramid.testing.DummyRequest()

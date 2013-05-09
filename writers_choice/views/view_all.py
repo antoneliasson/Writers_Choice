@@ -1,6 +1,7 @@
 import markdown
 
 from pyramid.view import view_config
+from pyramid.security import has_permission
 
 from sqlalchemy.exc import DBAPIError
 
@@ -25,4 +26,4 @@ def view_all(request):
         formatted['url'] = request.route_url('view_article_slug', id=article.id, slug=slugify(article.title))
         compilation.append(formatted)
 
-    return {'articles' : compilation}
+    return {'articles' : compilation, 'user_can_edit' : has_permission('edit', request.context, request)}

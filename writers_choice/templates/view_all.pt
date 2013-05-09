@@ -9,7 +9,7 @@
   <div id="page">
     <div id="header"><a tal:attributes="href request.route_url('view_all')" tal:content="request.registry.settings['site_name']" href="" id="banner" /></div>
     <h1>Blog</h1>
-    <p><a tal:attributes="href request.route_url('add_article')" href="">Add new article</a></p>
+    <p tal:condition="user_can_edit"><a tal:attributes="href request.route_url('add_article')" href="">Add new article</a></p>
     <div tal:repeat="article articles">
       <h2><a tal:attributes="href article.url" tal:content="article.title" href="" /></h2>
       <div class="published">

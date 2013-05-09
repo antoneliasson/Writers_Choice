@@ -71,6 +71,15 @@ class FunctionalTests(unittest.TestCase):
                         '<h3>Rubrik 1</h3>',
                         '<a href="http://localhost/add',
                         '>&lt;i&gt;HTML-title&lt;/i&gt;</a></h2>')
+
+    def test_visit_home_unauthorized(self):
+        res = self.testapp.get('/', status=200, extra_environ={'REMOTE_USER' : 'nobody@example.com'})
+        self.assertNotIn('<a href="http://localhost/add', res)
+
+    def test_visit_article_1_unauthorized(self):
+        res = self.testapp.get('/1/testsida', status=200, extra_environ={'REMOTE_USER' : 'nobody@example.com'})
+        self.assertNotIn('<a href="http://localhost/edit/1', res)
+
     def test_add_article(self):
         res = self.testapp.get('/add', status=200)
         res.mustcontain('<title>New article — Site name</title>',

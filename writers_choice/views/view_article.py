@@ -2,6 +2,7 @@ from markdown import markdown
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
+from pyramid.security import has_permission
 
 from sqlalchemy.exc import DBAPIError
 
@@ -30,4 +31,4 @@ def view_article(request):
     formatted = format_article_metadata(article)
     formatted['body'] = markdown(article.body, extensions=['extra', 'headerid(level=2, forceid=False)'])
     formatted['edit_url'] = request.route_url('edit_article', id=id)
-    return formatted
+    return {'article' : formatted, 'user_can_edit' : has_permission('edit', request.context, request)}
