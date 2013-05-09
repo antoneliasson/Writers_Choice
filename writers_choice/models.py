@@ -37,6 +37,6 @@ class Article(Base):
 
 class RootFactory():
     __acl__ = [ (Allow, Everyone, 'view'),
-                (Allow, 'editors', 'edit') ]
+                (Allow, 'group:editors', 'edit') ]
     def __init__(self, request):
         pass
