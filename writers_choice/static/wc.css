@@ -41,6 +41,10 @@ p.message {
     text-align: justify;
 }
 
+.published p {
+    font-weight: bold;
+}
+
 #editor input[type=text], #editor textarea {
     font-size:inherit;
     text-align:inherit;
