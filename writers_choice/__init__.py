@@ -19,13 +19,12 @@ def main(global_config, **settings):
     Base.metadata.bind = engine
 
     authn_policy = AuthTktAuthenticationPolicy(
-        'sosecret', callback=groupfinder, hashalg='sha512')
-    authz_policy = ACLAuthorizationPolicy()
+        settings['persona.secret'], callback=groupfinder, hashalg='sha512')
 
     config = Configurator(settings=settings, root_factory='.models.RootFactory')
 
+    config.include("pyramid_persona")
     config.set_authentication_policy(authn_policy)
-    config.set_authorization_policy(authz_policy)
 
     # config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_static_view('static', 'static', cache_max_age=0)

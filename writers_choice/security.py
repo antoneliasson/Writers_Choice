@@ -3,4 +3,6 @@ USERS = ['devel@antoneliasson.se',
 GROUPS = {'devel@antoneliasson.se':['editors']}
 
 def groupfinder(userid, request):
-    return GROUPS.get(userid, [])
+    admin_email = request.registry.settings['admin_email']
+    return ['editors'] if userid == admin_email else []
+#    return GROUPS.get(userid, [])

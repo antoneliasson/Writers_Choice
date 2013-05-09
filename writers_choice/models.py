@@ -35,7 +35,7 @@ class Article(Base):
         self.body = body
         self.published = published
 
-class RootFactory:
+class RootFactory():
     __acl__ = [ (Allow, Everyone, 'view'),
                 (Allow, 'editors', 'edit') ]
     def __init__(self, request):
