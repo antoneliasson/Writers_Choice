@@ -16,7 +16,6 @@ requires = [
     'waitress',
     'markdown',
     'WebTest',
-    'nose',
     'pyramid_persona',
     ]
 

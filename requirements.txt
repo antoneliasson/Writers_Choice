@@ -7,5 +7,4 @@ zope.sqlalchemy
 waitress
 markdown
 WebTest
-nose
 pyramid_persona
