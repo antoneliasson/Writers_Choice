@@ -31,8 +31,8 @@ def main(global_config, **settings):
             settings['persona.secret'], callback=groupfinder, hashalg='sha512')
     config.set_authentication_policy(authn_policy)
 
-    # config.add_static_view('static', 'static', cache_max_age=3600)
-    config.add_static_view('static', 'static', cache_max_age=0)
+    config.add_static_view('static', 'static', cache_max_age=3600)
+    # config.add_static_view('static', 'static', cache_max_age=0)
     config.add_route('add_article', '/add')
     config.add_route('edit_article', '/edit/{id}')
     config.add_route('view_article_noslug', '/{id:\d+}')
