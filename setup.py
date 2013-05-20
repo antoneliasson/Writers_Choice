@@ -20,7 +20,7 @@ requires = [
     ]
 
 setup(name='Writers_Choice',
-      version='0.0',
+      version='1.0',
       description='Writers_Choice',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
@@ -29,9 +29,9 @@ setup(name='Writers_Choice',
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         ],
-      author='',
-      author_email='',
-      url='',
+      author='Anton Eliasson',
+      author_email='devel@antoneliasson.se',
+      url='http://www.antoneliasson.se',
       keywords='web wsgi bfg pylons pyramid',
       packages=find_packages(),
       include_package_data=True,
