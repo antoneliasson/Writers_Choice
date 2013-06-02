@@ -25,10 +25,11 @@ Base = declarative_base()
 
 class Article(Base):
     __tablename__ = 'articles'
+    __table_args__ = {'mysql_engine':'InnoDB'}
     id = Column(Integer, primary_key=True)
-    title = Column(String)
-    body = Column(Text)
-    published = Column(TIMESTAMP)
+    title = Column(String(255), nullable=False)
+    body = Column(Text, nullable=False)
+    published = Column(TIMESTAMP, nullable=False)
 
     def __init__(self, title, body, published):
         self.title = title

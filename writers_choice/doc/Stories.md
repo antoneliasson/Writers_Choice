@@ -197,3 +197,7 @@ Endast en på förhand konfigurerad administratör ska kunna skapa och redigera 
 Story 33
 ========
 Länkarna add new article på startsidan och edit this article på artikelvisningssidorna ska bara visas om administratören är inloggad.
+
+Story 34
+========
+Det ska gå att använda både SQLite och MariaDB som databasbakände.
