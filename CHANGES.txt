@@ -1,3 +1,12 @@
+1.0
+---
+
+-  Compatibility fix release. This is worthy of a new major version number simply
+   because the last release didn't have a version number.
+-  MySQL is now supported as the database backend as well as SQLite. Not that
+   anyone will figure out how to use it since there is still no documentation
+   or sample configuration files.
+
 0.0
 ---
 
