@@ -1,4 +1,13 @@
 0.0
 ---
 
--  Initial version
+-  First release. A blog-like CMS has been born!
+-  Features:
+   * Reading articles
+   * Adding articles
+   * Editing articles
+   * Authentication with Mozilla Persona. One user specified in the configuration
+     file may add and edit articles. Everyone can read.
+-  Stories 1-33 are implemented
+-  Version numbers and other fancy metadata are not yet implemented, so this
+   release has the default value '0.0'
