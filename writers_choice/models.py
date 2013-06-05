@@ -25,7 +25,10 @@ Base = declarative_base()
 
 class Article(Base):
     __tablename__ = 'articles'
-    __table_args__ = {'mysql_engine':'InnoDB'}
+    __table_args__ = {
+        'mysql_engine' : 'InnoDB',
+        'mysql_charset' : 'utf8'
+    }
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
     body = Column(Text, nullable=False)
