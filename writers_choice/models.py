@@ -18,6 +18,8 @@ from sqlalchemy.orm import (
     sessionmaker,
     )
 
+from sqlalchemy.sql import func
+
 from zope.sqlalchemy import ZopeTransactionExtension
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
@@ -32,7 +34,7 @@ class Article(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
     body = Column(Text, nullable=False)
-    published = Column(TIMESTAMP, nullable=False)
+    published = Column(TIMESTAMP, nullable=False, server_default=func.current_timestamp())
 
     def __init__(self, title, body, published):
         self.title = title
