@@ -1,3 +1,17 @@
+1.1
+---
+
+-  2013-06-06
+-  Minor software update. Major documentation update.
+-  Tweaks related to the initial creation of the articles DB table, mostly
+   for MySQL.
+   * Default character set is explicitly set to 'utf8', since MySQL's system
+     default charset is usually 'latin1'.
+   * The publishing time of articles no longer changes when articles are re-saved.
+-  Documentation! First editions of README and INSTALL have been created. There are
+   some lies about how releases are packaged, which should be sorted out soon.
+   HACKING has not yet been written.
+
 1.0
 ---
 
