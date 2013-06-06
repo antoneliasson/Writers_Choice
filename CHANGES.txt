@@ -1,6 +1,7 @@
 1.0
 ---
 
+-  2013-06-04
 -  Compatibility fix release. This is worthy of a new major version number simply
    because the last release didn't have a version number.
 -  MySQL is now supported as the database backend as well as SQLite. Not that
@@ -10,6 +11,7 @@
 0.0
 ---
 
+-  2013-05-10
 -  First release. A blog-like CMS has been born!
 -  Features:
    * Reading articles
