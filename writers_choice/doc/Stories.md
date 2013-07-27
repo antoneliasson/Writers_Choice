@@ -1,6 +1,6 @@
 Planering
 =========
-Klara stories: 1-33
+Klara stories: 1-34
 
 Story 1
 =======
@@ -200,4 +200,4 @@ Länkarna add new article på startsidan och edit this article på artikelvisnin
 
 Story 34
 ========
-Det ska gå att använda både SQLite och MariaDB som databasbakände.
+Det ska gå att använda både SQLite och PostgreSQL som databasbakände.
