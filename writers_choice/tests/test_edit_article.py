@@ -118,3 +118,27 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(response['title'], old_title)
         self.assertEqual(response['body'], 'something different\n')
         self.assertFalse(response['message'] == '')
+
+    def test_weird_newlines(self):
+        old_id = 2
+        article = self.session.query(Article).filter_by(id=old_id).one()
+        old_title = article.title
+        old_published = article.published
+        new_body = 'Line 1\nLine 2\r\nLine 3\rLine 4\r\n\r\n'
+
+        request = pyramid.testing.DummyRequest(
+            {'title' : old_title,
+             'body' : new_body,
+             'save-article' : ''}
+        )
+        request.matchdict['id'] = 2
+        response = edit_article(request)
+        
+        expected = 'Line 1\nLine 2\nLine 3\nLine 4\n'
+        article = self.session.query(Article).filter_by(id=2).one()
+        self.assertEqual(article.title, old_title)
+        self.assertEqual(article.body, expected)
+        self.assertEqual(article.published, old_published)
+
+        self.assertIs(type(response), HTTPFound)
+        self.assertEqual(response.location, 'http://example.com/%d/testsida-tva' % old_id)

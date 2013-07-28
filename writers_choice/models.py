@@ -33,13 +33,21 @@ class Article(Base):
     }
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
-    body = Column(Text, nullable=False)
+    _body = Column('body', Text, nullable=False)
     published = Column(TIMESTAMP, nullable=False, server_default=func.current_timestamp())
 
     def __init__(self, title, body, published):
         self.title = title
-        self.body = body
+        self._body = '\n'.join(body.splitlines())
         self.published = published
+
+    def get_body(self):
+        return self._body
+    def set_body(self, value):
+        self._body = '\n'.join(value.splitlines())
+    def del_body(self):
+        del self._body
+    body = property(get_body, set_body, del_body)
 
 class RootFactory():
     __acl__ = [ (Allow, Everyone, 'view'),

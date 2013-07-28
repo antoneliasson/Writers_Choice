@@ -1,6 +1,6 @@
 Planering
 =========
-Klara stories: 1-34
+Klara stories: 1-35
 
 Story 1
 =======
@@ -201,3 +201,7 @@ Länkarna add new article på startsidan och edit this article på artikelvisnin
 Story 34
 ========
 Det ska gå att använda både SQLite och PostgreSQL som databasbakände.
+
+Story 35
+========
+De tre vanligaste varianter av nyradstecken (CR, LF, CRLF) ska alla normaliseras till LF i artiklarnas brödtext.

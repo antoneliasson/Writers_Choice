@@ -102,7 +102,7 @@ class FunctionalTests(unittest.TestCase):
                         '<h1 class="title">',
                         '<input type="text" name="title" value="Testsida"',
                         '>Ett stycke.\n\n'
-                            'Ett *stycke* till.\n</textarea>',
+                            'Ett *stycke* till.</textarea>',
                         '<input type="submit"')
 
         res = self.testapp.post('/edit/1',

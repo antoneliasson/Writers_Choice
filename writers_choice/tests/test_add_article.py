@@ -70,3 +70,15 @@ class AddArticleTests(AbstractViewTests):
         self.assertEqual(resp['title'], '')
         self.assertEqual(resp['body'], 'Brödtext.')
         self.assertFalse(resp['message'] == '')
+
+    def test_newline_normalization(self):
+        request = pyramid.testing.DummyRequest(
+            {'title' : 'Article with weird newline chars',
+             'body' : 'Line 1\nLine 2\r\nLine 3\rLine 4\r\n\r\n',
+             'save-article' : None}
+        )
+        resp = add_article(request)
+
+        expected = 'Line 1\nLine 2\nLine 3\nLine 4\n'
+        article = self.session.query(Article).filter_by(title='Article with weird newline chars').one()
+        self.assertEqual(article.body, expected)
