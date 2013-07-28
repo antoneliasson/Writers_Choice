@@ -132,12 +132,19 @@ and then run the application like this:
 
 [paste deploy file]: http://pythonpaste.org/deploy/
 
-Bugs
-====
+Bugs and limitations
+====================
 Important bugs in the latest release that are subjectively really important.
 
-* MySQL is supported but doesn't really work since the application doesn't handle
-  lost connections. This may not be a problem in busy apps but since ClearDB has a
-  timeout of 80 seconds and my app is very unbusy this is something I will have to
-  handle. PostgreSQL seems to work better. It also seems to have better support in
-  general.
+* MySQL works as database backend for some providers but not for others since the
+  application doesn't handle lost connections. This may not be a problem in busy apps
+  or with self-hosted MySQL instances but since fot example ClearDB has a timeout of
+  80 seconds and my app is very unbusy this doesn't work in my use case. PostgreSQL
+  seems to work better. It also seems to have better support in Python in general.
+  
+  Because of this, PostgreSQL is now "officially supported" and MySQL is not any
+  longer.
+
+* Trailing newlines in the article body get removed when the article is saved. This
+  could be fixed without too much work but since keeping trailing newlines isn't
+  really a feature I'm letting this pass for the time being.
