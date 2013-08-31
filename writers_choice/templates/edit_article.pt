@@ -15,7 +15,7 @@
 	<p tal:condition="message" tal:content="message" class="message"></p>
 	<div id="editorcontrols">
       <label for="publish">Publicera</label>
-      <input type="checkbox" name="publish" id="publish" />
+      <input tal:attributes="checked publish" type="checkbox" name="publish" id="publish" />
 	  <input type="submit" name="save-article" value="Save" />
 	  <input type="submit" name="cancel-editing" value="Cancel" />
 	</div>

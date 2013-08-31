@@ -36,7 +36,7 @@ class Article(Base):
     title = Column(String(255), nullable=False)
     _body = Column('body', Text, nullable=False)
     is_published = Column(Boolean, nullable=False, server_default=expression.false())
-    date_published = Column(TIMESTAMP, server_default=func.current_timestamp())
+    date_published = Column(TIMESTAMP, nullable=True)
 
     def __init__(self, title, body, is_published, date_published):
         self.title = title

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 import pyramid.testing
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
@@ -22,7 +24,33 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(response['message'], '')
         self.assertEqual(response['page_title'], 'Editing Testsida två — Site name')
 
-    def test_submit(self):
+    def test_submit_keep_published(self):
+        old_id = 2
+        article = self.session.query(Article).filter_by(id=old_id).one()
+        old_title = article.title
+        old_published = article.date_published
+        new_body = 'Numera utan `kod`.'
+
+        request = pyramid.testing.DummyRequest(
+            {'title' : old_title,
+             'body' : new_body,
+             'save-article' : '',
+             'publish' : ''}
+        )
+        request.matchdict['id'] = 2
+        response = edit_article(request)
+        
+
+        article = self.session.query(Article).filter_by(id=2).one()
+        self.assertEqual(article.title, old_title)
+        self.assertEqual(article.body, new_body)
+        self.assertTrue(article.is_published)
+        self.assertEqual(article.date_published, old_published)
+
+        self.assertIs(type(response), HTTPFound)
+        self.assertEqual(response.location, 'http://example.com/edit/%d' % old_id)
+
+    def test_submit_unpublish(self):
         old_id = 2
         article = self.session.query(Article).filter_by(id=old_id).one()
         old_title = article.title
@@ -36,12 +64,12 @@ class EditArticleTests(AbstractViewTests):
         )
         request.matchdict['id'] = 2
         response = edit_article(request)
-        
 
         article = self.session.query(Article).filter_by(id=2).one()
         self.assertEqual(article.title, old_title)
         self.assertEqual(article.body, new_body)
-        self.assertEqual(article.date_published, old_published)
+        self.assertFalse(article.is_published)
+        self.assertIsNone(article.date_published)
 
         self.assertIs(type(response), HTTPFound)
         self.assertEqual(response.location, 'http://example.com/edit/%d' % old_id)
@@ -126,7 +154,8 @@ class EditArticleTests(AbstractViewTests):
         request = pyramid.testing.DummyRequest(
             {'title' : old_title,
              'body' : new_body,
-             'save-article' : ''}
+             'save-article' : '',
+             'publish' : ''}
         )
         request.matchdict['id'] = 2
         response = edit_article(request)
@@ -136,3 +165,21 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(article.title, old_title)
         self.assertEqual(article.body, expected)
         self.assertEqual(article.date_published, old_published)
+
+    def test_publish(self):
+        id = 5
+        article = self.session.query(Article).filter_by(id=id).one()
+        self.assertFalse(article.is_published)
+        self.assertIsNone(article.date_published)
+        request = pyramid.testing.DummyRequest(
+            {'title' : article.title,
+             'body' : article.title,
+             'save-article' : '',
+             'publish' : ''}
+        )
+        request.matchdict['id'] = id
+        response = edit_article(request)
+
+        article = self.session.query(Article).filter_by(id=id).one()
+        self.assertTrue(article.is_published)
+        self.assertAlmostEqual(article.date_published, datetime.now(), delta=timedelta(seconds=10))

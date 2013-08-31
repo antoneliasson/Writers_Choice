@@ -20,8 +20,13 @@ def add_article(request):
         if title == '':
             message = 'Article not saved. Title cannot be empty.'
         else:
-            publish = True if 'publish' in request.params else False
-            article = Article(title, body, is_published=publish, date_published=datetime.now())
+            if 'publish' in request.params:
+                publish = True
+                date = datetime.now()
+            else:
+                publish = False
+                date = None
+            article = Article(title, body, is_published=publish, date_published=date)
             DBSession.add(article)
             # let the DB fill in the id
             DBSession.flush()
@@ -32,4 +37,4 @@ def add_article(request):
 
     page_title = 'New article — {}'.format(request.registry.settings['site_name'])
     submit_url = request.route_url('add_article')
-    return {'title' : '', 'body' : body, 'submit_url' : submit_url, 'message' : message, 'page_title' : page_title}
+    return {'title' : '', 'body' : body, 'submit_url' : submit_url, 'message' : message, 'page_title' : page_title, 'publish' : False}

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
@@ -27,8 +29,16 @@ def edit_article(request):
         if title == '':
             message = 'Article not saved. Title cannot be empty.'
         else:
+            if 'publish' in request.params:
+                publish = True
+                date = datetime.now() if article.date_published is None else article.date_published
+            else:
+                publish = False
+                date = None
             article.title = title
             article.body = body
+            article.is_published = publish
+            article.date_published = date
             DBSession.add(article)
 
             return HTTPFound(location=request.route_url('edit_article', id=article.id))
@@ -37,4 +47,4 @@ def edit_article(request):
 
     page_title = 'Editing {} — {}'.format(article.title, request.registry.settings['site_name'])
     submit_url = request.route_url('edit_article', id=id)
-    return {'title' : article.title, 'body' : body, 'submit_url' : submit_url, 'message' : message, 'page_title' : page_title}
+    return {'title' : article.title, 'body' : body, 'submit_url' : submit_url, 'message' : message, 'page_title' : page_title, 'publish' : article.is_published}

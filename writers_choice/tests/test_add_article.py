@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 import pyramid.testing
 from pyramid.httpexceptions import HTTPFound
 
@@ -28,6 +30,7 @@ class AddArticleTests(AbstractViewTests):
         self.assertEqual(article.title, 'Ny sida')
         self.assertEqual(article.body, 'Brödtext.')
         self.assertFalse(article.is_published)
+        self.assertIsNone(article.date_published)
 
         self.assertIs(type(resp), HTTPFound)
         self.assertEqual(resp.location, 'http://example.com/edit/%d' % article.id)
@@ -45,6 +48,7 @@ class AddArticleTests(AbstractViewTests):
         self.assertEqual(article.title, 'Ny sida')
         self.assertEqual(article.body, 'Brödtext.')
         self.assertTrue(article.is_published)
+        self.assertAlmostEqual(article.date_published, datetime.now(), delta=timedelta(seconds=10))
 
         self.assertIs(type(resp), HTTPFound)
         self.assertEqual(resp.location, 'http://example.com/edit/%d' % article.id)
