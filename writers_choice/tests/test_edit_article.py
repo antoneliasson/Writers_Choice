@@ -44,7 +44,7 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(article.date_published, old_published)
 
         self.assertIs(type(response), HTTPFound)
-        self.assertEqual(response.location, 'http://example.com/%d/testsida-tva' % old_id)
+        self.assertEqual(response.location, 'http://example.com/edit/%d' % old_id)
 
     def test_cancel(self):
         old_id = 2
@@ -94,9 +94,6 @@ class EditArticleTests(AbstractViewTests):
         article = self.session.query(Article).filter_by(id=2).one()
         self.assertEqual(article.title, 'Rubrik')
 
-        self.assertIs(type(response), HTTPFound)
-        self.assertEqual(response.location, 'http://example.com/%d/rubrik' % old_id)
-
     def test_empty_title_not_acceptable(self):
         old_id = 2
         article = self.session.query(Article).filter_by(id=old_id).one()
@@ -139,6 +136,3 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(article.title, old_title)
         self.assertEqual(article.body, expected)
         self.assertEqual(article.date_published, old_published)
-
-        self.assertIs(type(response), HTTPFound)
-        self.assertEqual(response.location, 'http://example.com/%d/testsida-tva' % old_id)

@@ -92,7 +92,9 @@ class FunctionalTests(unittest.TestCase):
                                          'save-article' : ''},
                                 status=302)
         res = res.follow()
-        res.mustcontain('<h1>Ny sida</h1>')
+        res.mustcontain('<h1 class="title"><input type="text" name="title" value="Ny sida"',
+                        '<textarea name="body"',
+                        'Brödtext')
 
     def test_edit_article(self):
         res = self.testapp.get('/edit/1', status=200)
@@ -111,7 +113,9 @@ class FunctionalTests(unittest.TestCase):
                                  'save-article' : ''},
                                 status=302)
         res = res.follow()
-        res.mustcontain('<h1>Testande sida</h1>')
+        res.mustcontain('<h1 class="title"><input type="text" name="title" value="Testande sida"',
+                        '<textarea name="body"',
+                        'text.</textarea>')
 
     def test_add_article_empty_title(self):
         res = self.testapp.post('/add', {'title' : '',

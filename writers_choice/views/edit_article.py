@@ -31,7 +31,7 @@ def edit_article(request):
             article.body = body
             DBSession.add(article)
 
-            return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
+            return HTTPFound(location=request.route_url('edit_article', id=article.id))
     elif 'cancel-editing' in request.params:
         return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
 

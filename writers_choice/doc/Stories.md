@@ -223,4 +223,12 @@ Fixa det som gick sönder.
 
 Task 36.3
 ---------
-Ändra beteende i vyerna.
+Ändra beteende i vyerna så att opublicerade artiklar inte visas.
+
+Task 36.4
+---------
+Lägg till den där kryssrutan i add- och edit-vyerna.
+
+Story 37
+========
+Nu ska man stanna i redigeringsläget efter att en redigerad eller nyskapad artikel har sparats.

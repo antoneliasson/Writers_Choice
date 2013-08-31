@@ -20,12 +20,13 @@ def add_article(request):
         if title == '':
             message = 'Article not saved. Title cannot be empty.'
         else:
-            article = Article(title, body, is_published=True, date_published=datetime.now())
+            publish = True if 'publish' in request.params else False
+            article = Article(title, body, is_published=publish, date_published=datetime.now())
             DBSession.add(article)
             # let the DB fill in the id
             DBSession.flush()
 
-            return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
+            return HTTPFound(location=request.route_url('edit_article', id=article.id))
     elif 'cancel-editing' in request.params:
         return HTTPFound(location=request.route_url('view_all'))
 

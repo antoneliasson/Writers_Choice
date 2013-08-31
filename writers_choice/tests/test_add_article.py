@@ -16,7 +16,7 @@ class AddArticleTests(AbstractViewTests):
         self.assertEqual(resp['message'], '')
         self.assertEqual(resp['page_title'], 'New article — Site name')
 
-    def test_submitted(self):
+    def test_submitted_not_published(self):
         request = pyramid.testing.DummyRequest(
             {'title' : 'Ny sida',
              'body' : 'Brödtext.',
@@ -27,9 +27,27 @@ class AddArticleTests(AbstractViewTests):
         article = self.session.query(Article).filter_by(title='Ny sida').first()
         self.assertEqual(article.title, 'Ny sida')
         self.assertEqual(article.body, 'Brödtext.')
+        self.assertFalse(article.is_published)
 
         self.assertIs(type(resp), HTTPFound)
-        self.assertEqual(resp.location, 'http://example.com/%d/ny-sida' % article.id)
+        self.assertEqual(resp.location, 'http://example.com/edit/%d' % article.id)
+
+    def test_submitted_published(self):
+        request = pyramid.testing.DummyRequest(
+            {'title' : 'Ny sida',
+             'body' : 'Brödtext.',
+             'publish' : '',
+             'save-article' : ''}
+        )
+        resp = add_article(request)
+
+        article = self.session.query(Article).filter_by(title='Ny sida').first()
+        self.assertEqual(article.title, 'Ny sida')
+        self.assertEqual(article.body, 'Brödtext.')
+        self.assertTrue(article.is_published)
+
+        self.assertIs(type(resp), HTTPFound)
+        self.assertEqual(resp.location, 'http://example.com/edit/%d' % article.id)
 
     def test_cancel(self):
         request = pyramid.testing.DummyRequest(
