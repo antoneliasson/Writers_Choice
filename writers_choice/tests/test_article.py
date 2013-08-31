@@ -7,10 +7,12 @@ class ArticleTests(unittest.TestCase):
     def test_article(self):
         article = Article('Testsida',
                           body='Ett stycke.\n\nEtt *stycke* till.\n',
-                          published=datetime.date(2012, 1, 1))
+                          is_published=True,
+                          date_published=datetime.date(2012, 1, 1))
         self.assertEqual(article.title, 'Testsida')
         self.assertEqual(article.body, 'Ett stycke.\n\nEtt *stycke* till.')
-        self.assertEqual(article.published, datetime.date(2012, 1, 1))
+        self.assertEqual(article.is_published, True)
+        self.assertEqual(article.date_published, datetime.date(2012, 1, 1))
 
 # class EditorTests(unittest.TestCase):
 #     def test_editor(self):

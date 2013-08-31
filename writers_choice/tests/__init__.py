@@ -18,20 +18,24 @@ def _initTestingDB():
     with transaction.manager:
         article = Article(title='Testsida',
                           body='Ett stycke.\n\nEtt *stycke* till.\n',
-                          published=datetime.date(2012, 1, 1))
+                          is_published=True,
+                          date_published=datetime.date(2012, 1, 1))
         DBSession.add(article)
         article = Article(title='Testsida två',
                           body='Med kod:\n\n    cat fil1 > fil2\n\n'
                               'och lite mer text.',
-                          published=datetime.date(2012, 1, 3))
+                          is_published=True,
+                          date_published=datetime.date(2012, 1, 3))
         DBSession.add(article)
         article = Article(title='Testsida mittemellan',
                           body='Här finns ingenting, förutom:\n\nRubrik 1\n========\n\n## Rubrik 2\n',
-                          published=datetime.date(2012, 1, 2))
+                          is_published=True,
+                          date_published=datetime.date(2012, 1, 2))
         DBSession.add(article)
         article = Article(title='<i>HTML-title</i>',
                           body='<strong>Nice HTML</strong> and\n\n<script>document.write("<p>Evil HTML</p>");</script>',
-                          published=datetime.date(2011, 1, 2))
+                          is_published=True,
+                          date_published=datetime.date(2011, 1, 2))
         DBSession.add(article)
     return DBSession
 

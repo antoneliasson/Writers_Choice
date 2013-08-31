@@ -20,8 +20,7 @@ def add_article(request):
         if title == '':
             message = 'Article not saved. Title cannot be empty.'
         else:
-            published = datetime.now()
-            article = Article(title, body, published)
+            article = Article(title, body, is_published=True, date_published=datetime.now())
             DBSession.add(article)
             # let the DB fill in the id
             DBSession.flush()

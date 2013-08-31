@@ -9,6 +9,7 @@ from sqlalchemy import (
     String,
     Text,
     TIMESTAMP,
+    Boolean,
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -18,7 +19,7 @@ from sqlalchemy.orm import (
     sessionmaker,
     )
 
-from sqlalchemy.sql import func
+from sqlalchemy.sql import expression, func
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
@@ -34,12 +35,14 @@ class Article(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
     _body = Column('body', Text, nullable=False)
-    published = Column(TIMESTAMP, nullable=False, server_default=func.current_timestamp())
+    is_published = Column(Boolean, nullable=False, server_default=expression.false())
+    date_published = Column(TIMESTAMP, server_default=func.current_timestamp())
 
-    def __init__(self, title, body, published):
+    def __init__(self, title, body, is_published, date_published):
         self.title = title
         self._body = '\n'.join(body.splitlines())
-        self.published = published
+        self.is_published = is_published
+        self.date_published = date_published
 
     def get_body(self):
         return self._body

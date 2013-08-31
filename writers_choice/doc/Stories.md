@@ -209,5 +209,18 @@ De tre vanligaste varianter av nyradstecken (CR, LF, CRLF) ska alla normaliseras
 Story 36
 ========
 Artiklar ska kunna skrivas och sparas utan att publiceras. Artiklar har ett boolean-attribut `is_published` och ett date-attribut `date_published`. I artikelredigeringsläget finns en kryssruta märkt "Publicerad".
+
 * När artikeln sparas och Publicerad är ikryssad sätts `is_published` till `true`. Om `date_published` var NULL får artikeln "just nu" som publiceringsdatum, annars rörs inte `date_published`.
 * När artikeln sparas utan att rutan är ikryssad sätts `is_published`och `date_published` båda till `false`.
+
+Task 36.1
+---------
+Ändra attributen i modellen Article.
+
+Task 36.2
+---------
+Fixa det som gick sönder.
+
+Task 36.3
+---------
+Ändra beteende i vyerna.
