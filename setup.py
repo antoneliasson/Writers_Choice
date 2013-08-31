@@ -20,7 +20,7 @@ requires = [
     ]
 
 setup(name='Writers_Choice',
-      version='1.1',
+      version='1.2',
       description='Writers_Choice',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[

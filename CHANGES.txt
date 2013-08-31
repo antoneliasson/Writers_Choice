@@ -1,3 +1,15 @@
+1.2
+---
+
+-   2013-08-31
+-   Support for article drafts. A checkbox in the article editing view lets the
+    user choose whether the article should be published. Drafts are not visible
+    in the normal views. To edit them, an authorized user has to visit the correct
+    URL to the edit view.
+-   This release introduces support for PostgreSQL and drops support for MySQL.
+-   Line endings of all kinds (CR/CRLF/LF) in articles are now normalized to the
+    Unix standard (LF).
+
 1.1
 ---
 
