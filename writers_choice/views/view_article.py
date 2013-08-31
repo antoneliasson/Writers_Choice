@@ -18,7 +18,7 @@ from . import format_article_metadata, slugify
 def view_article(request):
     try:
         id = request.matchdict['id']
-        article = DBSession.query(Article).filter_by(id=id).first()
+        article = DBSession.query(Article).filter_by(id=id, is_published=True).first()
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
 

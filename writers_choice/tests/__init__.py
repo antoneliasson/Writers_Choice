@@ -37,6 +37,11 @@ def _initTestingDB():
                           is_published=True,
                           date_published=datetime.date(2011, 1, 2))
         DBSession.add(article)
+        article = Article(title='Unpublished article',
+                          body='This is an article that has not yet been published.',
+                          is_published=False,
+                          date_published=None)
+        DBSession.add(article)
     return DBSession
 
 class AbstractViewTests(unittest.TestCase):

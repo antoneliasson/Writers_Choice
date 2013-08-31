@@ -67,3 +67,9 @@ class ViewArticleTests(AbstractViewTests):
         request.matchdict['id'] = 9999
         response = view_article(request)
         self.assertIs(type(response), HTTPNotFound)
+
+    def test_unpublished(self):
+        request = pyramid.testing.DummyRequest()
+        request.matchdict['id'] = 5
+        response = view_article(request)
+        self.assertIs(type(response), HTTPNotFound)
