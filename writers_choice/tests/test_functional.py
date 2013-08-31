@@ -59,7 +59,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_visit_nonexisting_article(self):
         resp = self.testapp.get('/9999', status=404)
-        resp.mustcontain('No such page')
+        resp.mustcontain('No such article.')
 
     def test_visit_home(self):
         res = self.testapp.get('/', status=200)

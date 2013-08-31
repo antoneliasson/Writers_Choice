@@ -5,6 +5,7 @@ from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from pyramid.security import has_permission
 
 from sqlalchemy.exc import DBAPIError
+from sqlalchemy.orm.exc import NoResultFound
 
 from ..models import (
     DBSession,
@@ -18,12 +19,11 @@ from . import format_article_metadata, slugify
 def view_article(request):
     try:
         id = request.matchdict['id']
-        article = DBSession.query(Article).filter_by(id=id, is_published=True).first()
+        article = DBSession.query(Article).filter_by(id=id, is_published=True).one()
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
-
-    if article is None:
-        return HTTPNotFound('No such page')
+    except NoResultFound:
+        return HTTPNotFound('No such article.')
 
     if not 'slug' in request.matchdict or request.matchdict['slug'] != slugify(article.title):
         return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
