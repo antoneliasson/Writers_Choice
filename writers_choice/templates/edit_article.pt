@@ -13,7 +13,9 @@
 	<textarea tal:content="body" name="body" cols="80" rows="24" placeholder="Body text"></textarea>
 	<!--! Include message only if there is one -->
 	<p tal:condition="message" tal:content="message" class="message"></p>
-	<div id="editorbuttons">
+	<div id="editorcontrols">
+      <label for="publish">Publicera</label>
+      <input type="checkbox" name="publish" id="publish" />
 	  <input type="submit" name="save-article" value="Save" />
 	  <input type="submit" name="cancel-editing" value="Cancel" />
 	</div>
