@@ -22,13 +22,15 @@ Setting up for development
 are not supported.
 
 Create and activate a new [virtualenv][]. In this example we'll create a plain
-virtualenv for simplicity, but you could also use virtualenvwrapper if you want.
+virtualenv for simplicity, but you could also use [virtualenvwrapper][] if you
+want. Using virtualenvwrapper is actually what I recommend if you have more than
+one or two virtualenv's on your system.
 
     $ virtualenv wc-dev
     $ cd wc-dev
 	$ source bin/activate
 
-Clone this repository containing the latest development version.
+Clone this repository to get the latest development version.
 
     $ git clone git@gitorious.org:writers-choice/writers-choice.git
 
@@ -40,7 +42,7 @@ There might be some build errors while installing the dependencies, which I thin
 you can safely ignore.
 
 Pick a suitable sample configuration file (`development.ini` or `production.ini`)
-and customize it according to the section Configuration below. In this example
+and customize it according to the section [Configuration](#configuration "Configuration") below. In this example
 we'll assume you use `development.ini`.  Run the magic script to initialize the
 database with the tables and some sample data.
 
@@ -55,39 +57,42 @@ amazing test coverage.
 
     $ nosetests
 
-Start the application using the included HTTP server.
+Start the application using Pyramid's included HTTP server [waitress][].
 
     $ pserve --reload development.ini
 
 [virtualenv]: http://www.virtualenv.org/en/latest/
+[virtualenvwrapper]: http://virtualenvwrapper.readthedocs.org/
+[waitress]: http://docs.pylonsproject.org/projects/waitress/
 
 Configuration
 -------------
 The application is configured using a [Paste Deploy file][]. Two sample files are
-available in the repo: `development.ini` and `production.ini`. `development.ini` is
-suitable for development because it enables a debug toolbar with some fancy
-monitoring tools. `production.ini` on the other hand is suitable for production
-because it disables said tools, which makes the application faster and more
-secure. The most interesting settings that a user of this application would
-probably want to configure are described below.
+shipped with the application: `development.ini` and
+`production.ini`. `development.ini` is suitable for development because it enables
+a debug toolbar with some fancy monitoring tools. `production.ini` on the other
+hand is suitable for production because it disables said tools, which makes the
+application faster and more secure. The most interesting settings that a user of
+this application would probably want to configure are described below.
 
 ### sqlalchemy.url
 This is a URL that describes how SQLAlchemy should connect to the database. For
-MySQL the format is `mysql+mysqlconnector://username:password@db_host/db_name`
-where `mysqlconnector` is a particular type of driver that communicates with the
-database host. Other drivers might work but `mysqlconnector` is the recommended
-one.
+PostgreSQL the format is `postgres://username:password@db_host/db_name`.  This uses
+the default *DBAPI driver* [psycopg2][]. Others are available and might work but
+are not tested.
 
 For SQLite the format is `sqlite:///%(here)s/filename.sqlite` where `%(here)`
 expands to the path of the directory containing the configuration file.
 
 ### debugtoolbar.hosts
 When running in development mode, this specifies which hosts are allowed to use the
-debug toolbar. By default this is only localhost.
+debug toolbar. Because the debug toolbar allow the user to execute arbitrary Python
+code, this is by default set to localhost only.
 
-Protip: When developing on a remote machine you can leave this to default and use
-SSH tunnels to route the HTTP requests from your client machine through the remote
-so that it looks to the application like they are coming from localhost.
+Protip: When developing on a remote machine you can leave this to default value and
+use SSH tunnels to route the HTTP requests from your client machine through the
+remote so that it looks to the application like they are coming from
+localhost. That way you don't have to open the server to the Internet.
 
 ### site_name
 Shown in the HTML title and in the big header.
@@ -107,8 +112,8 @@ admin) so it must be kept secret. I have no idea how long it can or should be bu
 The URL(s), separated by a space, of your web app. This is a requirement for
 Persona to be secure and must be hard-coded in the configuration. If this field is
 blank (and the underlying library would have allowed it to be, which it doesn't),
-another website that the user has previously logged in to could reuse their
-identity assertions on your site, effectively impersonating a user.
+another website that the user has previously logged in to using Persona could reuse
+their identity assertions on your site, effectively impersonating the poor user.
 
 Protocol (HTTP/HTTPS) and port (default 80) matters. This is one reason for an
 application to have several URLs.
@@ -117,7 +122,8 @@ application to have several URLs.
 Optional. A site name to present to the user during login.
 
 ### [server:main] host
-Which hosts the HTTP server should respond to. Defaults to 0.0.0.0 (everyone).
+Which hostname or IP address the HTTP server should listen on. Defaults to 0.0.0.0
+(all IP addresses on this host).
 
 ### [server:main] port
 Which port the HTTP server should listen on. Can be an integer, or a placeholder if
@@ -128,22 +134,24 @@ that case you can set the port to:
 
 and then run the application like this:
 
-    pserve production.ini http_port=6543
+    $ pserve production.ini http_port=6543
 
 [paste deploy file]: http://pythonpaste.org/deploy/
+[psycopg2]: http://docs.sqlalchemy.org/en/rel_0_8/dialects/postgresql.html#module-sqlalchemy.dialects.postgresql.psycopg2
 
 Bugs and limitations
 ====================
 Important bugs in the latest release that are subjectively really important.
 
 * MySQL works as database backend for some providers but not for others since the
-  application doesn't handle lost connections. This may not be a problem in busy apps
-  or with self-hosted MySQL instances but since fot example ClearDB has a timeout of
-  80 seconds and my app is very unbusy this doesn't work in my use case. PostgreSQL
-  seems to work better. It also seems to have better support in Python in general.
+  application doesn't handle lost connections. This may not be a problem for busy
+  apps or apps using a self-hosted MySQL server but since for example ClearDB has a
+  timeout of 80 seconds and my app is very unbusy this doesn't work in my use
+  case. PostgreSQL seems to work better. It also seems to have better support in
+  Python in general.
   
-  Because of this, PostgreSQL is now "officially supported" and MySQL is not any
-  longer.
+  Because of this, PostgreSQL is "officially supported" from Writer's Choice
+  version 1.2 and later and MySQL is no longer supported.
 
 * Trailing newlines in the article body get removed when the article is saved. This
   could be fixed without too much work but since keeping trailing newlines isn't
