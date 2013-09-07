@@ -8,6 +8,9 @@
 <body>
   <div id="page">
     <div id="header"><a tal:attributes="href request.route_url('view_all')" tal:content="request.registry.settings['site_name']" href="" id="banner" /></div>
+    <ul id="nav_bar">
+      <li tal:repeat="tab navigation" class="nav_tab"><a tal:attributes="href tab.url" tal:content="tab.title" /></li>
+    </ul>
     <p tal:condition="user_can_edit"><a tal:attributes="href content.edit_url">Edit this</a></p>
     <h1 tal:content="content.title" />
     <div tal:condition="'published' in content" class="published">

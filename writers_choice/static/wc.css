@@ -67,3 +67,29 @@ p.message {
 #editorcontrols input[name=save-article] {
     font-weight: bold;
 }
+
+/* navigation bar */
+#nav_bar {
+    background: black;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+li.nav_tab {
+    float: left;
+}
+.nav_tab a:link, .nav_tab a:visited {
+    display: block;
+    width: 120px;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.nav_tab a:hover, .nav_tab a:active {
+    background-color: gray;
+}

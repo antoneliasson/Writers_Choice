@@ -51,7 +51,9 @@ class FunctionalTests(unittest.TestCase):
                         '<a href="http://localhost/" id="banner">Site name</a>',
                         '<h1>Testsida</h1>', '<p>2012-01-01</p>',
                         '<p>Ett <em>stycke</em> till.</p>',
-                        '<a href="http://localhost/edit/1')
+                        '<a href="http://localhost/edit/1',
+                        '<li class="nav_tab"><a href="http://localhost/">Home</a></li>',
+                        '<li class="nav_tab"><a href="http://localhost/about-us">About us</a></li>')
 
     def test_visit_evil_article(self):
         res = self.testapp.get('/4/ihtml-titlei', status=200)
@@ -70,7 +72,10 @@ class FunctionalTests(unittest.TestCase):
                         '<h2><a href="http://localhost/2/testsida-tva">Testsida två</a></h2>',
                         '<h3>Rubrik 1</h3>',
                         '<a href="http://localhost/add',
-                        '>&lt;i&gt;HTML-title&lt;/i&gt;</a></h2>')
+                        '>&lt;i&gt;HTML-title&lt;/i&gt;</a></h2>',
+                        '<li class="nav_tab"><a href="http://localhost/">Home</a></li>',
+                        '<li class="nav_tab"><a href="http://localhost/about-us">About us</a></li>')
+
 
     def test_visit_home_unauthorized(self):
         res = self.testapp.get('/', status=200, extra_environ={'REMOTE_USER' : 'nobody@example.com'})
@@ -142,7 +147,10 @@ class FunctionalTests(unittest.TestCase):
                              '<a href="http://localhost/" id="banner">Site name</a>',
                              '<h1>About us</h1>',
                              '<p>This page contains som information about the author.</p>\n'
-                             '<p>Contact: <a href="mailto:admin@example.com">Admin</a></p>')
+                             '<p>Contact: <a href="mailto:admin@example.com">Admin</a></p>',
+                             '<li class="nav_tab"><a href="http://localhost/">Home</a></li>',
+                             '<li class="nav_tab"><a href="http://localhost/about-us">About us</a></li>')
+
 
     def test_visit_nonexisting_page(self):
         response = self.testapp.get('/nonexisting', status=404)
