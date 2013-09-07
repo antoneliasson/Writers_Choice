@@ -135,3 +135,15 @@ class FunctionalTests(unittest.TestCase):
                                 status=200)
         res.mustcontain('>text.\n</textarea>',
                         '<p class="message">')
+
+    def test_visit_about_page(self):
+        response = self.testapp.get('/about', status=200)
+        response.mustcontain('<title>About — Site name</title>',
+                             '<a href="http://localhost/" id="banner">Site name</a>',
+                             '<h1>About</h1>',
+                             '<p>This page contains som information about the author.</p>\n'
+                             '<p>Contact: <a href="mailto:admin@example.com">Admin</a></p>')
+
+    def test_visit_nonexisting_page(self):
+        response = self.testapp.get('/nonexisting', status=404)
+        response.mustcontain('Page not found')

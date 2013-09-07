@@ -8,6 +8,7 @@ from sqlalchemy import create_engine
 from ..models import (
     Base,
     Article,
+    Page,
     DBSession,
 )
 
@@ -42,6 +43,12 @@ def _initTestingDB():
                           is_published=False,
                           date_published=None)
         DBSession.add(article)
+
+        page = Page(title='About',
+                    body='This page contains som information about the author.\n\n'\
+                    'Contact: [Admin](mailto:admin@example.com)')
+        DBSession.add(page)
+
     return DBSession
 
 class AbstractViewTests(unittest.TestCase):

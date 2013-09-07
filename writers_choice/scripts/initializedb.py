@@ -14,6 +14,7 @@ from pyramid.paster import (
 from ..models import (
     DBSession,
     Article,
+    Page,
     Base,
     )
 
@@ -45,3 +46,8 @@ def main(argv=sys.argv):
                           is_published=True,
                           date_published=date(2012, 1, 2))
         DBSession.add(article)
+
+        page = Page(title='About',
+                    body='This page contains som information about the author.\n\n'\
+                    'Contact: [Admin](mailto:admin@example.com)')
+        DBSession.add(page)
