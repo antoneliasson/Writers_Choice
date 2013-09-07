@@ -228,3 +228,23 @@ Lägg till den där kryssrutan i add- och edit-vyerna.
 Story 37
 ========
 Nu ska man stanna i redigeringsläget efter att en redigerad eller nyskapad artikel har sparats.
+
+Story 38
+========
+Applikationen hanterar *sidor*. Sidor består av rubrik, brödtext och ett internt ID och är tänkta att vara mer statiska än artiklar. Sidornas rubriker ska visas som länkar i en menyrad mellan sidhuvudet och innehållet. Länkarna leder till `http://<url>/<rubrik>`, där `<rubrik>` är sidans rubrik slugifierad. Sidornas brödtext skrivs i Markdown.
+
+Task 38.1
+--------
+Ny modell `Page` bestående av fälten `id` (heltal, primär nyckel), `title` (sträng) och `body` (text).
+
+Task 38.2
+--------
+Ny vy `view_page` som tar den URL-vänliga varianten av en sidas rubrik som argument. Vyn returnerar en dictionary med artikelns rubrik och HTML-kompilerade brödtext som renderas med mallen `view_article`.
+
+Task 38.3
+--------
+Mallen `view_article` ändras för att kunna hantera att publikationsdatum saknas (vilket det gör i sidor).
+
+Task 38.4
+--------
+Rutten /{slug} kopplas till vyn `view_page`.
