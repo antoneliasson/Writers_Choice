@@ -10,7 +10,7 @@
     <div id="header"><a tal:attributes="href request.route_url('view_all')" tal:content="request.registry.settings['site_name']" href="" id="banner" /></div>
     <p tal:condition="user_can_edit"><a tal:attributes="href content.edit_url">Edit this</a></p>
     <h1 tal:content="content.title" />
-    <div class="published">
+    <div tal:condition="'published' in content" class="published">
       <p tal:content="content.published" />
     </div>
     <div tal:content="structure:content.body" class="body" />
