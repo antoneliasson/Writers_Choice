@@ -1,19 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title tal:content="article.title + ' &mdash; ' + request.registry.settings['site_name']" />
+  <title tal:content="content.title + ' &mdash; ' + request.registry.settings['site_name']" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link tal:attributes="href request.static_url('writers_choice:static/wc.css')" rel="stylesheet" type="text/css" href="" />
 </head>
 <body>
   <div id="page">
     <div id="header"><a tal:attributes="href request.route_url('view_all')" tal:content="request.registry.settings['site_name']" href="" id="banner" /></div>
-    <p tal:condition="user_can_edit"><a tal:attributes="href article.edit_url">Edit this article</a></p>
-    <h1 tal:content="article.title" />
+    <p tal:condition="user_can_edit"><a tal:attributes="href content.edit_url">Edit this</a></p>
+    <h1 tal:content="content.title" />
     <div class="published">
-      <p tal:content="article.published" />
+      <p tal:content="content.published" />
     </div>
-    <div tal:content="structure:article.body" class="body" />
+    <div tal:content="structure:content.body" class="body" />
   </div>
 </body>
 </html>

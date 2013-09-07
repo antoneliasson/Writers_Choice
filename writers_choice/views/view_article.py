@@ -31,4 +31,4 @@ def view_article(request):
     formatted = format_article_metadata(article)
     formatted['body'] = markdown(article.body, extensions=['extra', 'headerid(level=2, forceid=False)'])
     formatted['edit_url'] = request.route_url('edit_article', id=id)
-    return {'article' : formatted, 'user_can_edit' : has_permission('edit', request.context, request)}
+    return {'content' : formatted, 'user_can_edit' : has_permission('edit', request.context, request)}

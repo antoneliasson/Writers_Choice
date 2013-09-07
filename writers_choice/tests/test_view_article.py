@@ -11,7 +11,7 @@ class ViewArticleTests(AbstractViewTests):
         request.matchdict['id'] = 1
         request.matchdict['slug'] = 'testsida'
         response = view_article(request)
-        info = response['article']
+        info = response['content']
         self.assertEqual(info['title'], 'Testsida')
         self.assertEqual(info['body'],
                          '<p>Ett stycke.</p>\n<p>Ett <em>stycke</em> till.</p>')
@@ -23,7 +23,7 @@ class ViewArticleTests(AbstractViewTests):
         request.matchdict['id'] = 2
         request.matchdict['slug'] = 'testsida-tva'
         response = view_article(request)
-        info = response['article']
+        info = response['content']
         self.assertEqual(info['title'], 'Testsida två')
         self.assertEqual(info['body'],
                          '<p>Med kod:</p>\n<pre><code>cat fil1 &gt; fil2\n'
@@ -36,7 +36,7 @@ class ViewArticleTests(AbstractViewTests):
         request.matchdict['id'] = 3
         request.matchdict['slug'] = 'testsida-mittemellan'
         response = view_article(request)
-        info = response['article']
+        info = response['content']
         self.assertEqual(info['body'], '<p>Här finns ingenting, förutom:</p>\n<h2>Rubrik 1</h2>\n<h3>Rubrik 2</h3>')
 
     def test_no_slug(self):
