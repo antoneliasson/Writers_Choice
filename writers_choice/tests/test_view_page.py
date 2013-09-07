@@ -7,10 +7,10 @@ from . import AbstractViewTests
 class ViewPageTests(AbstractViewTests):
     def test_view_about_page(self):
         request = DummyRequest()
-        request.matchdict['slug'] = 'about'
+        request.matchdict['slug'] = 'about-us'
         response = view_page(request)
         content = response['content']
-        self.assertEqual(content['title'], 'About')
+        self.assertEqual(content['title'], 'About us')
         self.assertEqual(content['body'],
                          '<p>This page contains som information about the author.</p>\n'
                          '<p>Contact: <a href="mailto:admin@example.com">Admin</a></p>')
