@@ -22,6 +22,7 @@ class PageTests(unittest.TestCase):
         page = Page(title='About', body=body)
         self.assertEqual(page.title, 'About')
         self.assertEqual(page.body, body)
+        self.assertEqual(page.slug, 'about')
 
 # class EditorTests(unittest.TestCase):
 #     def test_editor(self):

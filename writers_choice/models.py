@@ -23,6 +23,8 @@ from sqlalchemy.sql import expression, func
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
+from writers_choice.views import slugify
+
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
@@ -59,6 +61,12 @@ class Article(WrittenContent):
 
 class Page(WrittenContent):
     __tablename__ = 'pages'
+
+    slug = Column(String(255), nullable=False)
+
+    def __init__(self, title, body):
+        super().__init__(title, body)
+        self.slug = slugify(self.title)
 
 class RootFactory():
     __acl__ = [ (Allow, Everyone, 'view'),
