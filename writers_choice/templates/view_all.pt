@@ -13,7 +13,7 @@
     <div tal:repeat="article articles">
       <h2><a tal:attributes="href article.url" tal:content="article.title" href="" /></h2>
       <div class="published">
-	<p tal:content="article.published" />
+	    <p tal:content="article.published" />
       </div>
       <div tal:content="structure:article.body" class="body" />
       <hr class="articledivider" />
