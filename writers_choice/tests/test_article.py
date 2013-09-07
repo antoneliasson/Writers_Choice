@@ -1,7 +1,7 @@
 import unittest
 import datetime
 
-from ..models import Article#, Editor
+from ..models import Article, Page#, Editor
 
 class ArticleTests(unittest.TestCase):
     def test_article(self):
@@ -13,6 +13,15 @@ class ArticleTests(unittest.TestCase):
         self.assertEqual(article.body, 'Ett stycke.\n\nEtt *stycke* till.')
         self.assertEqual(article.is_published, True)
         self.assertEqual(article.date_published, datetime.date(2012, 1, 1))
+
+class PageTests(unittest.TestCase):
+    def test_page(self):
+        body = 'This page contains som information about the author.\n\n'\
+        'Contact: [Admin](mailto:admin@example.com)'
+
+        page = Page(title='About', body=body)
+        self.assertEqual(page.title, 'About')
+        self.assertEqual(page.body, body)
 
 # class EditorTests(unittest.TestCase):
 #     def test_editor(self):
