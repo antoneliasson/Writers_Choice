@@ -8,7 +8,8 @@ from sqlalchemy.exc import DBAPIError
 from ..models import (
     DBSession,
     Article,
-    )
+    Page
+)
 
 from . import format_article_metadata, slugify
 
@@ -26,4 +27,17 @@ def view_all(request):
         formatted['url'] = request.route_url('view_article_slug', id=article.id, slug=slugify(article.title))
         compilation.append(formatted)
 
-    return {'articles' : compilation, 'user_can_edit' : has_permission('edit', request.context, request)}
+    navigation = get_navigation(request)
+
+    return {'articles' : compilation, 'user_can_edit' : has_permission('edit', request.context, request), 'navigation' : navigation}
+
+def get_navigation(request):
+    pages = DBSession.query(Page).order_by(Page.title)
+
+    tabs = list()
+    home = {'title' : 'Home', 'url' : request.route_url('view_all')}
+    tabs.append(home)
+    for page in pages:
+        tab = {'title' : page.title, 'url' : request.route_url('view_page', slug=page.slug)}
+        tabs.append(tab)
+    return tabs

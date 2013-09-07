@@ -15,6 +15,13 @@ class ViewPageTests(AbstractViewTests):
                          '<p>This page contains som information about the author.</p>\n'
                          '<p>Contact: <a href="mailto:admin@example.com">Admin</a></p>')
 
+        tab_1 = response['navigation'][0]
+        self.assertEqual(tab_1['title'], 'Home')
+        self.assertEqual(tab_1['url'], 'http://example.com/')
+        tab_2 = response['navigation'][1]
+        self.assertEqual(tab_2['title'], 'About us')
+        self.assertEqual(tab_2['url'], 'http://example.com/about-us')
+
     def test_view_nonexistent(self):
         request = DummyRequest()
         request.matchdict['slug'] = 'nonexistent'

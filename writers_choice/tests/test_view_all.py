@@ -9,6 +9,7 @@ class ViewAllTests(AbstractViewTests):
         request = pyramid.testing.DummyRequest()
         resp = view_all(request)
         self.assertEqual(len(resp['articles']), 4)
+        self.assertEqual(len(resp['navigation']), 2)
 
         article_2 = resp['articles'][0]
         self.assertEqual(article_2['id'], 2)
@@ -21,6 +22,13 @@ class ViewAllTests(AbstractViewTests):
         self.assertEqual(article_3['title'], 'Testsida mittemellan')
         self.assertEqual(article_3['published'], '2012-01-02')
         self.assertEqual(article_3['url'], 'http://example.com/3/testsida-mittemellan')
+
+        tab_1 = resp['navigation'][0]
+        self.assertEqual(tab_1['title'], 'Home')
+        self.assertEqual(tab_1['url'], 'http://example.com/')
+        tab_2 = resp['navigation'][1]
+        self.assertEqual(tab_2['title'], 'About us')
+        self.assertEqual(tab_2['url'], 'http://example.com/about-us')
 
     def test_header_levels(self):
         request = pyramid.testing.DummyRequest()

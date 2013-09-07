@@ -18,6 +18,13 @@ class ViewArticleTests(AbstractViewTests):
         self.assertEqual(info['published'], '2012-01-01')
         self.assertEqual(info['edit_url'], 'http://example.com/edit/1')
 
+        tab_1 = response['navigation'][0]
+        self.assertEqual(tab_1['title'], 'Home')
+        self.assertEqual(tab_1['url'], 'http://example.com/')
+        tab_2 = response['navigation'][1]
+        self.assertEqual(tab_2['title'], 'About us')
+        self.assertEqual(tab_2['url'], 'http://example.com/about-us')
+
     def test_view_article_2(self):
         request = pyramid.testing.DummyRequest()
         request.matchdict['id'] = 2

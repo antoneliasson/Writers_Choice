@@ -18,4 +18,8 @@ def view_page(request):
     content = {'id' : page.id, 'title' : page.title}
     content['body'] = markdown(page.body, extensions=['extra', 'headerid(level=2, forceid=False)'])
     content['edit_url'] = ''
-    return {'content' : content, 'user_can_edit' : False}
+
+    from .view_all import get_navigation
+    navigation = get_navigation(request)
+
+    return {'content' : content, 'user_can_edit' : False, 'navigation' : navigation}
