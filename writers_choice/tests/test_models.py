@@ -24,6 +24,14 @@ class PageTests(unittest.TestCase):
         self.assertEqual(page.body, body)
         self.assertEqual(page.slug, 'about')
 
+    def test_change_title(self):
+        page = Page(title='About', body='body text')
+        self.assertEqual(page.title, 'About')
+        self.assertEqual(page.slug, 'about')
+        page.title = 'About Me'
+        self.assertEqual(page.title, 'About Me')
+        self.assertEqual(page.slug, 'about')
+
 # class EditorTests(unittest.TestCase):
 #     def test_editor(self):
 #         editor = Editor(email='editor@example.com',
