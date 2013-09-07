@@ -1,7 +1,7 @@
 import unittest
 import datetime
 
-from ..models import Article, Page#, Editor
+from writers_choice.models import Article, Page#, Editor
 
 class ArticleTests(unittest.TestCase):
     def test_article(self):

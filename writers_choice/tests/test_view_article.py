@@ -1,7 +1,7 @@
 import pyramid.testing
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
-from ..views.view_article import view_article
+from writers_choice.views.view_article import view_article
 
 from . import AbstractViewTests
 

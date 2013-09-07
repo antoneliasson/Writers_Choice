@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 import pyramid.testing
 from pyramid.httpexceptions import HTTPFound
 
-from ..models import Article
-from ..views.add_article import add_article
+from writers_choice.models import Article
+from writers_choice.views.add_article import add_article
 
 from . import AbstractViewTests
 

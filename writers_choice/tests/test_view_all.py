@@ -1,6 +1,6 @@
 import pyramid.testing
 
-from ..views.view_all import view_all
+from writers_choice.views.view_all import view_all
 
 from . import AbstractViewTests
 
