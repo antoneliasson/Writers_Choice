@@ -1,7 +1,3 @@
-Planering
-=========
-Klara stories: 1-35
-
 Story 1
 =======
 Projektet använder MVC-ramverket Pyramid och utgår från mallen alchemy. Detta innebär att SQL Alchemy används som lagringsmekanism och URL Dispatch används för att koppla URL:er till vyer.
