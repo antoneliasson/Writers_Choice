@@ -33,7 +33,7 @@ class AddArticleTests(AbstractViewTests):
         self.assertIsNone(article.date_published)
 
         self.assertIs(type(resp), HTTPFound)
-        self.assertEqual(resp.location, 'http://example.com/edit/%d' % article.id)
+        self.assertEqual(resp.location, 'http://example.com/edit/{}'.format(article.id))
 
     def test_submitted_published(self):
         request = pyramid.testing.DummyRequest(
@@ -48,10 +48,12 @@ class AddArticleTests(AbstractViewTests):
         self.assertEqual(article.title, 'Ny sida')
         self.assertEqual(article.body, 'Brödtext.')
         self.assertTrue(article.is_published)
-        self.assertAlmostEqual(article.date_published, datetime.now(), delta=timedelta(seconds=10))
+        self.assertAlmostEqual(article.date_published,
+                               datetime.now(),
+                               delta=timedelta(seconds=10))
 
         self.assertIs(type(resp), HTTPFound)
-        self.assertEqual(resp.location, 'http://example.com/edit/%d' % article.id)
+        self.assertEqual(resp.location, 'http://example.com/edit/{}'.format(article.id))
 
     def test_cancel(self):
         request = pyramid.testing.DummyRequest(
@@ -102,5 +104,6 @@ class AddArticleTests(AbstractViewTests):
         resp = add_article(request)
 
         expected = 'Line 1\nLine 2\nLine 3\nLine 4\n'
-        article = self.session.query(Article).filter_by(title='Article with weird newline chars').one()
+        article = self.session.query(Article).filter_by(
+            title='Article with weird newline chars').one()
         self.assertEqual(article.body, expected)

@@ -26,7 +26,11 @@ class FunctionalTests(unittest.TestCase):
         # this plucks the csrf token from the Javascript form in the 403 response body
         match = re.search('<input type=\'hidden\'[\s"\+]+name=\'csrf_token\'[\s"\+]+value=\'(?P<csrf>[a-z0-9]+)\'\s+/>', res.text)
         csrf_token = match.group('csrf')
-        res = self.testapp.post('/login', {'assertion' : FunctionalTests.assertion, 'came_from' : 'http://localhost:6543/add', 'csrf_token' : csrf_token}, status=302)
+        res = self.testapp.post('/login',
+                                {'assertion' : FunctionalTests.assertion,
+                                 'came_from' : 'http://localhost:6543/add',
+                                 'csrf_token' : csrf_token},
+                                status=302)
         print(self.testapp.cookies)
         self.assertEqual(res.headers['Location'], 'http://localhost:6543/add')
         self.fail()
@@ -39,7 +43,8 @@ class FunctionalTests(unittest.TestCase):
         from writers_choice import main
         app = main({}, **settings)
         from webtest import TestApp
-        self.testapp = TestApp(app, extra_environ={'REMOTE_USER' : settings['admin_email']})
+        self.testapp = TestApp(app, extra_environ=
+                               {'REMOTE_USER' : settings['admin_email']})
         self.session = _initTestingDB()
 
     def tearDown(self):
@@ -78,11 +83,13 @@ class FunctionalTests(unittest.TestCase):
 
 
     def test_visit_home_unauthorized(self):
-        res = self.testapp.get('/', status=200, extra_environ={'REMOTE_USER' : 'nobody@example.com'})
+        res = self.testapp.get('/', status=200, extra_environ=
+                               {'REMOTE_USER' : 'nobody@example.com'})
         self.assertNotIn('<a href="http://localhost/add', res)
 
     def test_visit_article_1_unauthorized(self):
-        res = self.testapp.get('/1/testsida', status=200, extra_environ={'REMOTE_USER' : 'nobody@example.com'})
+        res = self.testapp.get('/1/testsida', status=200, extra_environ=
+                               {'REMOTE_USER' : 'nobody@example.com'})
         self.assertNotIn('<a href="http://localhost/edit/1', res)
 
     def test_add_article(self):
