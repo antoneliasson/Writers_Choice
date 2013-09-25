@@ -14,7 +14,6 @@ from ..models import (
 
 from . import format_article_metadata, slugify
 
-@view_config(route_name='view_article_noslug', renderer='writers_choice:templates/view_article.pt', permission='view')
 @view_config(route_name='view_article_slug', renderer='writers_choice:templates/view_article.pt', permission='view')
 def view_article(request):
     try:
@@ -24,9 +23,6 @@ def view_article(request):
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
     except NoResultFound:
         return HTTPNotFound('No such article.')
-
-    if not 'slug' in request.matchdict or request.matchdict['slug'] != slugify(article.title):
-        return HTTPFound(location=request.route_url('view_article_slug', id=article.id, slug=slugify(article.title)))
 
     formatted = format_article_metadata(article)
     formatted['body'] = markdown(article.body, extensions=['extra', 'headerid(level=2, forceid=False)'])

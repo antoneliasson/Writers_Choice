@@ -46,29 +46,6 @@ class ViewArticleTests(AbstractViewTests):
         info = response['content']
         self.assertEqual(info['body'], '<p>Här finns ingenting, förutom:</p>\n<h2>Rubrik 1</h2>\n<h3>Rubrik 2</h3>')
 
-    def test_no_slug(self):
-        request = pyramid.testing.DummyRequest()
-        request.matchdict['id'] = 2
-        response = view_article(request)
-        self.assertIs(type(response), HTTPFound)
-        self.assertEqual(response.location, 'http://example.com/2/testsida-tva')
-
-    def test_empty_slug(self):
-        request = pyramid.testing.DummyRequest()
-        request.matchdict['id'] = 2
-        request.matchdict['slug'] = ()
-        response = view_article(request)
-        self.assertIs(type(response), HTTPFound)
-        self.assertEqual(response.location, 'http://example.com/2/testsida-tva')
-
-    def test_wrong_slug(self):
-        request = pyramid.testing.DummyRequest()
-        request.matchdict['id'] = 2
-        request.matchdict['slug'] = ('fel-sida',)
-        response = view_article(request)
-        self.assertIs(type(response), HTTPFound)
-        self.assertEqual(response.location, 'http://example.com/2/testsida-tva')
-
     def test_not_found(self):
         request = pyramid.testing.DummyRequest()
         request.matchdict['id'] = 9999

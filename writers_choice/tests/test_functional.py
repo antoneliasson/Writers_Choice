@@ -65,7 +65,7 @@ class FunctionalTests(unittest.TestCase):
         res.mustcontain('>&lt;i&gt;HTML-title&lt;/i&gt;</h1>')
 
     def test_visit_nonexisting_article(self):
-        resp = self.testapp.get('/9999', status=404)
+        resp = self.testapp.get('/9999/nothing', status=404)
         resp.mustcontain('No such article.')
 
     def test_visit_home(self):
