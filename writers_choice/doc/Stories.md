@@ -248,3 +248,23 @@ Mallen `view_article` ändras för att kunna hantera att publikationsdatum sakna
 Task 38.4
 --------
 Rutten /{slug} kopplas till vyn `view_page`.
+
+Story 39
+========
+URL:er till artiklar ska nu se ut på följande vis: `http://<url>/<år>/<månad>/<dag>/<slug>`. ID:t döljs för användaren. add- och edit-vyerna får vara som de är så länge.
+
+Task 39.1
+---------
+Nytt fält slug i modellen Article.
+
+Task 39.2
+---------
+Riv ut noslug-omdirigerandet.
+
+Task 39.3
+---------
+Ändra rutter.
+
+Task 39.4
+---------
+Gör ett datum `d` av värdena i URL:en (med tidsdel 0:00:00). Ändra DB-queryn i alla vyer till att filtrera ut artiklar med (`is_published` = True && `date_published` >= `d` && `date_published` < `d`+`timedelta(days=1)`).

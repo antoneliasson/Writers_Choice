@@ -13,6 +13,7 @@ class ArticleTests(unittest.TestCase):
         self.assertEqual(article.body, 'Ett stycke.\n\nEtt *stycke* till.')
         self.assertEqual(article.is_published, True)
         self.assertEqual(article.date_published, datetime.date(2012, 1, 1))
+        self.assertEqual(article.slug, 'testsida')
 
 class PageTests(unittest.TestCase):
     def test_page(self):

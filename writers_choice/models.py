@@ -34,10 +34,12 @@ class WrittenContent(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
     _body = Column('body', Text, nullable=False)
+    slug = Column(String(255), nullable=False)
 
     def __init__(self, title, body):
         self.title = title
         self._body = '\n'.join(body.splitlines())
+        self.slug = slugify(self.title)
 
     def get_body(self):
         return self._body
@@ -62,11 +64,8 @@ class Article(WrittenContent):
 class Page(WrittenContent):
     __tablename__ = 'pages'
 
-    slug = Column(String(255), nullable=False)
-
     def __init__(self, title, body):
         super().__init__(title, body)
-        self.slug = slugify(self.title)
 
 class RootFactory():
     __acl__ = [ (Allow, Everyone, 'view'),
