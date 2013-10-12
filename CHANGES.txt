@@ -1,3 +1,29 @@
+1.3
+---
+
+-   2013-10-12
+-   Still in beta!
+-   URL redesign. Hopefully the first and the last. URL's were previously
+    "/<magic id>/<article title slug>", like "/1/dear-diary". This had the
+    advantage of a built-in URL shortener, because only the ID was significant
+    (the title could be omitted). Not that anyone had ever asked for a built-in
+    URL shortener, I later realized. I was never really happy with this style
+    because:
+        1. Web apps should try really hard to have URL's containing only
+           information that is meaningful to the user.
+        2. ID's might change in the future if I encounter a database that does
+           not let me choose my ID's arbitrarily, forcing me to create a mapper
+           just to retain my silly URL's.
+        3. It's usually really neat to have the publication date in the URL in a
+           blog-like website. I should do that too!
+    So, now they look like "/<year>/<month>/<day>/<article title slug>",
+    according to W3C's recommendations from 1998 [1]. Slightly longer and a bit
+    less robust (people will actually have to type them in verbatim,
+    non-truncated). As a (not so unintended) side-effect, this new design lays
+    the foundation for monthly/yearly article archives, like "</year>/<month>/"
+    (with a trailing slash).
+    [1]: http://www.w3.org/Provider/Style/URI#remove
+
 1.2
 ---
 
