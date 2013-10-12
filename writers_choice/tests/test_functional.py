@@ -153,7 +153,7 @@ class FunctionalTests(unittest.TestCase):
         response.mustcontain('<title>About us — Site name</title>',
                              '<a href="http://localhost/" id="banner">Site name</a>',
                              '<h1>About us</h1>',
-                             '<p>This page contains som information about the author.</p>\n'
+                             '<p>This page contains some information about the author.</p>\n'
                              '<p>Contact: <a href="mailto:admin@example.com">Admin</a></p>',
                              '<li class="nav_tab"><a href="http://localhost/">Home</a></li>',
                              '<li class="nav_tab"><a href="http://localhost/about-us">About us</a></li>')

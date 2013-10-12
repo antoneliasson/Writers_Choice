@@ -12,7 +12,7 @@ class ViewPageTests(AbstractViewTests):
         content = response['content']
         self.assertEqual(content['title'], 'About us')
         self.assertEqual(content['body'],
-                         '<p>This page contains som information about the author.</p>\n'
+                         '<p>This page contains some information about the author.</p>\n'
                          '<p>Contact: <a href="mailto:admin@example.com">Admin</a></p>')
 
         tab_1 = response['navigation'][0]

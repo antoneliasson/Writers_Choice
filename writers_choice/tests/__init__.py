@@ -45,7 +45,7 @@ def _initTestingDB():
         DBSession.add(article)
 
         page = Page(title='About us',
-                    body='This page contains som information about the author.\n\n'\
+                    body='This page contains some information about the author.\n\n'\
                     'Contact: [Admin](mailto:admin@example.com)')
         DBSession.add(page)
 
