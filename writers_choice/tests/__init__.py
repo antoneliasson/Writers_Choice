@@ -1,5 +1,5 @@
 import unittest
-import datetime
+from datetime import datetime
 
 import pyramid.testing
 import transaction
@@ -20,23 +20,23 @@ def _initTestingDB():
         article = Article(title='Testsida',
                           body='Ett stycke.\n\nEtt *stycke* till.\n',
                           is_published=True,
-                          date_published=datetime.date(2012, 1, 1))
+                          date_published=datetime(2012, 1, 1, 12, 0, 0))
         DBSession.add(article)
         article = Article(title='Testsida två',
                           body='Med kod:\n\n    cat fil1 > fil2\n\n'
                               'och lite mer text.',
                           is_published=True,
-                          date_published=datetime.date(2012, 1, 3))
+                          date_published=datetime(2012, 1, 3, 12, 0, 0))
         DBSession.add(article)
         article = Article(title='Testsida mittemellan',
                           body='Här finns ingenting, förutom:\n\nRubrik 1\n========\n\n## Rubrik 2\n',
                           is_published=True,
-                          date_published=datetime.date(2012, 1, 2))
+                          date_published=datetime(2012, 1, 2, 12, 0, 0))
         DBSession.add(article)
         article = Article(title='<i>HTML-title</i>',
                           body='<strong>Nice HTML</strong> and\n\n<script>document.write("<p>Evil HTML</p>");</script>',
                           is_published=True,
-                          date_published=datetime.date(2011, 1, 2))
+                          date_published=datetime(2011, 1, 2, 12, 0, 0))
         DBSession.add(article)
         article = Article(title='Unpublished article',
                           body='This is an article that has not yet been published.',
@@ -56,8 +56,7 @@ class AbstractViewTests(unittest.TestCase):
         self.session = _initTestingDB()
         self.config = pyramid.testing.setUp()
         self.config.add_route('view_all', '/')
-        self.config.add_route('view_article', '/{id}')
-        self.config.add_route('view_article_slug', '/{id}/*slug')
+        self.config.add_route('view_article', '/{year}/{month}/{day}/{slug}')
         self.config.add_route('edit_article', '/edit/{id}')
         self.config.add_route('add_article', '/add')
         self.config.add_route('view_page', '/{slug}')

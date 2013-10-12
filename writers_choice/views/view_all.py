@@ -24,7 +24,12 @@ def view_all(request):
     for article in articles:
         formatted = format_article_metadata(article)
         formatted['body'] = markdown.markdown(article.body, extensions=['extra', 'headerid(level=3, forceid=False)'])
-        formatted['url'] = request.route_url('view_article_slug', id=article.id, slug=slugify(article.title))
+        year, month, day = article.date_published.timetuple()[:3]
+        formatted['url'] = request.route_url('view_article',
+                                             year=year,
+                                             month=month,
+                                             day=day,
+                                             slug=slugify(article.title))
         compilation.append(formatted)
 
     navigation = get_navigation(request)

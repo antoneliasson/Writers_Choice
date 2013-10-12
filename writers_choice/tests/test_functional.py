@@ -51,7 +51,7 @@ class FunctionalTests(unittest.TestCase):
         self.session.remove()
 
     def test_visit_article_1(self):
-        res = self.testapp.get('/1/testsida', status=200)
+        res = self.testapp.get('/2012/01/01/testsida', status=200)
         res.mustcontain('<title>Testsida — Site name</title>',
                         '<a href="http://localhost/" id="banner">Site name</a>',
                         '<h1>Testsida</h1>', '<p>2012-01-01</p>',
@@ -61,26 +61,26 @@ class FunctionalTests(unittest.TestCase):
                         '<li class="nav_tab"><a href="http://localhost/about-us">About us</a></li>')
 
     def test_visit_evil_article(self):
-        res = self.testapp.get('/4/ihtml-titlei', status=200)
+        res = self.testapp.get('/2011/1/2/ihtml-titlei', status=200)
         res.mustcontain('>&lt;i&gt;HTML-title&lt;/i&gt;</h1>')
 
     def test_visit_nonexisting_article(self):
-        resp = self.testapp.get('/9999/nothing', status=404)
+        resp = self.testapp.get('/2000/1/1/nothing', status=404)
         resp.mustcontain('No such article.')
 
     def test_visit_home(self):
         res = self.testapp.get('/', status=200)
-        res.mustcontain('<title>Site name</title>',
-                        '<a href="http://localhost/" id="banner">Site name</a>',
-                        '<h1>Blog</h1>',
-                        '<h2><a href="http://localhost/1/testsida">Testsida</a></h2>',
-                        '<h2><a href="http://localhost/2/testsida-tva">Testsida två</a></h2>',
-                        '<h3>Rubrik 1</h3>',
-                        '<a href="http://localhost/add',
-                        '>&lt;i&gt;HTML-title&lt;/i&gt;</a></h2>',
-                        '<li class="nav_tab"><a href="http://localhost/">Home</a></li>',
-                        '<li class="nav_tab"><a href="http://localhost/about-us">About us</a></li>')
-
+        res.mustcontain(
+            '<title>Site name</title>',
+            '<a href="http://localhost/" id="banner">Site name</a>',
+            '<h1>Blog</h1>',
+            '<h2><a href="http://localhost/2012/1/1/testsida">Testsida</a></h2>',
+            '<h2><a href="http://localhost/2012/1/3/testsida-tva">Testsida två</a></h2>',
+            '<h3>Rubrik 1</h3>',
+            '<a href="http://localhost/add',
+            '>&lt;i&gt;HTML-title&lt;/i&gt;</a></h2>',
+            '<li class="nav_tab"><a href="http://localhost/">Home</a></li>',
+            '<li class="nav_tab"><a href="http://localhost/about-us">About us</a></li>')
 
     def test_visit_home_unauthorized(self):
         res = self.testapp.get('/', status=200, extra_environ=
@@ -88,7 +88,7 @@ class FunctionalTests(unittest.TestCase):
         self.assertNotIn('<a href="http://localhost/add', res)
 
     def test_visit_article_1_unauthorized(self):
-        res = self.testapp.get('/1/testsida', status=200, extra_environ=
+        res = self.testapp.get('/2012/1/1/testsida', status=200, extra_environ=
                                {'REMOTE_USER' : 'nobody@example.com'})
         self.assertNotIn('<a href="http://localhost/edit/1', res)
 

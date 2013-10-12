@@ -35,7 +35,7 @@ def main(global_config, **settings):
     # config.add_static_view('static', 'static', cache_max_age=0)
     config.add_route('add_article', '/add')
     config.add_route('edit_article', '/edit/{id}')
-    config.add_route('view_article_slug', '/{id:\d+}/{slug:.*}')
+    config.add_route('view_article', '/{year}/{month}/{day}/{slug}')
     config.add_route('view_page', '/{slug}')
     config.add_route('view_all', '/')
     config.scan()

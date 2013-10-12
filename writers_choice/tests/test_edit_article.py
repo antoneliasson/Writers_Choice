@@ -39,7 +39,6 @@ class EditArticleTests(AbstractViewTests):
         )
         request.matchdict['id'] = 2
         response = edit_article(request)
-        
 
         article = self.session.query(Article).filter_by(id=2).one()
         self.assertEqual(article.title, old_title)
@@ -96,7 +95,9 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(article.date_published, old_published)
 
         self.assertIs(type(response), HTTPFound)
-        self.assertEqual(response.location, 'http://example.com/%d/testsida-tva' % old_id)
+        self.assertEqual(response.location,
+                         'http://example.com/{}/{}/{}/testsida-tva'.format(
+                             *article.date_published.timetuple()))
 
     def test_nonexisting(self):
         request = pyramid.testing.DummyRequest()

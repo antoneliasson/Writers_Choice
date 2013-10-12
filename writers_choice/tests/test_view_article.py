@@ -8,8 +8,12 @@ from . import AbstractViewTests
 class ViewArticleTests(AbstractViewTests):
     def test_view_article_1(self):
         request = pyramid.testing.DummyRequest()
-        request.matchdict['id'] = 1
-        request.matchdict['slug'] = 'testsida'
+        request.matchdict = {
+            'year' : 2012,
+            'month' : 1,
+            'day' : 1,
+            'slug' : 'testsida'
+            }
         response = view_article(request)
         info = response['content']
         self.assertEqual(info['title'], 'Testsida')
@@ -27,8 +31,12 @@ class ViewArticleTests(AbstractViewTests):
 
     def test_view_article_2(self):
         request = pyramid.testing.DummyRequest()
-        request.matchdict['id'] = 2
-        request.matchdict['slug'] = 'testsida-tva'
+        request.matchdict = {
+            'year' : 2012,
+            'month' : 1,
+            'day' : 3,
+            'slug' : 'testsida-tva'
+            }
         response = view_article(request)
         info = response['content']
         self.assertEqual(info['title'], 'Testsida två')
@@ -40,20 +48,34 @@ class ViewArticleTests(AbstractViewTests):
 
     def test_header_levels(self):
         request = pyramid.testing.DummyRequest()
-        request.matchdict['id'] = 3
-        request.matchdict['slug'] = 'testsida-mittemellan'
+        request.matchdict = {
+            'year' : 2012,
+            'month' : 1,
+            'day' : 2,
+            'slug' : 'testsida-mittemellan'
+            }
         response = view_article(request)
         info = response['content']
         self.assertEqual(info['body'], '<p>Här finns ingenting, förutom:</p>\n<h2>Rubrik 1</h2>\n<h3>Rubrik 2</h3>')
 
-    def test_not_found(self):
+    def test_date_not_found(self):
         request = pyramid.testing.DummyRequest()
-        request.matchdict['id'] = 9999
+        request.matchdict = {
+            'year' : 2000,
+            'month' : 1,
+            'day' : 1,
+            'slug' : 'testsida'
+            }
         response = view_article(request)
         self.assertIs(type(response), HTTPNotFound)
 
-    def test_unpublished(self):
+    def test_slug_not_found(self):
         request = pyramid.testing.DummyRequest()
-        request.matchdict['id'] = 5
+        request.matchdict = {
+            'year' : 2012,
+            'month' : 1,
+            'day' : 1,
+            'slug' : 'nonexisting'
+            }
         response = view_article(request)
         self.assertIs(type(response), HTTPNotFound)

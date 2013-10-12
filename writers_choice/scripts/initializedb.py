@@ -2,7 +2,7 @@ import os
 import sys
 import transaction
 
-from datetime import date
+from datetime import datetime
 
 from sqlalchemy import engine_from_config
 
@@ -39,12 +39,12 @@ def main(argv=sys.argv):
         article = Article(title='Testsida',
                           body='Ett stycke.\n\nEtt *stycke* till.',
                           is_published=True,
-                          date_published=date(2012, 1, 1))
+                          date_published=datetime(2012, 1, 1, 12, 0, 0))
         DBSession.add(article)
         article = Article(title='Testsida två',
                           body='Med kod:\n\n    cat fil1 > fil2\n\noch lite mer text.',
                           is_published=True,
-                          date_published=date(2012, 1, 2))
+                          date_published=datetime(2012, 1, 2, 12, 0, 0))
         DBSession.add(article)
 
         page = Page(title='About us',

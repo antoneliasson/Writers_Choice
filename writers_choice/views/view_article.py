@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from markdown import markdown
 
 from pyramid.view import view_config
@@ -14,11 +16,18 @@ from ..models import (
 
 from . import format_article_metadata, slugify
 
-@view_config(route_name='view_article_slug', renderer='writers_choice:templates/view_article.pt', permission='view')
+@view_config(route_name='view_article', renderer='writers_choice:templates/view_article.pt', permission='view')
 def view_article(request):
     try:
-        id = request.matchdict['id']
-        article = DBSession.query(Article).filter_by(id=id, is_published=True).one()
+        d = datetime(int(request.matchdict['year']),
+                     int(request.matchdict['month']),
+                     int(request.matchdict['day']))
+        slug = request.matchdict['slug']
+        article = DBSession.query(Article).filter(
+            Article.is_published==True,
+            d <= Article.date_published,
+            Article.date_published < d+timedelta(days=1),
+            Article.slug==slug).one()
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
     except NoResultFound:
@@ -26,7 +35,7 @@ def view_article(request):
 
     formatted = format_article_metadata(article)
     formatted['body'] = markdown(article.body, extensions=['extra', 'headerid(level=2, forceid=False)'])
-    formatted['edit_url'] = request.route_url('edit_article', id=id)
+    formatted['edit_url'] = request.route_url('edit_article', id=article.id)
 
     from .view_all import get_navigation
     navigation = get_navigation(request)
