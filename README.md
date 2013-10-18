@@ -143,6 +143,9 @@ Bugs and limitations
 ====================
 Important bugs in the latest release that are subjectively really important.
 
+* There is no way to edit pages. Sorry about that. You'll have to talk to the database
+  manually for now.
+
 * MySQL works as database backend for some providers but not for others since the
   application doesn't handle lost connections. This may not be a problem for busy
   apps or apps using a self-hosted MySQL server but since for example ClearDB has a
