@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 from markdown import markdown
+from markdown.extensions import headerid
 
 from pyramid.view import view_config
 from pyramid.security import has_permission
@@ -15,7 +16,12 @@ from writers_choice.models import (
     Page
 )
 
-from .utils import format_article_metadata
+def format_article_metadata(article):
+    id = article.id
+    title = article.title
+    published = article.date_published.strftime('%Y-%m-%d')
+
+    return {'id' : id, 'title' : title, 'published' : published}
 
 @view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt', permission='view')
 def view_all(request):
