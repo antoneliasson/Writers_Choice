@@ -11,7 +11,7 @@ from ..models import (
     Article,
     )
 
-from . import slugify
+from .utils import slugify
 
 @view_config(route_name='edit_article', renderer='writers_choice:templates/edit_article.pt', permission='edit')
 def edit_article(request):

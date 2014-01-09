@@ -23,7 +23,7 @@ from sqlalchemy.sql import expression, func
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
-from writers_choice.views import slugify
+from writers_choice.views.utils import slugify
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()

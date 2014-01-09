@@ -1,7 +1,8 @@
 from pyramid.testing import DummyRequest
 from pyramid.httpexceptions import HTTPNotFound
 
-from writers_choice.views.view_page import view_page
+from writers_choice.views.public import view_page
+
 from . import AbstractViewTests
 
 class ViewPageTests(AbstractViewTests):
