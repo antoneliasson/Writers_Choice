@@ -11,8 +11,6 @@ from ..models import (
     Article,
     )
 
-from .utils import slugify
-
 @view_config(route_name='edit_article', renderer='writers_choice:templates/edit_article.pt', permission='edit')
 def edit_article(request):
     id = request.matchdict['id']
@@ -48,7 +46,7 @@ def edit_article(request):
                                                     year=year,
                                                     month=month,
                                                     day=day,
-                                                    slug=slugify(article.title)))
+                                                    slug=article.slug))
 
     page_title = 'Editing {} — {}'.format(article.title, request.registry.settings['site_name'])
     submit_url = request.route_url('edit_article', id=id)

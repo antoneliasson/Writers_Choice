@@ -1,3 +1,5 @@
+from markdown.extensions import headerid
+
 from pyramid.security import (
     Allow,
     Everyone,
@@ -23,10 +25,11 @@ from sqlalchemy.sql import expression, func
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
-from writers_choice.views.utils import slugify
-
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
+
+def make_slug(string):
+    return headerid.slugify(string, '-')
 
 class WrittenContent(Base):
     __abstract__ = True
@@ -39,7 +42,7 @@ class WrittenContent(Base):
     def __init__(self, title, body):
         self.title = title
         self._body = '\n'.join(body.splitlines())
-        self.slug = slugify(self.title)
+        self.slug = make_slug(self.title)
 
     def get_body(self):
         return self._body

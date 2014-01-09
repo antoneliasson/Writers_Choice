@@ -15,7 +15,7 @@ from writers_choice.models import (
     Page
 )
 
-from .utils import format_article_metadata, slugify
+from .utils import format_article_metadata
 
 @view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt', permission='view')
 def view_all(request):
@@ -33,7 +33,7 @@ def view_all(request):
                                              year=year,
                                              month=month,
                                              day=day,
-                                             slug=slugify(article.title))
+                                             slug=article.slug)
         compilation.append(formatted)
 
     navigation = get_navigation(request)
