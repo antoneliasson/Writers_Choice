@@ -4,7 +4,7 @@ import pyramid.testing
 from pyramid.httpexceptions import HTTPFound
 
 from writers_choice.models import Article
-from writers_choice.views.add_article import add_article
+from writers_choice.views.admin import add_article
 
 from . import AbstractViewTests
 
