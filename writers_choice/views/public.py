@@ -16,12 +16,19 @@ from writers_choice.models import (
     Page
 )
 
-def format_article_metadata(article):
+def format_article(article, is_sole_article):
     id = article.id
     title = article.title
     published = article.date_published.strftime('%Y-%m-%d')
+    headerlevel = 2 if is_sole_article else 3
+    body = markdown(article.body, extensions=['extra', 'headerid(level={}, forceid=False)'.format(headerlevel)])
 
-    return {'id' : id, 'title' : title, 'published' : published}
+    return {
+        'id' : id,
+        'title' : title,
+        'published' : published,
+        'body' : body
+    }
 
 def get_navigation(request):
     pages = DBSession.query(Page).order_by(Page.title)
@@ -43,8 +50,7 @@ def view_all(request):
 
     compilation = list()
     for article in articles:
-        content = format_article_metadata(article)
-        content['body'] = markdown(article.body, extensions=['extra', 'headerid(level=3, forceid=False)'])
+        content = format_article(article, False)
         year, month, day = article.date_published.timetuple()[:3]
         content['url'] = request.route_url('view_article',
                                            year=year,
@@ -76,8 +82,7 @@ def view_article(request):
     except NoResultFound:
         return HTTPNotFound('No such article.')
 
-    content = format_article_metadata(article)
-    content['body'] = markdown(article.body, extensions=['extra', 'headerid(level=2, forceid=False)'])
+    content = format_article(article, True)
     content['edit_url'] = request.route_url('edit_article', id=article.id)
 
     return {
