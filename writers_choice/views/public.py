@@ -23,6 +23,17 @@ def format_article_metadata(article):
 
     return {'id' : id, 'title' : title, 'published' : published}
 
+def get_navigation(request):
+    pages = DBSession.query(Page).order_by(Page.title)
+
+    tabs = list()
+    home = {'title' : 'Home', 'url' : request.route_url('view_all')}
+    tabs.append(home)
+    for page in pages:
+        tab = {'title' : page.title, 'url' : request.route_url('view_page', slug=page.slug)}
+        tabs.append(tab)
+    return tabs
+
 @view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt', permission='view')
 def view_all(request):
     try:
@@ -42,20 +53,11 @@ def view_all(request):
                                              slug=article.slug)
         compilation.append(formatted)
 
-    navigation = get_navigation(request)
-
-    return {'articles' : compilation, 'user_can_edit' : has_permission('edit', request.context, request), 'navigation' : navigation}
-
-def get_navigation(request):
-    pages = DBSession.query(Page).order_by(Page.title)
-
-    tabs = list()
-    home = {'title' : 'Home', 'url' : request.route_url('view_all')}
-    tabs.append(home)
-    for page in pages:
-        tab = {'title' : page.title, 'url' : request.route_url('view_page', slug=page.slug)}
-        tabs.append(tab)
-    return tabs
+    return {
+        'articles' : compilation,
+        'user_can_edit' : has_permission('edit', request.context, request),
+        'navigation' : get_navigation(request)
+    }
 
 @view_config(route_name='view_article', renderer='writers_choice:templates/view_article.pt', permission='view')
 def view_article(request):
@@ -78,9 +80,11 @@ def view_article(request):
     formatted['body'] = markdown(article.body, extensions=['extra', 'headerid(level=2, forceid=False)'])
     formatted['edit_url'] = request.route_url('edit_article', id=article.id)
 
-    navigation = get_navigation(request)
-
-    return {'content' : formatted, 'user_can_edit' : has_permission('edit', request.context, request), 'navigation' : navigation}
+    return {
+        'content' : formatted,
+        'user_can_edit' : has_permission('edit', request.context, request),
+        'navigation' : get_navigation(request)
+    }
 
 @view_config(route_name='view_page', renderer='writers_choice:templates/view_article.pt', permission='view')
 def view_page(request):
@@ -94,6 +98,8 @@ def view_page(request):
     content['body'] = markdown(page.body, extensions=['extra', 'headerid(level=2, forceid=False)'])
     content['edit_url'] = ''
 
-    navigation = get_navigation(request)
-
-    return {'content' : content, 'user_can_edit' : False, 'navigation' : navigation}
+    return {
+        'content' : content,
+        'user_can_edit' : False,
+        'navigation' : get_navigation(request)
+    }

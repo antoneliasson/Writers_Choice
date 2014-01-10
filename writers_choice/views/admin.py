@@ -6,7 +6,7 @@ from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm.exc import NoResultFound
 
-from ..models import (
+from writers_choice.models import (
     DBSession,
     Article,
     )
