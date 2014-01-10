@@ -7,7 +7,6 @@ from pyramid.view import view_config
 from pyramid.security import has_permission
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
-from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm.exc import NoResultFound
 
 from writers_choice.models import (
@@ -41,10 +40,7 @@ def get_navigation(request):
 
 @view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt', permission='view')
 def view_all(request):
-    try:
-        articles = DBSession.query(Article).order_by(Article.date_published.desc()).filter_by(is_published=True)
-    except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+    articles = DBSession.query(Article).order_by(Article.date_published.desc()).filter_by(is_published=True)
 
     compilation = list()
     for article in articles:
@@ -75,8 +71,6 @@ def view_article(request):
             d <= Article.date_published,
             Article.date_published < d+timedelta(days=1),
             Article.slug==slug).one()
-    except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
     except NoResultFound:
         return HTTPNotFound('No such article.')
 
