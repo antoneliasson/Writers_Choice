@@ -17,14 +17,12 @@ from writers_choice.models import (
 )
 
 def format_article(article, is_sole_article):
-    id = article.id
     title = article.title
     published = article.date_published.strftime('%Y-%m-%d')
     headerlevel = 2 if is_sole_article else 3
     body = markdown(article.body, extensions=['extra', 'headerid(level={}, forceid=False)'.format(headerlevel)])
 
     return {
-        'id' : id,
         'title' : title,
         'published' : published,
         'body' : body
@@ -99,9 +97,11 @@ def view_page(request):
     except NoResultFound:
         return HTTPNotFound('Page not found')
 
-    content = {'id' : page.id, 'title' : page.title}
-    content['body'] = markdown(page.body, extensions=['extra', 'headerid(level=2, forceid=False)'])
-    content['edit_url'] = ''
+    content = {
+        'title' : page.title,
+        'body' : markdown(page.body, extensions=['extra', 'headerid(level=2, forceid=False)']),
+        'edit_url' : '' # not implemented yet
+    }
 
     return {
         'content' : content,

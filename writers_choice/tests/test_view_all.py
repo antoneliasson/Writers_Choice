@@ -12,13 +12,11 @@ class ViewAllTests(AbstractViewTests):
         self.assertEqual(len(resp['navigation']), 2)
 
         article_2 = resp['articles'][0]
-        self.assertEqual(article_2['id'], 2)
         self.assertEqual(article_2['title'], 'Testsida två')
         self.assertEqual(article_2['published'], '2012-01-03')
         self.assertEqual(article_2['url'], 'http://example.com/2012/1/3/testsida-tva')
 
         article_3 = resp['articles'][1]
-        self.assertEqual(article_3['id'], 3)
         self.assertEqual(article_3['title'], 'Testsida mittemellan')
         self.assertEqual(article_3['published'], '2012-01-02')
         self.assertEqual(article_3['url'], 'http://example.com/2012/1/2/testsida-mittemellan')
