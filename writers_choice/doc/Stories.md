@@ -268,3 +268,16 @@ Task 39.3
 Task 39.4
 ---------
 Gör ett datum `d` av värdena i URL:en (med tidsdel 0:00:00). Ändra DB-queryn i alla vyer till att filtrera ut artiklar med (`is_published` = True && `date_published` >= `d` && `date_published` < `d`+`timedelta(days=1)`).
+
+
+Story 40
+========
+Det ska gå att läsa (alla) blogginlägg (eller vad det nu var de kallades) via en Atom-feed. Feeden finns på `http://<url>/feed.atom`.
+
+Task 40.1
+---------
+Nytt fält `updated` i databastabellen `articles`. Detta sätts till "nu" varje gång en artikel sparas, oavsett publiceringsstatus.
+
+Task 40.2
+---------
+Ny vy `atom` som använder PyAtom (fork av werkzeug.contrib.atom) för att servera alla artiklar ordnade efter publiceringsdatum.
