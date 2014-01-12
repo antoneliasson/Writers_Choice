@@ -30,6 +30,7 @@ class EditArticleTests(AbstractViewTests):
         old_title = article.title
         old_published = article.date_published
         new_body = 'Numera utan `kod`.'
+        old_mtime = article.updated
 
         request = pyramid.testing.DummyRequest(
             {'title' : old_title,
@@ -45,6 +46,7 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(article.body, new_body)
         self.assertTrue(article.is_published)
         self.assertEqual(article.date_published, old_published)
+        self.assertGreater(article.updated, old_mtime)
 
         self.assertIs(type(response), HTTPFound)
         self.assertEqual(response.location, 'http://example.com/edit/%d' % old_id)
@@ -79,6 +81,7 @@ class EditArticleTests(AbstractViewTests):
         old_title = article.title
         old_body = article.body
         old_published = article.date_published
+        old_mtime = article.updated
         new_body = 'Numera utan `kod`.'
 
         request = pyramid.testing.DummyRequest(
@@ -93,6 +96,7 @@ class EditArticleTests(AbstractViewTests):
         self.assertEqual(article.title, old_title)
         self.assertEqual(article.body, old_body)
         self.assertEqual(article.date_published, old_published)
+        self.assertEqual(article.updated, old_mtime)
 
         self.assertIs(type(response), HTTPFound)
         self.assertEqual(response.location,

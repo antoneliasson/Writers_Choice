@@ -31,6 +31,7 @@ class AddArticleTests(AbstractViewTests):
         self.assertEqual(article.body, 'Brödtext.')
         self.assertFalse(article.is_published)
         self.assertIsNone(article.date_published)
+        self.assertAlmostEqual(article.updated, datetime.now(), delta=timedelta(seconds=10))
 
         self.assertIs(type(resp), HTTPFound)
         self.assertEqual(resp.location, 'http://example.com/edit/{}'.format(article.id))
