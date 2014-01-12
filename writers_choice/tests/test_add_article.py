@@ -26,7 +26,7 @@ class AddArticleTests(AbstractViewTests):
         )
         resp = add_article(request)
 
-        article = self.session.query(Article).filter_by(title='Ny sida').first()
+        article = self.session.query(Article).filter_by(title='Ny sida').one()
         self.assertEqual(article.title, 'Ny sida')
         self.assertEqual(article.body, 'Brödtext.')
         self.assertFalse(article.is_published)
@@ -44,7 +44,7 @@ class AddArticleTests(AbstractViewTests):
         )
         resp = add_article(request)
 
-        article = self.session.query(Article).filter_by(title='Ny sida').first()
+        article = self.session.query(Article).filter_by(title='Ny sida').one()
         self.assertEqual(article.title, 'Ny sida')
         self.assertEqual(article.body, 'Brödtext.')
         self.assertTrue(article.is_published)
