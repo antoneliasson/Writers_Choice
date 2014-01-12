@@ -50,9 +50,7 @@ class WrittenContent(Base):
         return self._body
     def set_body(self, value):
         self._body = '\n'.join(value.splitlines())
-    def del_body(self):
-        del self._body
-    body = property(get_body, set_body, del_body)
+    body = property(get_body, set_body)
 
 class Article(WrittenContent):
     __tablename__ = 'articles'
@@ -65,7 +63,6 @@ class Article(WrittenContent):
         super().__init__(title, body)
         self.is_published = is_published
         self.date_published = date_published
-
 
 class Page(WrittenContent):
     __tablename__ = 'pages'
