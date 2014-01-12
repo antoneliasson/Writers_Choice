@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from markdown.extensions import headerid
 
 from pyramid.security import (
@@ -21,7 +23,7 @@ from sqlalchemy.orm import (
     sessionmaker,
     )
 
-from sqlalchemy.sql import expression, func
+from sqlalchemy.sql import expression
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
@@ -57,6 +59,7 @@ class Article(WrittenContent):
 
     is_published = Column(Boolean, nullable=False, server_default=expression.false())
     date_published = Column(TIMESTAMP, nullable=True)
+    updated = Column(TIMESTAMP, nullable=False, default=datetime.now(), onupdate=datetime.now())
 
     def __init__(self, title, body, is_published, date_published):
         super().__init__(title, body)
