@@ -43,14 +43,13 @@ class WrittenContent(Base):
 
     def __init__(self, title, body):
         self.title = title
-        self._body = '\n'.join(body.splitlines())
+        self.body = body
         self.slug = make_slug(self.title)
 
-    def get_body(self):
-        return self._body
-    def set_body(self, value):
-        self._body = '\n'.join(value.splitlines())
-    body = property(get_body, set_body)
+    @property
+    def body(self): return self._body
+    @body.setter
+    def body(self, value): self._body = '\n'.join(value.splitlines())
 
 class Article(WrittenContent):
     __tablename__ = 'articles'
