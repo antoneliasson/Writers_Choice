@@ -60,6 +60,7 @@ class AbstractViewTests(unittest.TestCase):
         self.config.add_route('edit_article', '/edit/{id}')
         self.config.add_route('add_article', '/add')
         self.config.add_route('view_page', '/{slug}')
+        self.config.add_route('atom_feed', '/feed.atom')
         self.config.add_settings(site_name='Site name')
 
     def tearDown(self):

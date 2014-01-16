@@ -6,8 +6,11 @@ from markdown.extensions import headerid
 from pyramid.view import view_config
 from pyramid.security import has_permission
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound
+from pyramid.response import Response
 
 from sqlalchemy.orm.exc import NoResultFound
+
+from pyatom import AtomFeed
 
 from writers_choice.models import (
     DBSession,
@@ -102,3 +105,34 @@ def view_page(request):
         'user_can_edit' : False,
         'navigation' : get_navigation(request)
     }
+
+@view_config(route_name='atom_feed', permission='view')
+def atom_feed(request):
+    feed = AtomFeed(
+        title=request.registry.settings['site_name'],
+        feed_url=request.route_url('atom_feed'),
+        url=request.route_url('view_all'),
+        author=request.registry.settings['site_name'] # will do for now
+    )
+
+    articles = DBSession.query(Article).order_by(
+        Article.date_published.desc()).filter_by(is_published=True) # TODO: limit x
+    for article in articles:
+        content = format_article(article, True)
+        year, month, day = article.date_published.timetuple()[:3]
+        feed.add(
+            content['title'],
+            content['body'],
+            url=request.route_url('view_article',
+                                  year=year,
+                                  month=month,
+                                  day=day,
+                                  slug=article.slug),
+            updated=article.updated,
+            published=article.date_published
+        )
+
+    return Response(
+        body=feed.to_string(),
+        content_type='application/atom+xml',
+    )
