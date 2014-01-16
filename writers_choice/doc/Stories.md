@@ -281,3 +281,11 @@ Nytt fält `updated` i databastabellen `articles`. Detta sätts till "nu" varje 
 Task 40.2
 ---------
 Ny vy `atom` som använder PyAtom (fork av werkzeug.contrib.atom) för att servera alla artiklar ordnade efter publiceringsdatum.
+
+Task 40.3
+---------
+Ny rutt `atom` som kopplar ihop vyn med samma namn med URL:en `/feed.atom`.
+
+Task 40.4
+---------
+Startsidan uppdateras med en link-tagg till feeden.
