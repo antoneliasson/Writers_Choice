@@ -1,3 +1,12 @@
+1.4
+---
+
+-   2014-01-16
+-   Support for generating an Atom 1.0 feed of recently published articles.
+-   Headers in articles are now generated the same everywhere. The front page
+    now contains a bunch of h1's that link to each article.
+-   Quite a bit of refactoring and restructuring internally.
+
 1.3
 ---
 

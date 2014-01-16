@@ -23,7 +23,7 @@ requires = [
     ]
 
 setup(name='Writers_Choice',
-      version='1.3',
+      version='1.4',
       description='Writers_Choice',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
