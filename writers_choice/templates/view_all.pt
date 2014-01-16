@@ -4,6 +4,7 @@
   <title tal:content="request.registry.settings['site_name']" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link tal:attributes="href request.static_url('writers_choice:static/wc.css')" rel="stylesheet" type="text/css" href="" />
+  <link tal:attributes="href request.route_url('atom_feed')" rel="alternate" type="application/atom+xml" title="Atom 1.0 feed" href="" />
 </head>
 <body>
   <div id="page">
