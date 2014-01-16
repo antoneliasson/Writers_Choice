@@ -7,7 +7,7 @@ and has a web interface for creating and editing them. Articles are written and
 stored in [Markdown][] and are automatically compiled to HTML for presentation.
 
 It uses SQLAlchemy as the persistent storage mechanism. Currently SQLite and
-MySQL are supported as database backends.
+PostgreSQL are supported as database backends.
 
 There is a simple authentication mechanism to allow only a privilegied user to
 add and edit articles. Authentication is implemented using Mozilla [Persona][]
