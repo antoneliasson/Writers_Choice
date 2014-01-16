@@ -176,3 +176,6 @@ Important bugs in the latest release that are subjectively really important.
 * Trailing newlines in the article body get removed when the article is
   saved. This could be fixed without too much work but since keeping trailing
   newlines isn't really a feature I'm letting this pass for the time being.
+
+* Requirements are a bit bloated. Not all of them are required for running the
+  app. Some are only used for development, testing or not at all.
