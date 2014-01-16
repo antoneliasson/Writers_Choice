@@ -17,6 +17,8 @@ requires = [
     'markdown',
     'WebTest',
     'pyramid_persona',
+    'pyatom',
+    'psycopg2'
     ]
 
 setup(name='Writers_Choice',
