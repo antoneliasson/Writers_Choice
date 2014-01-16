@@ -18,6 +18,7 @@ def main(global_config, **settings):
     Base.metadata.bind = engine
 
     config = Configurator(settings=settings, root_factory='.models.RootFactory')
+    config.include('pyramid_chameleon')
 
     # This mess is used to bypass authentication during testing.
     # Some day this will be cleaned up.

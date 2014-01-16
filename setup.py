@@ -18,7 +18,8 @@ requires = [
     'WebTest',
     'pyramid_persona',
     'pyatom',
-    'psycopg2'
+    'psycopg2',
+    'pyramid_chameleon',
     ]
 
 setup(name='Writers_Choice',
