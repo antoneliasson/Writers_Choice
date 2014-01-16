@@ -5,3 +5,4 @@ __pycache__
 Writers_Choice.egg-info
 \#*#
 /.coverage
+Writers_Choice.sqlite
