@@ -35,13 +35,11 @@ one or two virtualenv's on your system.
 Clone this repository to get the latest development version.
 
     $ git clone git@gitorious.org:writers-choice/writers-choice.git
+    $ cd writers_choice
 
 Install dependencies from PyPI and execute some setup magic.
     
     $ python setup.py develop
-
-There might be some build errors while installing the dependencies, which I
-think you can safely ignore.
 
 Pick a suitable sample configuration file (`development.ini` or
 `production.ini`) and customize it according to the section
@@ -55,9 +53,13 @@ Run the tests.
 
     $ python setup.py test -q
 
-If you have `nose` and `coverage` installed you can use ut to check the
-project's amazing test coverage.
+With Pyramid 1.5 and pyramid_chameleon 0.1 the tests prints a deprecation
+warning, which you may ignore for now.
 
+If you want to see the project's amazing test coverage, install the `nose` and
+`coverage` packages and run `nosetests`.
+
+    $ pip install nose coverage
     $ nosetests
 
 Start the application using Pyramid's included HTTP server [waitress][].
