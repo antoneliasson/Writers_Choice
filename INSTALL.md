@@ -1,26 +1,29 @@
 Deploying a release
 ===================
-Releases are located in the `/dist` directory. For instructions on how to create a
-release from Git, see the HACKING file. To install all the projects required
-dependencies, manually extract the `requirements.txt` file from the tarball of your
-choice.
+
+Releases are located in the `/dist` directory. For instructions on how to create
+a release from Git, see the HACKING file. To install all the projects required
+dependencies, manually extract the `requirements.txt` file from the tarball of
+your choice.
 
 Deploying to Heroku
 -------------------
+
 To deploy a release to [Heroku][] you will additionally need a
 [Procfile][heroku-procfile], found in `/dist`, a
 [`requirements.txt` file][requirements file] and a
-[`runtime.txt` file][heroku-runtime-file], both found in the project root. Either
-manually extract these files from the tarball or download them from the Git
-repository.
+[`runtime.txt` file][heroku-runtime-file], both found in the project
+root. Either manually extract these files from the tarball or download them from
+the Git repository.
 
 Because Heroku apps use an [ephemeral filesystem][], it is not possible to use
-SQLite for the database backend. Changes to the database would be lost every time
-the app is restarted.
+SQLite for the database backend. Changes to the database would be lost every
+time the app is restarted.
 
 **Requirements:** [Heroku Toolbelt][]. Access to a supported external database service.
 
-This is an adaptation of [Heroku's getting started guide][heroku-getting-started-with-python].
+This is an adaptation of
+[Heroku's getting started guide][heroku-getting-started-with-python].
 
 First you need to log in to your Heroku account using the client.
 
@@ -47,18 +50,18 @@ Initialize a new Git repo in this directory. Add the project files and commit.
     $ git add Procfile production.ini requirements.txt runtime.txt Writers_Choice-1.0.tar.gz 
     $ git commit
 
-Create a new Heroku application. This sets up a new Git remote that you can push to
-to update the app.
+Create a new Heroku application. This sets up a new Git remote that you can push
+to to update the app.
 
     $ heroku create --region eu
 
-Push your new application. This will take a few minutes as it triggers the Heroku
-machine to download and install all the project's dependencies.
+Push your new application. This will take a few minutes as it triggers the
+Heroku machine to download and install all the project's dependencies.
 
     $ git push heroku master
 
-After the installation is finished the app should start automatically. Before you
-can use it you need to initialize the database. One way is to use a
+After the installation is finished the app should start automatically. Before
+you can use it you need to initialize the database. One way is to use a
 [one-off dyno][heroku-one-off-dyno] to execute the initialization script:
 
     $ heroku run initialize_Writers_Choice_db production.ini   
