@@ -31,5 +31,5 @@ class ViewAllTests(AbstractViewTests):
     def test_header_levels(self):
         request = pyramid.testing.DummyRequest()
         resp = view_all(request)
-        self.assertIn('<h3>Rubrik 1</h3>', resp['articles'][1]['body'])
-        self.assertIn('<h4>Rubrik 2</h4>', resp['articles'][1]['body'])
+        self.assertIn('<h2>Rubrik 1</h2>', resp['articles'][1]['body'])
+        self.assertIn('<h3>Rubrik 2</h3>', resp['articles'][1]['body'])

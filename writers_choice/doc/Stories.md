@@ -289,3 +289,7 @@ Ny rutt `atom` som kopplar ihop vyn med samma namn med URL:en `/feed.atom`.
 Task 40.4
 ---------
 Startsidan uppdateras med en link-tagg till feeden.
+
+Story 41
+========
+Artiklars rubriker ska vara h1 överallt. Rubriker inom artiklar börjar på h2. Detta ändrar beslutet i Story 8.

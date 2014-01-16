@@ -51,7 +51,7 @@ def view_all(request):
 
     compilation = list()
     for article in articles:
-        content = format_article(article, False)
+        content = format_article(article, True)
         year, month, day = article.date_published.timetuple()[:3]
         content['url'] = request.route_url('view_article',
                                            year=year,

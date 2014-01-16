@@ -25,6 +25,16 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
+/* title links */
+h1 a:link, h1 a:visited {
+    text-decoration: none;
+    color: black;
+}
+h1 a:hover, h1 a:active {
+    text-decoration: underline;
+    color: darkred;
+}
+
 /* I am the master of typefaces */
 p {
     font-family: Optima, "Lucida Grande", "Lucida Sans Unicode", sans-serif;

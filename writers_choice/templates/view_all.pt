@@ -12,10 +12,9 @@
     <ul id="nav_bar">
       <li tal:repeat="tab navigation" class="nav_tab"><a tal:attributes="href tab.url" tal:content="tab.title" /></li>
     </ul>
-    <h1>Blog</h1>
     <p tal:condition="user_can_edit"><a tal:attributes="href request.route_url('add_article')" href="">Add new article</a></p>
     <div tal:repeat="article articles">
-      <h2><a tal:attributes="href article.url" tal:content="article.title" href="" /></h2>
+      <h1><a tal:attributes="href article.url" tal:content="article.title" href="" /></h1>
       <div class="published">
 	    <p tal:content="article.published" />
       </div>

@@ -73,12 +73,11 @@ class FunctionalTests(unittest.TestCase):
         res.mustcontain(
             '<title>Site name</title>',
             '<a href="http://localhost/" id="banner">Site name</a>',
-            '<h1>Blog</h1>',
-            '<h2><a href="http://localhost/2012/1/1/testsida">Testsida</a></h2>',
-            '<h2><a href="http://localhost/2012/1/3/testsida-tva">Testsida två</a></h2>',
-            '<h3>Rubrik 1</h3>',
+            '<h1><a href="http://localhost/2012/1/1/testsida">Testsida</a></h1>',
+            '<a href="http://localhost/2012/1/3/testsida-tva">Testsida två</a>',
+            '<h2>Rubrik 1</h2>',
             '<a href="http://localhost/add',
-            '>&lt;i&gt;HTML-title&lt;/i&gt;</a></h2>',
+            '>&lt;i&gt;HTML-title&lt;/i&gt;</a>',
             '<li class="nav_tab"><a href="http://localhost/">Home</a></li>',
             '<li class="nav_tab"><a href="http://localhost/about-us">About us</a></li>')
 
