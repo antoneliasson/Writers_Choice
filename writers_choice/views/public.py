@@ -37,13 +37,17 @@ def get_navigation(request):
     home = {'title' : 'Home', 'url' : request.route_url('view_all')}
     tabs.append(home)
     for page in pages:
-        tab = {'title' : page.title, 'url' : request.route_url('view_page', slug=page.slug)}
+        tab = {'title' : page.title,
+               'url' : request.route_url('view_page', slug=page.slug)}
         tabs.append(tab)
     return tabs
 
-@view_config(route_name='view_all', renderer='writers_choice:templates/view_all.pt', permission='view')
+@view_config(route_name='view_all',
+             renderer='writers_choice:templates/view_all.pt',
+             permission='view')
 def view_all(request):
-    articles = DBSession.query(Article).order_by(Article.date_published.desc()).filter_by(is_published=True)
+    articles = DBSession.query(Article).order_by(
+        Article.date_published.desc()).filter_by(is_published=True)
 
     compilation = list()
     for article in articles:
@@ -62,7 +66,9 @@ def view_all(request):
         'navigation' : get_navigation(request)
     }
 
-@view_config(route_name='view_article', renderer='writers_choice:templates/view_article.pt', permission='view')
+@view_config(route_name='view_article',
+             renderer='writers_choice:templates/view_article.pt',
+             permission='view')
 def view_article(request):
     try:
         d = datetime(int(request.matchdict['year']),
@@ -86,7 +92,9 @@ def view_article(request):
         'navigation' : get_navigation(request)
     }
 
-@view_config(route_name='view_page', renderer='writers_choice:templates/view_article.pt', permission='view')
+@view_config(route_name='view_page',
+             renderer='writers_choice:templates/view_article.pt',
+             permission='view')
 def view_page(request):
     slug = request.matchdict['slug']
     try:
