@@ -63,6 +63,17 @@ class Article(WrittenContent):
         self.is_published = is_published
         self.date_published = date_published
 
+    def get_url(self, request):
+        year, month, day = self.date_published.timetuple()[:3]
+        return request.route_url('view_article',
+                                 year=year,
+                                 month=month,
+                                 day=day,
+                                 slug=self.slug)
+
+    def get_edit_url(self, request):
+        return request.route_url('edit_article', id=self.id)
+
 class Page(WrittenContent):
     __tablename__ = 'pages'
 

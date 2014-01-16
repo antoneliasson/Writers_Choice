@@ -18,11 +18,10 @@ from writers_choice.models import (
     Page
 )
 
-def format_article(article, is_sole_article):
+def format_article(article):
     title = article.title
     published = article.date_published.strftime('%Y-%m-%d')
-    headerlevel = 2 if is_sole_article else 3
-    body = markdown(article.body, extensions=['extra', 'headerid(level={}, forceid=False)'.format(headerlevel)])
+    body = markdown(article.body, extensions=['extra', 'headerid(level=2, forceid=False)'])
 
     return {
         'title' : title,
@@ -51,13 +50,8 @@ def view_all(request):
 
     compilation = list()
     for article in articles:
-        content = format_article(article, True)
-        year, month, day = article.date_published.timetuple()[:3]
-        content['url'] = request.route_url('view_article',
-                                           year=year,
-                                           month=month,
-                                           day=day,
-                                           slug=article.slug)
+        content = format_article(article)
+        content['url'] = article.get_url(request)
         compilation.append(content)
 
     return {
@@ -83,8 +77,8 @@ def view_article(request):
     except NoResultFound:
         return HTTPNotFound('No such article.')
 
-    content = format_article(article, True)
-    content['edit_url'] = request.route_url('edit_article', id=article.id)
+    content = format_article(article)
+    content['edit_url'] = article.get_edit_url(request)
 
     return {
         'content' : content,
@@ -126,16 +120,11 @@ def atom_feed(request):
     articles = DBSession.query(Article).order_by(
         Article.date_published.desc()).filter_by(is_published=True) # TODO: limit x
     for article in articles:
-        content = format_article(article, True)
-        year, month, day = article.date_published.timetuple()[:3]
+        content = format_article(article)
         feed.add(
             content['title'],
             content['body'],
-            url=request.route_url('view_article',
-                                  year=year,
-                                  month=month,
-                                  day=day,
-                                  slug=article.slug),
+            url=article.get_url(request),
             updated=article.updated,
             published=article.date_published
         )
